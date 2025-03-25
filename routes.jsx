@@ -12,6 +12,7 @@ import ProductDetails from "./src/pages/ProductDetails/ProductDetails";
 import ProductList from "./src/pages/ProductList/ProductList";
 import Profile from "./src/pages/Profile/Profile";
 import SignUp from "./src/pages/SignUp/SignUp";
+import ProductFeatured from "./src/pages/ProductFeatured/ProductFeatured";
 
 const router = createBrowserRouter([
   {
@@ -22,6 +23,8 @@ const router = createBrowserRouter([
       { path: "about", element: <About /> },
       { path: "products", element: <ProductList /> },
       { path: "products/:slug", element: <ProductDetails /> },
+      { path: "products/featured", element: <ProductFeatured /> },
+
       { path: "register", element: <SignUp /> },
       { path: "login", element: <Login /> },
 
