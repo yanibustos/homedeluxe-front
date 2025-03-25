@@ -1,0 +1,50 @@
+import { createBrowserRouter } from "react-router-dom";
+import ProtectedRoute from "./src/components/ProtectedRoute/ProtectedRoute";
+
+import About from "./src/pages/About/About";
+import Checkout from "./src/pages/Checkout/Checkout";
+import Home from "./src/pages/Home/Home";
+import Layout from "./src/components/Layout/Layout";
+import Login from "./src/pages/Login/Login";
+import NotFound from "./src/components/Error/NotFound/NotFound";
+import Orders from "./src/pages/Orders/Orders";
+import ProductDetails from "./src/pages/ProductDetails/ProductDetails";
+import ProductList from "./src/pages/ProductList/ProductList";
+import Profile from "./src/pages/Profile/Profile";
+import SignUp from "./src/pages/SignUp/SignUp";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      { path: "", element: <Home /> },
+      { path: "about", element: <About /> },
+      { path: "products", element: <ProductList /> },
+      { path: "products/:slug", element: <ProductDetails /> },
+      { path: "register", element: <SignUp /> },
+      { path: "login", element: <Login /> },
+
+      {
+        element: <ProtectedRoute />,
+        children: [
+          { path: "profile", element: <Profile /> },
+          { path: "orders", element: <Orders /> },
+        ],
+      },
+    ],
+  },
+
+  {
+    path: "/checkout",
+    element: (
+      <ProtectedRoute>
+        <Checkout />
+      </ProtectedRoute>
+    ),
+  },
+
+  { path: "*", element: <NotFound /> },
+]);
+
+export default router;
