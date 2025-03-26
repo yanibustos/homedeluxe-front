@@ -146,8 +146,11 @@ function Login() {
                 <button type="submit" disabled={loading} className="login-button">
                   {loading ? (
                     <>
-                      <span className="spinner-border spinner-border-sm" aria-hidden="true"></span>
-                      <span role="status">Loading...</span>
+                      <span
+                        className="spinner-border spinner-border-sm me-2"
+                        aria-hidden="true"
+                      ></span>
+                      <span role="status"> Loading...</span>
                     </>
                   ) : (
                     "Login"
