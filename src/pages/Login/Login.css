@@ -1,3 +1,40 @@
 .login-container {
-  background-color: azure;
+  .login-text {
+    font-size: 12px;
+  }
+
+  .login-button {
+    background-color: #000000;
+    text-transform: uppercase;
+    text-align: center;
+    border: none;
+    line-height: 40px;
+    font-size: 13px;
+    font-weight: bold;
+    color: #ffffff;
+  }
+
+  .login-sideImage-container {
+    background: url("https://f.fcdn.app/imgs/64487c/www.viasono.com.uy/viasuy/25f7/webp/recursos/1480/1920x1100/alma-collection25.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    filter: grayscale();
+  }
+
+  .login-input {
+    border-radius: 0;
+    border: 1px solid #e0e0e0;
+    background-color: #ffffff;
+    height: 40px;
+    font-size: 13px;
+    width: 100%;
+    outline: none;
+    padding: 0 10px;
+  }
+
+  .login-center {
+    margin: 0 auto;
+    max-width: 500px;
+  }
 }
