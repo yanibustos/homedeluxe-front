@@ -79,7 +79,7 @@ function Login() {
       <div className="row h-100 d-flex">
         <div className="d-none d-xl-flex col-xl-9 bg-dark login-sideImage-container "></div>
         <div className="col-12 col-xl-3 d-flex flex-column justify-content-center align-items-center">
-          <div className="w-100">
+          <div className="w-100 login-center">
             <div className="d-flex justify-content-center align-items-center mb-4">
               <img src="img/logo_principal.png" alt="Logo" className="img-fluid" />
             </div>
@@ -118,23 +118,24 @@ function Login() {
 
               <div className="d-flex justify-content-between mt-4">
                 <div className="d-flex align-items-center login-remember-me-container">
-                  <label
-                    htmlFor="remember-me"
-                    className="login-text login-remember-me-label login-text"
-                  >
+                  <label htmlFor="remember-me" className="login-text checkbox-label login-text">
                     <input
                       type="checkbox"
                       name="remember-me"
                       id="remember-me"
                       className="form-check-input me-2"
                     />
-                    <span>Remember me</span>
+                    <span className="checkmark login-text">
+                      {" "}
+                      <i className="bi bi-check-lg"></i>
+                    </span>
+                    Remember me
                   </label>
                 </div>
                 <div>
                   <Link
                     to={"/reset-password"}
-                    className="text-decoration-none text-dark fw-bold login-text"
+                    className="text-decoration-none text-dark fw-bold login-text h-100 d-flex"
                   >
                     Forgot your password?
                   </Link>
