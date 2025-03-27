@@ -11,6 +11,7 @@ import { login } from "../../redux/userSlice"; //Do not delete, inactive due to 
 import fetchApi from "../../api/fetchApi"; //Do not delete, inactive due to commented function
 import Input from "../../components/commons/Input/Input";
 import InputCheckbox from "../../components/commons/InputCheckbox/InputCheckbox";
+import SideImage from "../../components/SideImage/SideImage";
 
 import "./Login.css";
 
@@ -88,75 +89,64 @@ function Login() {
   }, []);
 
   return (
-    <div className="login-container container-fluid bg-white h-100">
-      <div className="row h-100 d-flex">
-        <div className="d-none d-xl-flex col-xl-9 bg-dark login-sideImage-container "></div>
-        <div className="col-12 col-xl-3 d-flex flex-column justify-content-center align-items-center">
-          <div className="w-100 login-center">
-            <div className="d-flex justify-content-center align-items-center mb-4">
-              <img src="img/logo_principal.png" alt="Logo" className="img-fluid" />
-            </div>
-            <form action="" onSubmit={handleSubmit(onSubmit)} className="w-100 px-4">
-              <div>
-                <Input
-                  type="email"
-                  name="email"
-                  id="email"
-                  label="Email"
-                  register={{ ...register("email") }}
-                  errors={errors}
-                />
-              </div>
-              <div className="mt-4">
-                <Input
-                  type="password"
-                  name="password"
-                  id="password"
-                  label="Password"
-                  register={{ ...register("password") }}
-                  errors={errors}
-                />
-              </div>
-
-              <div className="d-flex justify-content-between align-items-center mt-4">
-                <div className="d-flex align-items-center login-remember-me-container ">
-                  <InputCheckbox
-                    name="rememberMe"
-                    id="rememberMe"
-                    label="Remember me"
-                    register={register("rememberMe")}
-                  />
-                </div>
-                <div className="text-end">
-                  <Link
-                    to={"/reset-password"}
-                    className="text-decoration-none text-dark fw-bold login-text h-100 d-flex"
-                  >
-                    Forgot your password?
-                  </Link>
-                </div>
-              </div>
-
-              <div className="d-grid mt-4">
-                <button type="submit" disabled={loading} className="login-button">
-                  {loading ? (
-                    <>
-                      <span
-                        className="spinner-border spinner-border-sm me-2"
-                        aria-hidden="true"
-                      ></span>
-                      <span role="status"> Loading...</span>
-                    </>
-                  ) : (
-                    "Login"
-                  )}
-                </button>
-              </div>
-            </form>
+    <SideImage>
+      <div className="login-container">
+        <form action="" onSubmit={handleSubmit(onSubmit)} className="w-100 px-4">
+          <div>
+            <Input
+              type="email"
+              name="email"
+              id="email"
+              label="Email"
+              register={{ ...register("email") }}
+              errors={errors}
+            />
           </div>
-        </div>
+          <div className="mt-4">
+            <Input
+              type="password"
+              name="password"
+              id="password"
+              label="Password"
+              register={{ ...register("password") }}
+              errors={errors}
+            />
+          </div>
+
+          <div className="d-flex justify-content-between align-items-center mt-4">
+            <div className="d-flex align-items-center ">
+              <InputCheckbox
+                name="rememberMe"
+                id="rememberMe"
+                label="Remember me"
+                register={register("rememberMe")}
+              />
+            </div>
+            <div className="text-end">
+              <Link
+                to={"/reset-password"}
+                className="text-decoration-none text-dark fw-bold login-text h-100 d-flex"
+              >
+                Forgot your password?
+              </Link>
+            </div>
+          </div>
+
+          <div className="d-grid mt-4">
+            <button type="submit" disabled={loading} className="login-button">
+              {loading ? (
+                <>
+                  <span className="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
+                  <span role="status"> Loading...</span>
+                </>
+              ) : (
+                "Login"
+              )}
+            </button>
+          </div>
+        </form>
       </div>
-    </div>
+    </SideImage>
   );
 }
 
