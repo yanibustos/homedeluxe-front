@@ -6,6 +6,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
+import BlackButton from "../../components/commons/BlackButton/BlackButton";
 import Input from "../../components/commons/Input/Input";
 import SideImage from "../../components/SideImage/SideImage";
 
@@ -41,7 +42,7 @@ function SignUp() {
     mode: "onSubmit",
   });
 
-  const onSubmit = async ({ data }) => {
+  const onSubmit = async (data) => {
     try {
       setLoading(true);
       //TODO: Uncomment when Api is available
@@ -119,16 +120,7 @@ function SignUp() {
           </div>
 
           <div className="d-grid mt-4 pt-4">
-            <button type="submit" disabled={loading} className="signup-button">
-              {loading ? (
-                <>
-                  <span className="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
-                  <span role="status"> Loading...</span>
-                </>
-              ) : (
-                "Sign Up"
-              )}
-            </button>
+            <BlackButton type="submit" loading={loading} name="Sign Up" />
           </div>
         </form>
       </div>
