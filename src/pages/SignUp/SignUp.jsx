@@ -2,7 +2,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { useForm } from "react-hook-form";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
@@ -53,10 +53,13 @@ function SignUp() {
       // });
       // dispatch(addUser(user));
 
-      console.log(data);
+      const user = { id: 1, ...data }; //Created to try toast and redirection, delete when call is available or when checking errors
 
       if (user) {
-        navigate("/login");
+        toast.success("Account created successfully, redirecting to Login...");
+        setTimeout(() => {
+          navigate("/login");
+        }, 4000);
       } else {
         navigate(prevPage ? prevPage : "/");
       }
@@ -123,6 +126,13 @@ function SignUp() {
             <BlackButton type="submit" loading={loading} name="Sign Up" />
           </div>
         </form>
+
+        <div className="mt-4 px-4 w-100">
+          <span className="signup-text me-1">Already have an account?</span>
+          <Link to={"/login"} className="signup-text text-dark fw-bold ">
+            Login
+          </Link>
+        </div>
       </div>
     </SideImage>
   );
