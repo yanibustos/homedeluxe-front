@@ -91,7 +91,7 @@
 }
 
 p,
-.header span {
+.header div {
   color: #000000;
 }
 
@@ -104,6 +104,7 @@ p,
   color: #555555;
   font-size: 12px;
   gap: 2px;
+  padding-top: 2px;
 }
 
 .price-value .currency {
@@ -140,8 +141,39 @@ p,
     padding: 0;
     margin-left: auto;
   }
+
+  .price-value {
+    align-items: end;
+  }
+
+  .trash-wrapper i {
+    line-height: 17px;
+  }
+
+  .trash-wrapper {
+    align-items: end;
+  }
+
+  .qty-wrapper + div {
+    flex: 1;
+  }
 }
 
 .ico::before {
   content: "\003C";
+}
+
+.bi-trash {
+  font-size: 14px;
+  padding-top: 2px;
+}
+
+.qty-wrapper {
+  flex: 1;
+}
+
+@media (min-width: 480px) and (max-width: 640px) {
+  .row.product > div:first-child {
+    padding-right: 24px;
+  }
 }

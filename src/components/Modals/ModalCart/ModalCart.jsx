@@ -33,7 +33,7 @@ function ModalCart() {
           {!isEmpty ? (
             <div className="details w-100 d-flex flex-column">
               <div className="container header">
-                <div className="row fw-bold pb-2">
+                <div className="row fw-bold pb-2 align-items-center">
                   <div className="col-7 text-uppercase ps-0">Articles ({shoppingCart.length})</div>
                   <div className="col-2 text-uppercase qty text-center">Qty. </div>
                   <div className="col-2 text-uppercase price text-end">Price </div>
@@ -42,7 +42,7 @@ function ModalCart() {
               <div className="container content position-relative">
                 {shoppingCart.map((item) => (
                   <div className="row product d-flex" key={item.id}>
-                    <div className="col-7 px-0">
+                    <div className="col-7 ps-0">
                       <Link to={`products/${item.slug}`} className="text-decoration-none d-flex">
                         <img src={item.image} alt={item.name} className="me-2" />
                         <div>
@@ -54,14 +54,14 @@ function ModalCart() {
                     <div className="col-2 qty-wrapper text-center px-0">
                       <ProductCartQty product={item} />
                     </div>
-                    <div className="col-2 text-center px-0 d-flex">
+                    <div className="col-2 text-center px-0 d-flex justify-content-end">
                       <span className="price-value d-flex me-2">
-                        <span className="currency text-uppercase">usd</span>{" "}
+                        <span className="currency text-uppercase">usd</span>
                         <span>{currencyFormatter(item.price * item.quantity)}</span>
                       </span>
-                      <span className="ico-trash small" onClick={() => handleRemove(item.id)}>
-                        Del
-                      </span>
+                      <div className="d-flex trash-wrapper">
+                        <i class="bi bi-trash" onClick={() => handleRemove(item.id)}></i>
+                      </div>
                     </div>
                   </div>
                 ))}
