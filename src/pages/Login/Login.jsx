@@ -9,6 +9,8 @@ import * as yup from "yup";
 import { login } from "../../redux/userSlice"; //Do not delete, inactive due to commented function
 
 import fetchApi from "../../api/fetchApi"; //Do not delete, inactive due to commented function
+
+import BlackButton from "../../components/commons/BlackButton/BlackButton";
 import Input from "../../components/commons/Input/Input";
 import InputCheckbox from "../../components/commons/InputCheckbox/InputCheckbox";
 import SideImage from "../../components/SideImage/SideImage";
@@ -133,18 +135,15 @@ function Login() {
           </div>
 
           <div className="d-grid mt-4">
-            <button type="submit" disabled={loading} className="login-button">
-              {loading ? (
-                <>
-                  <span className="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
-                  <span role="status"> Loading...</span>
-                </>
-              ) : (
-                "Login"
-              )}
-            </button>
+            <BlackButton type="submit" loading={loading} name="Login" />
           </div>
         </form>
+        <div className="mt-4 px-4 w-100">
+          <span className="login-text me-1">Don't have an account yet?</span>
+          <Link to={"/register"} className=" login-text text-dark fw-bold ">
+            Sign Up
+          </Link>
+        </div>
       </div>
     </SideImage>
   );
