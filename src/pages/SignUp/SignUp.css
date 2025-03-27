@@ -1,3 +1,5 @@
 .signup-container {
-  background-color: azure;
+  .signup-text {
+    font-size: 12px;
+  }
 }
