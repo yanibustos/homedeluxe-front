@@ -1,14 +1,18 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { login } from "../../redux/userSlice";
+
+import { login } from "../../redux/userSlice"; //Do not delete, inactive due to commented function
+
+import fetchApi from "../../api/fetchApi"; //Do not delete, inactive due to commented function
+import Input from "../../components/commons/Input/Input";
+import InputCheckbox from "../../components/commons/InputCheckbox/InputCheckbox";
 
 import "./Login.css";
-import { toast } from "react-toastify";
-import fetchApi from "../../api/fetchApi";
 
 const schema = yup
   .object({
@@ -18,6 +22,7 @@ const schema = yup
       .min(8, "Password must be at least 8 characters")
       .max(50, "Password must be less than 50 characters")
       .required("Password is required"),
+    rememberMe: yup.boolean(),
   })
   .required();
 
@@ -37,17 +42,25 @@ function Login() {
   } = useForm({
     resolver: yupResolver(schema),
     mode: "onSubmit",
+    defaultValues: {
+      rememberMe: false,
+    },
   });
 
-  const onSubmit = async (data) => {
+  const onSubmit = async ({ email, password, rememberMe }) => {
     try {
       setLoading(true);
-      const user = await fetchApi({
-        method: "post",
-        url: "/tokens",
-        data: data,
-      });
-      dispatch(login(user));
+      //TODO: Uncomment when Api is available
+      // const user = await fetchApi({
+      //   method: "post",
+      //   url: "/tokens",
+      //   data: { email, password },
+      // });
+      // dispatch(login(user));
+
+      if (rememberMe) {
+        console.log("Save in localStorage");
+      }
 
       if (user.isAdmin) {
         navigate("/admin");
@@ -84,55 +97,37 @@ function Login() {
               <img src="img/logo_principal.png" alt="Logo" className="img-fluid" />
             </div>
             <form action="" onSubmit={handleSubmit(onSubmit)} className="w-100 px-4">
-              <div className="">
-                <label htmlFor="email" className="form-label fw-bold login-text">
-                  Email
-                </label>
-                <input
+              <div>
+                <Input
                   type="email"
                   name="email"
                   id="email"
-                  {...register("email")}
-                  className={`login-input ${errors.email ? "is-invalid" : ""}`}
+                  label="Email"
+                  register={{ ...register("email") }}
+                  errors={errors}
                 />
-                {errors.email && (
-                  <span className="text-danger login-text">{errors.email.message}</span>
-                )}
               </div>
-
               <div className="mt-4">
-                <label htmlFor="password" className="form-label fw-bolder login-text">
-                  Password
-                </label>
-                <input
+                <Input
                   type="password"
                   name="password"
                   id="password"
-                  {...register("password")}
-                  className={`login-input ${errors.password ? "is-invalid" : ""}`}
+                  label="Password"
+                  register={{ ...register("password") }}
+                  errors={errors}
                 />
-                {errors.password && (
-                  <span className="text-danger login-text">{errors.password.message}</span>
-                )}
               </div>
 
-              <div className="d-flex justify-content-between mt-4">
-                <div className="d-flex align-items-center login-remember-me-container">
-                  <label htmlFor="remember-me" className="login-text checkbox-label login-text">
-                    <input
-                      type="checkbox"
-                      name="remember-me"
-                      id="remember-me"
-                      className="form-check-input me-2"
-                    />
-                    <span className="checkmark login-text">
-                      {" "}
-                      <i className="bi bi-check-lg"></i>
-                    </span>
-                    Remember me
-                  </label>
+              <div className="d-flex justify-content-between align-items-center mt-4">
+                <div className="d-flex align-items-center login-remember-me-container ">
+                  <InputCheckbox
+                    name="rememberMe"
+                    id="rememberMe"
+                    label="Remember me"
+                    register={register("rememberMe")}
+                  />
                 </div>
-                <div>
+                <div className="text-end">
                   <Link
                     to={"/reset-password"}
                     className="text-decoration-none text-dark fw-bold login-text h-100 d-flex"
