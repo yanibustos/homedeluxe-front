@@ -138,6 +138,12 @@ function Login() {
             <BlackButton type="submit" loading={loading} name="Login" />
           </div>
         </form>
+        <div className="mt-4 px-4 w-100">
+          <span className="login-text me-1">Don't have an account yet?</span>
+          <Link to={"/register"} className=" login-text text-dark fw-bold ">
+            Sign Up
+          </Link>
+        </div>
       </div>
     </SideImage>
   );
