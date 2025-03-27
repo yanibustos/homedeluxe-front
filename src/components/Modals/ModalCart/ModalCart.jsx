@@ -5,9 +5,10 @@ import { Link } from "react-router-dom";
 
 import { removeFromcart } from "../../../redux/shoppingCartSlice";
 import CloseModalBtn from "./CloseModalBtn";
+import ProductCartQty from "./ProductCartQty";
+import currencyFormatter from "../../../helpers/formatPrice";
 
 import "./ModalCart.css";
-import ProductCartQty from "./ProductCartQty";
 
 function ModalCart() {
   const shoppingCart = useSelector((state) => state.shoppingCart);
@@ -21,14 +22,7 @@ function ModalCart() {
     dispatch(removeFromcart(productId));
   };
 
-  const formatPrice = (value) => {
-    return value.toLocaleString("es-ES", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
-  };
-
-  const totalPrice = formatPrice(
+  const totalPrice = currencyFormatter(
     shoppingCart.reduce((total, product) => total + product.price * product.quantity, 0),
   );
 
@@ -63,7 +57,7 @@ function ModalCart() {
                     <div className="col-2 text-center px-0 d-flex">
                       <span className="price-value d-flex me-2">
                         <span className="currency text-uppercase">usd</span>{" "}
-                        <span>{formatPrice(item.price * item.quantity)}</span>
+                        <span>{currencyFormatter(item.price * item.quantity)}</span>
                       </span>
                       <span className="ico-trash small" onClick={() => handleRemove(item.id)}>
                         Del
