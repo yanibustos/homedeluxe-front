@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import "./TeamCard.css";
 
 const TeamCard = ({ name, role, description, image, twitter, linkedin }) => (
-  <div className="col-md-4 col-sm-6 mb-4">
+  <div className="teamCard-container col-md-4 col-sm-6 mb-4">
     <div className="card team-card text-center shadow-sm p-3">
       <img
         src={image}
