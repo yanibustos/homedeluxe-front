@@ -9,7 +9,10 @@ function currencyFormatter(number) {
     //maximumFractionDigits: 0, // (causes 2500.99 to be printed as $2,501)
   });
 
-  return formatter.format(number);
+  return formatter
+    .format(number)
+    .replace(/\s?USD/, "")
+    .trim();
 }
 
 export default currencyFormatter;
