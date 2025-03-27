@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const userSlice = createSlice({
     name: "user",
-    initialState: {},
+    initialState: { accessToken: null }, //initial state for testing purposes
     reducers: {
         login(state, action) {
             return action.payload
