@@ -13,6 +13,7 @@ import ProductList from "./src/pages/ProductList/ProductList";
 import Profile from "./src/pages/Profile/Profile";
 import SignUp from "./src/pages/SignUp/SignUp";
 import ProductFeatured from "./src/pages/ProductFeatured/ProductFeatured";
+import Logout from "./src/pages/Logout/Logout";
 
 const router = createBrowserRouter([
   {
@@ -27,12 +28,16 @@ const router = createBrowserRouter([
 
       { path: "register", element: <SignUp /> },
       { path: "login", element: <Login /> },
+      { path: "logout", element: <Logout /> },
 
       {
+        path: "account",
         element: <ProtectedRoute />,
         children: [
+          { path: "", element: <Profile /> },
           { path: "profile", element: <Profile /> },
           { path: "orders", element: <Orders /> },
+          { path: "wishlist", element: <Profile /> }, //TODO: change element when available
         ],
       },
     ],
