@@ -1,3 +1,141 @@
 .productDetails-container {
-  background-color: azure;
+  .img-styles {
+    width: 80px;
+    height: 80px;
+  }
+  .main-image {
+    max-width: 400px;
+    max-height: 400px;
+  }
+  .description-text {
+    border-bottom: 4px solid black;
+    font-size: 20px;
+    top: 18px;
+  }
+  .description-section {
+    max-width: 720px;
+    margin: 0 auto 80px;
+  }
+  .text-description {
+    font-size: 12px;
+  }
+
+  .thumbnail:focus {
+    transition: all 0.3s ease-out;
+    border: 2px solid #000;
+  }
+  .buy-button {
+    width: 280px;
+    height: 50px;
+    background-color: #000;
+    color: #fff;
+    border-radius: 0px;
+    border: 0;
+    top: 2px;
+    position: relative;
+  }
+  .buy-button:hover {
+    background-color: #ffffff;
+    color: #000;
+    border: 1px solid black;
+    transition: all 0.3s ease;
+  }
+
+  .heart-button {
+    height: 50px;
+    width: 40px;
+    border-color: #c4c4c4;
+    border-radius: 3px;
+  }
+
+  .usd-span {
+    font-size: 17.6px;
+  }
+
+  .ammount {
+    font-size: 22px;
+  }
+  .carousel-btn {
+    border-radius: 100%;
+    width: 15px;
+    height: 15px;
+    background-color: #c4c4c4;
+    border: none;
+  }
+  .carousel-btn:focus {
+    border-radius: 100%;
+    width: 15px;
+    height: 15px;
+    background-color: #000000;
+    border: none;
+    transition: all 0.3s;
+  }
+
+  @media (max-width: 992px) {
+    .details-section {
+      text-align: center;
+    }
+    .carousel-img {
+      width: 100%;
+    }
+
+    .fixed-buttons {
+      transition: all 0.5s ease;
+      position: fixed;
+      top: auto;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      border-top: 1px solid #c4c4c4;
+      background-color: #fff;
+      padding: 10px;
+      z-index: 3;
+    }
+    .buy-button {
+      width: 40%;
+    }
+    .buy-button:hover {
+      background-color: #161616;
+      color: #ffffff;
+      border: 1px solid black;
+      transition: all 0.3s ease;
+    }
+  }
+  .img-styles:hover {
+    border: 2px solid #000;
+  }
+  @media (max-width: 992px) {
+    .main-carousel {
+      display: none;
+    }
+  }
+  @media (max-width: 1023px) {
+    .img-styles {
+      display: none;
+    }
+
+    .main-image {
+      max-width: 360px;
+      max-height: 360px;
+    }
+  }
+  @media (min-width: 1023px) {
+    .main-image-btn {
+      display: none;
+    }
+    .carousel-main-control {
+      display: none;
+    }
+  }
+  .main-image-btn {
+    position: relative;
+    left: 160px;
+  }
+
+  .img-styles {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px;
+  }
 }

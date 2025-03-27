@@ -1,3 +1,14 @@
 .sideImage-container {
-  background-color: azure;
+  .sideImage-div {
+    background: url("https://f.fcdn.app/imgs/64487c/www.viasono.com.uy/viasuy/25f7/webp/recursos/1480/1920x1100/alma-collection25.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    filter: grayscale();
+  }
+
+  .form-center {
+    margin: 0 auto;
+    max-width: 400px;
+  }
 }
