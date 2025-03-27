@@ -61,6 +61,8 @@ function Login() {
       // });
       // dispatch(login(user));
 
+      dispatch(login({ accessToken: "12345678" })); //for testing purposes
+
       if (rememberMe) {
         console.log("Save in localStorage");
       }
