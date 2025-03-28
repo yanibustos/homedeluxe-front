@@ -1,2 +1,28 @@
 .accountLayout-container {
+  .accountLayout-title {
+    font-size: 20px;
+  }
+
+  .account-link {
+    color: #555555;
+    font-weight: normal;
+    font-size: 14px;
+  }
+
+  .account-link.active {
+    color: #000000;
+    font-weight: 600;
+  }
+
+  @media (max-width: 992px) {
+    li {
+      border: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    .accountLayout-menu-container {
+      border-bottom: 1px solid #e0e0e0;
+    }
+  }
 }
