@@ -1,9 +1,18 @@
 import "./Input.css";
 
-function Input({ type, id, name, label, register, errors }) {
+function Input({
+  type,
+  id,
+  name,
+  label,
+  register,
+  errors,
+  classNameContainer = "",
+  classNameLabel = "",
+}) {
   return (
-    <div className="input-container">
-      <label htmlFor={id} className="form-label fw-semibold input-text">
+    <div className={`input-container ${classNameContainer}`}>
+      <label htmlFor={id} className={`form-label input-text ${classNameLabel}`}>
         {label}
       </label>
       <input

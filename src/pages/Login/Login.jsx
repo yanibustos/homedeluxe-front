@@ -104,6 +104,7 @@ function Login() {
               label="Email"
               register={{ ...register("email") }}
               errors={errors}
+              classNameLabel="fw-semibold"
             />
           </div>
           <div className="mt-4">
@@ -114,6 +115,7 @@ function Login() {
               label="Password"
               register={{ ...register("password") }}
               errors={errors}
+              classNameLabel="fw-semibold"
             />
           </div>
 

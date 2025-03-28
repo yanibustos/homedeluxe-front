@@ -89,6 +89,7 @@ function SignUp() {
               label="Firstname"
               register={{ ...register("firstname") }}
               errors={errors}
+              classNameLabel="fw-semibold"
             />
           </div>
           <div className="mt-4">
@@ -99,6 +100,7 @@ function SignUp() {
               label="Lastname"
               register={{ ...register("lastname") }}
               errors={errors}
+              classNameLabel="fw-semibold"
             />
           </div>
           <div className="mt-4">
@@ -109,6 +111,7 @@ function SignUp() {
               label="Email"
               register={{ ...register("email") }}
               errors={errors}
+              classNameLabel="fw-semibold"
             />
           </div>
           <div className="mt-4">
@@ -119,6 +122,7 @@ function SignUp() {
               label="Password"
               register={{ ...register("password") }}
               errors={errors}
+              classNameLabel="fw-semibold"
             />
           </div>
 
