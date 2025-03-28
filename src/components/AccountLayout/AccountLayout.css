@@ -14,15 +14,17 @@
     font-weight: 600;
   }
 
-  @media (max-width: 992px) {
+  @media (max-width: 991px) {
     li {
       border: none !important;
       margin: 0 !important;
       padding: 0 !important;
     }
+  }
 
-    .accountLayout-menu-container {
-      border-bottom: 1px solid #e0e0e0;
+  @media (min-width: 992px) {
+    .accountLayout-menu-border {
+      border-bottom: 0 !important;
     }
   }
 }

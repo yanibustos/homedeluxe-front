@@ -12,9 +12,9 @@ function AccountLayout() {
           Account
         </div>
       </div>
-      <div className="container-lg accountLayout-menu-container">
-        <div className="row">
-          <div className="col-12 col-lg-3">
+      <div className="container accountLayout-menu-container">
+        <div className="row pt-3">
+          <div className="col-12 col-lg-3 pb-3 mb-3 border-bottom accountLayout-menu-border">
             <ul className="list-unstyled d-flex flex-row gap-3 gap-lg-0 justify-content-center d-lg-block">
               {["profile", "orders", "wishlist"].map((path) => {
                 const match = useMatch(`/account/${path}`);
@@ -38,7 +38,7 @@ function AccountLayout() {
               </li>
             </ul>
           </div>
-          <div className="col-12 col-lg-9">
+          <div className="col-12 col-lg-9 ps-lg-5">
             <Outlet />
           </div>
         </div>
