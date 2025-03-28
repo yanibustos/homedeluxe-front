@@ -18,19 +18,19 @@ const slides = [
     url: "/products",
   },
   {
-    id: 1,
+    id: 2,
     image:
       "https://f.fcdn.app/imgs/64487c/www.viasono.com.uy/viasuy/25f7/webp/recursos/1480/1920x1100/alma-collection25.jpg",
     url: "/products",
   },
   {
-    id: 2,
+    id: 3,
     image:
       "https://f.fcdn.app/imgs/7d3dc1/www.viasono.com.uy/viasuy/9acc/webp/recursos/1227/1920x1100/1920x1100-7.jpg",
     url: "/products",
   },
   {
-    id: 3,
+    id: 4,
     image:
       "https://f.fcdn.app/imgs/ae1b19/www.viasono.com.uy/viasuy/23ea/webp/recursos/1380/1920x1100/1920x1100-3.jpg",
     url: "/products",
