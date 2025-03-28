@@ -1,0 +1,23 @@
+.home-swipper {
+  height: 100vh;
+}
+
+.home-swipper img {
+  width: 100%;
+  height: 100vh !important;
+  object-fit: cover;
+}
+
+.swiper-pagination-bullet {
+  width: 13px;
+  height: 13px;
+  display: inline-block;
+  border-radius: 100%;
+  background: #fff;
+  opacity: 0.5;
+}
+
+.swiper-pagination-bullet-active {
+  opacity: 1;
+  background: white;
+}
