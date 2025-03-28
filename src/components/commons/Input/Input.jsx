@@ -9,6 +9,8 @@ function Input({
   errors,
   classNameContainer = "",
   classNameLabel = "",
+  classNameInput = "",
+  disabled = false,
 }) {
   return (
     <div className={`input-container ${classNameContainer}`}>
@@ -20,7 +22,8 @@ function Input({
         name={name}
         id={id}
         {...register}
-        className={`${errors?.[name] ? "is-invalid" : ""}`}
+        className={`${errors?.[name] ? "is-invalid" : ""} ${classNameInput}`}
+        disabled={disabled}
       />
       {errors?.[name] && <span className="text-danger input-text">{errors[name].message}</span>}
     </div>
