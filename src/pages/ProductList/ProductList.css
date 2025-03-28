@@ -5,7 +5,7 @@
     background-color: #f8f8f8;
   }
   .card-container:hover {
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
     transition: all 0.3s ease;
     .price-container {
       background-color: rgb(39, 39, 39);
@@ -61,9 +61,7 @@
   }
 
   .card-text-btn {
-    font-family: "Montserrat", sans-serif;
-    font-size: 7px;
-    letter-spacing: 4px;
+    font-size: 13px;
     text-transform: uppercase;
     color: white;
     background-color: black;

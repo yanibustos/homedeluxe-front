@@ -1,6 +1,10 @@
+import { toast } from "react-toastify";
 import "./ProductList.css";
 
 function ProductList() {
+  const handleFilter = () => {
+    toast.warning("Not available yet");
+  };
   return (
     <div className="productList-container">
       <div className="container header-container d-md-flex justify-content-between mt-3">
@@ -9,7 +13,12 @@ function ProductList() {
         </div>
         <div className="text-center div-search-products">
           <span className="pe-3 d-md-inline-block d-none">6 items</span>
-          <button className="filter-btn ">
+          <button
+            className="filter-btn"
+            onClick={() => {
+              handleFilter();
+            }}
+          >
             <i class="bi bi-funnel-fill"></i> <span className="filter-text">Filter</span>
           </button>
           <select name="order" className="ms-3 select-option">
@@ -28,7 +37,7 @@ function ProductList() {
       <div className="container">
         <div className="container-fluid">
           <div className="d-flex flex-wrap mt-4 justify-content-center text-center all-cards">
-            <div className="p-0 ms-4   card-container mb-4">
+            <div className="p-0 mx-4 my-4   card-container mb-4">
               <div className="card position-relative">
                 <div className="position-absolute rounded-circle fw-bold d-flex justify-content-center align-items-center price-container">
                   <span>$15</span>
@@ -54,7 +63,7 @@ function ProductList() {
                 </button>
               </div>
             </div>
-            <div className=" p-0 ms-4 card-container mb-4">
+            <div className=" p-0 mx-4 my-4 card-container mb-4">
               <div className="card position-relative">
                 <div className="position-absolute rounded-circle fw-bold d-flex justify-content-center align-items-center price-container">
                   <span className="ammount pe-1">USD</span> <span>1500</span>
@@ -77,12 +86,12 @@ function ProductList() {
                   </p>
                 </div>
                 <button className="card-text-btn  rounded-pill">
-                  <span>Add to shopping bag</span>
+                  <span>Add to cart</span>
                 </button>
               </div>
             </div>
 
-            <div className=" p-0 ms-4 card-container mb-4">
+            <div className=" p-0 mx-4 my-4 card-container mb-4">
               <div className="card position-relative">
                 <div className="position-absolute rounded-circle fw-bold d-flex justify-content-center align-items-center price-container">
                   <span>$15</span>
@@ -105,11 +114,11 @@ function ProductList() {
                   </p>
                 </div>
                 <button className="card-text-btn  rounded-pill">
-                  <span>Add to shopping bag</span>
+                  <span>Add to cart</span>
                 </button>
               </div>
             </div>
-            <div className="  p-0 ms-4  card-container mb-4">
+            <div className="  p-0 mx-4 my-4  card-container mb-4">
               <div className="card position-relative">
                 <div className="position-absolute rounded-circle fw-bold d-flex justify-content-center align-items-center price-container">
                   <span>$15</span>
@@ -132,11 +141,11 @@ function ProductList() {
                   </p>
                 </div>
                 <button className="card-text-btn  rounded-pill">
-                  <span>Add to shopping bag</span>
+                  <span>Add to cart</span>
                 </button>
               </div>
             </div>
-            <div className=" p-0 ms-4 card-container mb-4">
+            <div className=" p-0 mx-4 my-4 card-container mb-4">
               <div className="card position-relative">
                 <div className="position-absolute rounded-circle fw-bold d-flex justify-content-center align-items-center price-container">
                   <span>$15</span>
@@ -159,11 +168,11 @@ function ProductList() {
                   </p>
                 </div>
                 <button className="card-text-btn  rounded-pill">
-                  <span>Add to shopping bag</span>
+                  <span>Add to cart</span>
                 </button>
               </div>
             </div>
-            <div className=" p-0 ms-4 card-container mb-4">
+            <div className=" p-0 mx-4 my-4 card-container mb-4">
               <div className="card position-relative">
                 <div className="position-absolute rounded-circle fw-bold d-flex justify-content-center align-items-center price-container">
                   <span>$15</span>
@@ -186,7 +195,7 @@ function ProductList() {
                   </p>
                 </div>
                 <button className="card-text-btn  rounded-pill">
-                  <span>Add to shopping bag</span>
+                  <span>Add to cart</span>
                 </button>
               </div>
             </div>
