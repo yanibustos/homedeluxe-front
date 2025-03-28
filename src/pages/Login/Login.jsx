@@ -129,7 +129,7 @@ function Login() {
             <div className="text-end">
               <Link
                 to={"/reset-password"}
-                className="text-decoration-none text-dark fw-bold login-text h-100 d-flex"
+                className="text-decoration-none text-dark fw-semibold login-text h-100 d-flex"
               >
                 Forgot your password?
               </Link>
@@ -142,7 +142,7 @@ function Login() {
         </form>
         <div className="mt-4 px-4 w-100">
           <span className="login-text me-1">Don't have an account yet?</span>
-          <Link to={"/register"} className=" login-text text-dark fw-bold ">
+          <Link to={"/register"} className=" login-text text-dark fw-semibold ">
             Sign Up
           </Link>
         </div>

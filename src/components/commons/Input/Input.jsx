@@ -3,7 +3,7 @@ import "./Input.css";
 function Input({ type, id, name, label, register, errors }) {
   return (
     <div className="input-container">
-      <label htmlFor={id} className="form-label fw-bold input-text">
+      <label htmlFor={id} className="form-label fw-semibold input-text">
         {label}
       </label>
       <input

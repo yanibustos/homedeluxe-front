@@ -129,7 +129,7 @@ function SignUp() {
 
         <div className="mt-4 px-4 w-100">
           <span className="signup-text me-1">Already have an account?</span>
-          <Link to={"/login"} className="signup-text text-dark fw-bold ">
+          <Link to={"/login"} className="signup-text text-dark fw-semibold ">
             Login
           </Link>
         </div>
