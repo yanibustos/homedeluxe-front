@@ -38,7 +38,9 @@ function AccountLayout() {
               </li>
             </ul>
           </div>
-          <div className="col-12 col-lg-9"></div>
+          <div className="col-12 col-lg-9">
+            <Outlet />
+          </div>
         </div>
       </div>
     </div>
