@@ -8,7 +8,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/effect-fade";
 
-import "./index.css";
+import "./Hero.css";
 
 const slides = [
   {
