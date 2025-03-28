@@ -37,7 +37,7 @@ const slides = [
   },
 ];
 
-function Index() {
+function Hero() {
   return (
     <div className="home-swipper">
       <Swiper
@@ -64,4 +64,4 @@ function Index() {
   );
 }
 
-export default Index;
+export default Hero;
