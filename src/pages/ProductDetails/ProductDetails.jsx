@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Carousel from "react-bootstrap/Carousel";
 import "./ProductDetails.css";
+import { toast } from "react-toastify";
 
 const images = [
   "https://f.fcdn.app/imgs/c8671a/www.viasono.com.uy/viasuy/ed68/webp/catalogo/B101021325_101020107_1/460x460/colchon-de-espuma-travel-1-plaza.jpg",
@@ -12,6 +13,9 @@ const images = [
 
 const ProductDetails = () => {
   const [index, setIndex] = useState(0);
+  const handleWishlist = () => {
+    toast.warning("Not available yet");
+  };
 
   return (
     <div className="productDetails-container me-2 overflow-hidden">
@@ -82,21 +86,26 @@ const ProductDetails = () => {
             </div>
 
             <div className="details-section ms-4 mt-1 pt-3">
-              <h3>COLCHÓN DE ESPUMA TRAVEL 1 PLAZA</h3>
+              <h3>TRAVEL FOAM MATTRESS 1 PLACE</h3>
               <span className="usd-span fw-bold">
                 USD<span className="ammount fw-bold"> 590</span>
               </span>
               <p className="my-4">
-                Comodidad intermedia con espuma de alta resiliencia y tela Viscosa. Soporte ideal
-                para un descanso confortable y duradero.
+                Intermediate comfort with high resilience foam and Viscose fabric. Ideal support for
+                a comfortable and lasting rest.
               </p>
               <div className="fixed-buttons">
-                <button className="btn heart-button  bg-white me-3">
+                <button
+                  className="btn heart-button  bg-white me-3"
+                  onClick={() => {
+                    handleWishlist();
+                  }}
+                >
                   <span className="text-center">
                     <i class="bi bi-suit-heart"></i>
                   </span>
                 </button>
-                <button className="buy-button fw-bold">COMPRAR</button>
+                <button className="buy-button text-uppercase fw-bold">Add to cart</button>
               </div>
             </div>
           </div>
@@ -105,32 +114,31 @@ const ProductDetails = () => {
 
       <div className="description-section container">
         <div className="d-flex  flex-column justify-content-center align-items-center">
-          <span className="description-text position-relative py-4">Descripción </span>
+          <span className="description-text position-relative py-4">Description </span>
         </div>
         <hr />
         <div className="text-description ">
           <p>
-            <strong>Travel Viasano: Confort Compacto y Soporte Óptimo</strong>
+            <strong>Travel Viasano: Compact Comfort and Optimal Support</strong>
           </p>
           <p>
-            <strong>Sensación intermedia:</strong> El colchón Travel Viasono ofrece una firmeza
-            intermedia, ideal para quienes buscan un descanso equilibrado. Su pillow con espuma HR
-            D32 proporciona una superficie adaptable y cómoda para un sueño reparador.
+            <strong>Intermediate feel:</strong> The Travel Viasono mattress offers an intermediate
+            firmness, ideal for those seeking a balanced rest. Its pillow with HR D32 foam provides
+            an adaptable and comfortable surface for a restful sleep.
           </p>
           <p>
-            <strong>Sistema de Espuma 32D:</strong> Con un sistema de espuma de alta densidad, el
-            Travel Viasono asegura un soporte confiable de hasta 120 kg por lado, promoviendo una
-            alineación saludable de la columna.
+            <strong>32D Foam System:</strong> With a high-density foam system, the Travel Viasono
+            ensures reliable support of up to 120 kg per side, promoting healthy spinal alignment.
           </p>
           <p>
-            <strong>Materiales de Calidad:</strong> Revestido con una mezcla de tela viscosa y
-            algodón orgánico, el Travel Viasono crea un entorno de descanso suave y natural.
+            <strong>Quality Materials:</strong> Covered with a blend of viscose fabric and organic
+            cotton, the Travel Viasono creates a soft and natural sleeping environment.
           </p>
           <p>
-            <strong>Altura Compacta y Funcional:</strong> Con una altura de 15 cm, este colchón es
-            ideal para espacios compactos, ofreciendo funcionalidad sin comprometer el confort.
+            <strong>Compact and Functional Height:</strong> With a height of 15 cm, this mattress is
+            ideal for compact spaces, offering functionality without compromising comfort.
           </p>
-          <p>Con 5 años de garantía, el Travel Viasono es una inversión en descanso duradero.</p>
+          <p>With a 5-year warranty, the Travel Viasono is an investment in lasting rest.</p>
         </div>
       </div>
     </div>
