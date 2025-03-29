@@ -97,9 +97,13 @@ function Profile() {
                   reset({ ...watch(), changePassword: false });
                 }
               }}
-              className={`bi bi-pencil px-3 py-0`}
+              className={`bi bi-pencil px-3 py-0 profile-edit-button`}
             />
           )}
+        </div>
+        <div className="d-flex justify-content-start">
+          {" "}
+          <div className="profile-avatar"></div>
         </div>
         <form onSubmit={handleSubmit(handleProfileUpdate)}>
           <div className="row">
@@ -110,7 +114,7 @@ function Profile() {
               label="Firstname"
               classNameContainer="col-12 d-flex align-items-center gap-3"
               classNameInput={`flex-grow-1 mb-3 `}
-              classNameLabel="col-1 mb-3 fw-semibold"
+              classNameLabel="col-1 mb-3 fw-semibold profile-input-label"
               register={{ ...register("firstname") }}
               errors={errors}
               disabled={!isEditing}
@@ -124,7 +128,7 @@ function Profile() {
               label="Lastname"
               classNameContainer="col-12 d-flex align-items-center gap-3"
               classNameInput={`flex-grow-1 mb-3`}
-              classNameLabel="col-1 mb-3 fw-semibold"
+              classNameLabel="col-1 mb-3 fw-semibold profile-input-label"
               register={{ ...register("lastname") }}
               errors={errors}
               disabled={!isEditing}
@@ -138,7 +142,7 @@ function Profile() {
               label="CI"
               classNameContainer="col-12 d-flex align-items-center gap-3"
               classNameInput={`flex-grow-1 mb-3`}
-              classNameLabel="col-1 mb-3 fw-semibold"
+              classNameLabel="col-1 mb-3 fw-semibold profile-input-label"
               register={{ ...register("ci") }}
               errors={errors}
               disabled={!isEditing}
@@ -153,7 +157,7 @@ function Profile() {
               label="Email"
               classNameContainer="col-12 d-flex align-items-center gap-3"
               classNameInput={`flex-grow-1 mb-3`}
-              classNameLabel="col-1 mb-3 fw-semibold"
+              classNameLabel="col-1 mb-3 fw-semibold profile-input-label"
               register={{ ...register("email") }}
               errors={errors}
               disabled={!isEditing}
@@ -168,7 +172,7 @@ function Profile() {
               label="Phone"
               classNameContainer="col-12 d-flex align-items-center gap-3"
               classNameInput={`flex-grow-1 mb-3`}
-              classNameLabel="col-1 mb-3 fw-semibold"
+              classNameLabel="col-1 mb-3 fw-semibold profile-input-label"
               register={{ ...register("phone") }}
               errors={errors}
               disabled={!isEditing}
@@ -182,7 +186,7 @@ function Profile() {
               label="Address"
               classNameContainer="col-12 d-flex align-items-center gap-3"
               classNameInput={`flex-grow-1 mb-3`}
-              classNameLabel="col-1 mb-3 fw-semibold"
+              classNameLabel="col-1 mb-3 fw-semibold profile-input-label"
               register={{ ...register("address") }}
               errors={errors}
               disabled={!isEditing}
@@ -192,7 +196,7 @@ function Profile() {
           {isEditing && (
             <div className="row">
               <div className="col-12 d-flex align-items-center gap-3">
-                <div className="col-1">
+                <div className="col-1 profile-input-label">
                   <label htmlFor="changePassword" hidden></label>
                 </div>
                 <div className="flex-grow-1">
@@ -220,7 +224,31 @@ function Profile() {
                 label="New Password"
                 classNameContainer="col-12 d-flex align-items-center gap-3"
                 classNameInput={`flex-grow-1 mb-3`}
-                classNameLabel="col-1 mb-3 fw-semibold"
+                classNameLabel="col-1 mb-3 fw-semibold profile-input-label"
+                register={{ ...register("newPassword") }}
+                errors={errors}
+                disabled={!isEditing}
+              />
+              <Input
+                type="text"
+                name="newPassword"
+                id="newPassword"
+                label="New Password"
+                classNameContainer="col-12 d-flex align-items-center gap-3"
+                classNameInput={`flex-grow-1 mb-3`}
+                classNameLabel="col-1 mb-3 fw-semibold profile-input-label"
+                register={{ ...register("newPassword") }}
+                errors={errors}
+                disabled={!isEditing}
+              />
+              <Input
+                type="text"
+                name="newPassword"
+                id="newPassword"
+                label="New Password"
+                classNameContainer="col-12 d-flex align-items-center gap-3"
+                classNameInput={`flex-grow-1 mb-3`}
+                classNameLabel="col-1 mb-3 fw-semibold profile-input-label"
                 register={{ ...register("newPassword") }}
                 errors={errors}
                 disabled={!isEditing}

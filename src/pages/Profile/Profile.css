@@ -1,14 +1,15 @@
 .profile-container {
-  .profile-edit-link {
-    font-size: 13px;
-    padding: 0;
-    width: 85px;
-    text-align: center;
-    font-weight: bold;
-    background: #000000;
-    text-transform: uppercase;
-    font-weight: 600;
-    color: #ffffff;
-    text-decoration: none;
+  .profile-edit-button {
+    line-height: 25px;
+  }
+
+  .profile-title {
+    line-height: 25px;
+  }
+
+  @media (max-width: 768px) {
+    .profile-input-label {
+      min-width: 60px;
+    }
   }
 }
