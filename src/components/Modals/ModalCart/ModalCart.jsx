@@ -1,18 +1,19 @@
-import { useState } from "react";
+import React from "react";
 import { Modal } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 import { removeFromcart } from "../../../redux/shoppingCartSlice";
-import CloseModalBtn from "./CloseModalBtn";
-import ProductCartQty from "./ProductCartQty";
+import CloseModalBtn from "./CloseModalBtn/CloseModalBtn";
+import ProductCartQty from "./ProductCartQty/ProductCartQty";
 import currencyFormatter from "../../../helpers/formatPrice";
+import totalPrice from "../../../helpers/totalPrice";
+import totalQty from "../../../helpers/totalQty";
 
 import "./ModalCart.css";
 
-function ModalCart() {
+function ModalCart({ show, setShow }) {
   const shoppingCart = useSelector((state) => state.shoppingCart);
-  const [show, setShow] = useState(true);
   const dispatch = useDispatch();
   const isEmpty = shoppingCart.length === 0;
 
@@ -22,19 +23,17 @@ function ModalCart() {
     dispatch(removeFromcart(productId));
   };
 
-  const totalPrice = currencyFormatter(
-    shoppingCart.reduce((total, product) => total + product.price * product.quantity, 0),
-  );
-
   return (
-    <div className="modalCart-container bg-dark">
+    <div className="modalCart-container">
       <Modal show={show} onHide={handleClose} fullscreen="sm-down" size={"md"}>
-        <Modal.Body className="d-flex justify-content-center">
+        <Modal.Body className="d-flex justify-content-center modal-container">
           {!isEmpty ? (
             <div className="details w-100 d-flex flex-column">
               <div className="container header">
                 <div className="row fw-bold pb-2 align-items-center">
-                  <div className="col-7 text-uppercase ps-0">Articles ({shoppingCart.length})</div>
+                  <div className="col-7 text-uppercase ps-0">
+                    Articles ({totalQty(shoppingCart)})
+                  </div>
                   <div className="col-2 text-uppercase qty text-center">Qty. </div>
                   <div className="col-2 text-uppercase price text-end">Price </div>
                 </div>
@@ -60,7 +59,7 @@ function ModalCart() {
                         <span>{currencyFormatter(item.price * item.quantity)}</span>
                       </span>
                       <div className="d-flex trash-wrapper">
-                        <i class="bi bi-trash" onClick={() => handleRemove(item.id)}></i>
+                        <i className="bi bi-trash" onClick={() => handleRemove(item.id)}></i>
                       </div>
                     </div>
                   </div>
@@ -70,7 +69,7 @@ function ModalCart() {
                 <div className="amount d-flex flex-column justify-content-center align-items-center position-relative pt-3">
                   <p className="fw-bold mb-3">
                     Order Total: <span className="currency text-uppercase">usd </span>
-                    {totalPrice}
+                    {totalPrice(shoppingCart)}
                   </p>
                   <Link to="/checkout" className="btn-standard btn01 text-decoration-none">
                     Complete Purchase
