@@ -1,7 +1,9 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import { incrementQty, decrementQty, setQty } from "../../../redux/shoppingCartSlice";
+import { incrementQty, decrementQty, setQty } from "../../../../redux/shoppingCartSlice";
+
+import "./ProductCartQty.css";
 
 function ProductCartQty({ product }) {
   const dispatch = useDispatch();
@@ -23,7 +25,7 @@ function ProductCartQty({ product }) {
   };
 
   return (
-    <div className="d-flex">
+    <div className="product-cart-qty d-flex">
       <button
         className="btn-dec"
         onClick={() => handleDecrement(product.id)}
