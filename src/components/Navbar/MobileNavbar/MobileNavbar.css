@@ -9,14 +9,13 @@
   }
 
   .navbar-toggler-icon {
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23ffffff' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
   }
 
   .navbar-toggler {
-    padding-right: 0;
-    padding-left: 0;
+    padding: 0 0 2px 0;
   }
 
   button {
@@ -27,7 +26,10 @@
   }
 
   .logo {
-    padding-top: 6px;
+    img {
+      width: 156px;
+      bottom: 2px !important;
+    }
   }
 
   .cart-icon {
@@ -57,19 +59,18 @@
   }
 
   .offcanvas {
+    width: 250px;
     border: 0;
-  }
 
-  .offcanvas {
     .nav-link {
-      padding: 15px 0 15px 15px;
-      margin-right: 55px;
+      padding: 15px;
       line-height: 20px;
       font-size: 13px;
       font-weight: bold;
       text-transform: uppercase;
       color: #000000;
       text-shadow: none;
+      width: 100%;
 
       &:hover {
         color: #000000;
@@ -77,6 +78,7 @@
 
       &.my-account {
         font-weight: 400;
+        font-size: 10px;
       }
     }
   }
@@ -88,5 +90,40 @@
 
   .offcanvas-body {
     padding: 0;
+  }
+
+  #collapseOne {
+    background-color: rgba(0, 0, 0, 0.02);
+    .nav-link {
+      font-weight: normal;
+      padding: 10px 15px;
+      line-height: 15px;
+      font-size: 12px;
+      border-top: 1px solid rgba(224, 224, 224, 0.75);
+    }
+  }
+
+  .btnItem {
+    &::after {
+      content: "+";
+      position: absolute;
+      top: 13px;
+      right: 15px;
+      display: block;
+      width: 24px;
+      height: 24px;
+      border: 1px solid #e0e0e0;
+      border-radius: 100%;
+      font-size: 20px;
+      line-height: 22px;
+      text-align: center;
+      color: #000000;
+      transition: transform 0.3s ease, content 0.3s ease;
+    }
+
+    &[data-show="on"]::after {
+      content: "-";
+      transform: rotate(180deg);
+    }
   }
 }
