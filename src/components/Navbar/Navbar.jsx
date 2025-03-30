@@ -1,41 +1,150 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-
+import CartIcon from "../commons/CartIcon/CartIcon";
+import ModalCart from "../Modals/ModalCart/ModalCart";
+import totalQty from "../../helpers/totalQty";
+import totalPrice from "../../helpers/totalPrice";
+import MobileNavbar from "./MobileNavbar/MobileNavbar";
+import useMediaQuery from "../../hooks/useMediaQuery";
+import { logout } from "../../redux/userSlice";
 
 import "./Navbar.css";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
+function Navbar() {
+  const [show, setShow] = useState(false);
+  const shoppingCart = useSelector((state) => state.shoppingCart);
+  const dispatch = useDispatch();
+  const { pathname } = useLocation();
+  const isHomePath = pathname === "/";
+  const navRef = useRef(null);
+  const isMobile = useMediaQuery("(max-width: 992px)");
 
+  const handleShowModal = () => {
+    setShow(true);
+  };
 
-function NavMenu() {
+  const signOut = () => {
+    dispatch(logout());
+  };
 
-  return <div className="navbar-container fixed-top">
-    <Navbar collapseOnSelect expand="lg" >
-      <Container className="gx-1">
-        <Navbar.Brand className="mb-2 logo" href="#home" ><img src="../img/logo-white.png" alt="Home-Deluxe"></img></Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse id="responsive-navbar-nav">
-          <Nav className="me-auto">
-            <Nav.Link className="nav-link" href="#Catalog">Catalog</Nav.Link>
-            <Nav.Link className="nav-link" href="#Featured">Featured</Nav.Link>
-            <Nav.Link className="nav-link" href="#AboutUs">About us</Nav.Link>
+  useEffect(() => {
+    const handleScroll = () => {
+      if (navRef.current) {
+        if (isHomePath) {
+          navRef.current.classList.toggle("nav-transparent", window.scrollY <= 59);
+          navRef.current.classList.toggle("nav-dark", window.scrollY > 59);
+        } else {
+          navRef.current.classList.add("nav-dark");
+          navRef.current.classList.remove("nav-transparent");
+        }
+      }
+    };
 
-          </Nav>
-          <Nav>
-            <Nav.Link className="nav-font" href="#deets">My Account</Nav.Link>
-            <Nav.Link className="nav-font" eventKey={2} href="#memes">
-              logocarrito*
-            </Nav.Link>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
-   
-  </div>;
-  
+    if (isHomePath) {
+      navRef.current.classList.remove("nav-dark");
+      navRef.current.classList.add("nav-transparent");
+    }
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isHomePath]);
+
+  return (
+    <nav ref={navRef} className="navbar navbar-expand-lg fixed-top nav-dark">
+      {!isMobile ? (
+        <div className="container d-flex align-items-center">
+          <Link className="navbar-brand p-0" to="/">
+            <img className="object-contain" src="../img/logo-white.png" alt="Home Deluxe" />
+          </Link>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-bs-target="#navbarNav"
+            aria-controls="navbarNav"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <ul className="navbar-nav me-auto d-flex align-items-center gap-4">
+            <li className="nav-item">
+              <Link className="nav-link" to="/products">
+                Shop
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/products/featured">
+                Featured
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/about">
+                About this project
+              </Link>
+            </li>
+          </ul>
+          <ul className="navbar-nav ms-auto d-flex align-items-center gap-4">
+            <li className="dropdown">
+              <button
+                className="btn btn-transparent dropdown-toggle nav-item"
+                type="button"
+                id="dropdownMenuButton"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                My account
+              </button>
+              <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <li>
+                  <Link className="dropdown-item" to="/profile">
+                    Profile
+                  </Link>
+                </li>
+                <li>
+                  <Link className="dropdown-item" to="/orders">
+                    Orders
+                  </Link>
+                </li>
+                <li>
+                  <Link className="dropdown-item" to="/" onClick={signOut}>
+                    Logout
+                  </Link>
+                </li>
+              </ul>
+            </li>
+
+            <li className="nav-item d-flex">
+              <span className="nav-link" onClick={handleShowModal}>
+                <span className="position-relative">
+                  <CartIcon />
+                  <span className="position-absolute top-0 start-0 cart-qty">
+                    {totalQty(shoppingCart)}
+                    <span className="visually-hidden">products quantity</span>
+                  </span>
+                </span>
+                <span className="total-price-wrapper">
+                  <span className="ms-2 currency text-uppercase">usd</span>
+                  <span className="ms-1">{totalPrice(shoppingCart)}</span>
+                </span>
+              </span>
+
+              <span className="me-2">
+                <ModalCart show={show} setShow={setShow} />
+              </span>
+            </li>
+          </ul>
+        </div>
+      ) : (
+        <MobileNavbar />
+      )}
+    </nav>
+  );
 }
 
-export default NavMenu;
+export default Navbar;
