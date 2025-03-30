@@ -16,7 +16,8 @@
 
   img {
     position: relative;
-    bottom: 6px;
+    bottom: 4px;
+    width: 165px;
   }
 
   span {
@@ -106,6 +107,16 @@
     &:focus-visible {
       outline: none !important;
       border: none;
+    }
+  }
+
+  button {
+    border: none;
+  }
+
+  .dropdown-toggle {
+    &::after {
+      display: none;
     }
   }
 }
