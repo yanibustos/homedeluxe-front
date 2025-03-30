@@ -1,0 +1,92 @@
+.mobile-navbar {
+  .navbar-toggler {
+    border: none;
+
+    &:focus {
+      border: none;
+      box-shadow: none;
+    }
+  }
+
+  .navbar-toggler-icon {
+    width: 25px;
+    height: 25px;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='%23ffffff' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  }
+
+  .navbar-toggler {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  button {
+    &:focus {
+      border: none;
+      box-shadow: none;
+    }
+  }
+
+  .logo {
+    padding-top: 6px;
+  }
+
+  .cart-icon {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    position: relative;
+  }
+
+  .cart-qty {
+    position: absolute;
+    font-weight: 400;
+    background-color: #999999;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4px 3px 3px;
+    width: 18px;
+    height: 18px;
+    font-size: 10px;
+    color: #fff;
+    bottom: 6px;
+    right: 4px;
+    transform: translate(-60%, -60%) !important;
+    z-index: -1;
+  }
+
+  .offcanvas {
+    border: 0;
+  }
+
+  .offcanvas {
+    .nav-link {
+      padding: 15px 0 15px 15px;
+      margin-right: 55px;
+      line-height: 20px;
+      font-size: 13px;
+      font-weight: bold;
+      text-transform: uppercase;
+      color: #000000;
+      text-shadow: none;
+
+      &:hover {
+        color: #000000;
+      }
+
+      &.my-account {
+        font-weight: 400;
+      }
+    }
+  }
+
+  .nav-item {
+    position: relative;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .offcanvas-body {
+    padding: 0;
+  }
+}
