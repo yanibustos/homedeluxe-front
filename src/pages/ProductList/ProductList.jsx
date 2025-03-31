@@ -123,7 +123,7 @@ function ProductList() {
 
       <div className="container">
         <div className="container-fluid">
-          <div className="d-flex flex-wrap mt-4 justify-content-center text-center all-cards">
+          <div className="d-flex flex-wrap mt-4 justify-content-center text-center all-cards py-5">
             {products.map((product) => (
               <div key={product.id} className="p-0 mx-4 my-4 card-container mb-4">
                 <div className="card position-relative">
