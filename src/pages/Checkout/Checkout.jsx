@@ -1,7 +1,379 @@
+import React, { useState } from "react";
+import { Formik, Field, Form, ErrorMessage } from "formik";
+import * as Yup from "yup";
+import ShippingForm from "../../components/ShippingForm/ShippingForm";
 import "./Checkout.css";
+import { Modal, Button } from "react-bootstrap";
+import BlackButton from "../../components/commons/BlackButton/BlackButton";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
-function Checkout() {
-  return <div className="checkout-container">Checkout</div>;
-}
+const validationSchema = Yup.object({
+  firstName: Yup.string().required("First name is required"),
+  lastName: Yup.string().required("Last name is required"),
+  email: Yup.string().email("Invalid email format").required("Email is required"),
+  phone: Yup.string()
+    .matches(/^\d+$/, "Phone number must be numeric")
+    .required("Phone number is required"),
+  country: Yup.string().required("Country is required"),
+  address: Yup.string().required("Address is required"),
+  city: Yup.string().required("City is required"),
+  zip: Yup.string().matches(/^\d+$/, "Zip code must be numeric").required("Zip code is required"),
+  nameOnCard: Yup.string().required("Name on Card is required"),
+  cardNumber: Yup.string()
+    .matches(/^\d+$/, "Card Number must be numeric")
+    .required("Card Number is required"),
+  expiry: Yup.string()
+    .matches(/^\d+$/, "Expiration Date must be numeric")
+    .required("Expiration Date is required"),
+  cvv: Yup.string().matches(/^\d+$/, "CVV must be numeric").required("CVV is required"),
+});
+
+const Checkout = () => {
+  const [paymentMethod, setPaymentMethod] = useState("creditCard");
+  const [orderSummary, setOrderSummary] = useState({
+    items: [
+      {
+        id: 1,
+        name: "Product 1",
+        price: 30.0,
+        quantity: 2,
+        image: "https://via.placeholder.com/50",
+      },
+      {
+        id: 2,
+        name: "Product 2",
+        price: 15.0,
+        quantity: 1,
+        image: "https://via.placeholder.com/50",
+      },
+    ],
+    subtotal: 75.0,
+    shipping: 10.0,
+    total: 85.0,
+  });
+
+  const [showModal, setShowModal] = useState(false);
+  const [itemToRemove, setItemToRemove] = useState(null);
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  const handlePaymentMethodChange = (method) => {
+    setPaymentMethod(method);
+  };
+
+  const handleRemoveItemClick = (itemId) => {
+    setItemToRemove(itemId);
+    setShowModal(true);
+  };
+
+  const handleConfirmRemove = () => {
+    setOrderSummary((prevState) => {
+      const updatedItems = prevState.items
+        .map((item) => {
+          if (item.id === itemToRemove) {
+            if (item.quantity > 1) {
+              item.quantity -= 1;
+            } else {
+              return null;
+            }
+          }
+          return item;
+        })
+        .filter((item) => item !== null);
+
+      const newSubtotal = updatedItems.reduce(
+        (total, item) => total + item.price * item.quantity,
+        0,
+      );
+
+      const newTotal = newSubtotal + prevState.shipping;
+
+      return {
+        ...prevState,
+        items: updatedItems,
+        subtotal: newSubtotal,
+        total: newTotal,
+      };
+    });
+
+    setShowModal(false);
+  };
+
+  const handleCancelRemove = () => {
+    setShowModal(false);
+  };
+
+  const handleRedirectPayment = (method) => {
+    if (method === "paypal") {
+      window.location.href = "https://www.paypal.com";
+    } else if (method === "mercadopago") {
+      window.location.href = "https://www.mercadopago.com";
+    }
+  };
+
+  const handleNumberInput = (e) => {
+    const value = e.target.value.replace(/\D/g, "");
+    e.target.value = value;
+  };
+
+  return (
+    <div className="container">
+      <h2 className="my-5 text-center">Checkout</h2>
+      <div className="checkout-container row">
+
+        <div className="col-md-7">
+          <Formik
+            initialValues={{
+              firstName: "",
+              lastName: "",
+              email: "",
+              phone: "",
+              country: "",
+              address: "",
+              city: "",
+              zip: "",
+              nameOnCard: "",
+              cardNumber: "",
+              expiry: "",
+              cvv: "",
+            }}
+            validationSchema={validationSchema}
+            onSubmit={(values) => {
+              setIsProcessing(true);
+              setTimeout(() => {
+                console.log("Checkout data:", values);
+                setIsProcessing(false);
+                alert("Order confirmed!");
+              }, 2000);
+            }}
+          >
+            {({ values, handleChange, isValid, dirty }) => (
+              <Form className="checkout-form">
+                <ShippingForm formData={values} handleChange={handleChange} />
+
+                <div className="payment-method">
+                  <h4 className="mb-4 pt-5">Payment Method</h4>
+
+                  <hr className="my-4" />
+
+                  <div className="mb-4">
+                    <div className="form-check">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        id="creditCard"
+                        name="paymentMethod"
+                        value="creditCard"
+                        checked={paymentMethod === "creditCard"}
+                        onChange={() => handlePaymentMethodChange("creditCard")}
+                        required
+                      />
+                      <label className="form-check-label" htmlFor="creditCard">
+                        Credit Card
+                      </label>
+                    </div>
+                    <div className="form-check">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        id="paypal"
+                        name="paymentMethod"
+                        value="paypal"
+                        checked={paymentMethod === "paypal"}
+                        onChange={() => handlePaymentMethodChange("paypal")}
+                        required
+                      />
+                      <label className="form-check-label" htmlFor="paypal">
+                        PayPal
+                      </label>
+                    </div>
+                    <div className="form-check">
+                      <input
+                        className="form-check-input"
+                        type="radio"
+                        id="mercadopago"
+                        name="paymentMethod"
+                        value="mercadopago"
+                        checked={paymentMethod === "mercadopago"}
+                        onChange={() => handlePaymentMethodChange("mercadopago")}
+                        required
+                      />
+                      <label className="form-check-label" htmlFor="mercadopago">
+                        Mercado Pago
+                      </label>
+                    </div>
+                  </div>
+
+                  {paymentMethod === "creditCard" && (
+                    <div>
+                      <div className="mb-3">
+                        <label htmlFor="nameOnCard" className="form-label mt-3">
+                          Name on Card
+                        </label>
+                        <Field
+                          type="text"
+                          className="form-control"
+                          id="nameOnCard"
+                          name="nameOnCard"
+                          required
+                        />
+                        <ErrorMessage name="nameOnCard" component="div" className="text-danger" />
+                      </div>
+                      <div className="mb-3">
+                        <label htmlFor="cardNumber" className="form-label">
+                          Card Number
+                        </label>
+                        <Field
+                          type="text"
+                          className="form-control"
+                          id="cardNumber"
+                          name="cardNumber"
+                          onInput={handleNumberInput}
+                          required
+                        />
+                        <ErrorMessage name="cardNumber" component="div" className="text-danger" />
+                      </div>
+                      <div className="row mb-5">
+                        <div className="col-md-6 mb-3">
+                          <label htmlFor="expiry" className="form-label">
+                            Expiration Date
+                          </label>
+                          <Field
+                            type="text"
+                            className="form-control"
+                            id="expiry"
+                            name="expiry"
+                            onInput={handleNumberInput}
+                            required
+                          />
+                          <ErrorMessage name="expiry" component="div" className="text-danger" />
+                        </div>
+                        <div className="col-md-6 mb-3">
+                          <label htmlFor="cvv" className="form-label">
+                            CVV
+                          </label>
+                          <Field
+                            type="text"
+                            className="form-control"
+                            id="cvv"
+                            name="cvv"
+                            onInput={handleNumberInput}
+                            required
+                          />
+                          <ErrorMessage name="cvv" component="div" className="text-danger" />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  {paymentMethod === "paypal" && (
+                    <div className="mt-4">
+                      <BlackButton
+                        name="Pay with PayPal"
+                        loading={isProcessing}
+                        disabled={isProcessing}
+                        handleOnClick={() => handleRedirectPayment(paymentMethod)}
+                        className="w-100"
+                      >
+                        <i className="bi bi-paypal" style={{ marginLeft: "10px" }}></i>
+                      </BlackButton>
+                    </div>
+                  )}
+
+                  {paymentMethod === "mercadopago" && (
+                    <div className="mt-4">
+                      <BlackButton
+                        name="Pay with Mercado Pago"
+                        loading={isProcessing}
+                        disabled={isProcessing}
+                        handleOnClick={() => handleRedirectPayment(paymentMethod)}
+                        className="w-100"
+                      >
+                        <i className="bi bi-credit-card" style={{ marginLeft: "10px" }}></i>
+                      </BlackButton>
+                    </div>
+                  )}
+                </div>
+
+                <BlackButton
+                  name={isProcessing ? "Processing..." : "Confirm Order"}
+                  className="w-100 mt-4"
+                  loading={isProcessing}
+                  disabled={isProcessing || !(isValid && dirty)}
+                  handleOnClick={() => alert("Order Confirmed!")}
+                />
+              </Form>
+            )}
+          </Formik>
+        </div>
+
+        <div className="col-md-6">
+          <div className="order-summary mt-5">
+         
+            <h4 className="order-summary-title mb-4">Order Summary</h4>
+            <ul className="list-group mb-3">
+              {orderSummary.items.map((item) => (
+                <li
+                  key={item.id}
+                  className="list-group-item d-flex justify-content-between align-items-center"
+                >
+                  <div className="d-flex align-items-center">
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="img-thumbnail mr-3 product-image"
+                    />
+                    <span className="product-name">{item.name}</span>
+                  </div>
+                  <div className="d-flex flex-column align-items-end">
+                    <button
+                      className="btn btn-sm btn-danger mt-2"
+                      onClick={() => handleRemoveItemClick(item.id)}
+                    >
+                      <i className="bi bi-trash"></i>
+                    </button>
+                    <span className="mt-2">Qty: {item.quantity}</span>
+                    <span>${(item.price * item.quantity).toFixed(2)}</span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+
+            <hr />
+            <ul className="list-group">
+              <li className="list-group-item d-flex justify-content-between align-items-center">
+                Subtotal
+                <span>${orderSummary.subtotal.toFixed(2)}</span>
+              </li>
+              <li className="list-group-item d-flex justify-content-between align-items-center">
+                Shipping
+                <span>${orderSummary.shipping.toFixed(2)}</span>
+              </li>
+              <hr />
+              <li className="list-group-item d-flex justify-content-between align-items-center pb-4">
+                <strong>Total</strong>
+                <strong>${orderSummary.total.toFixed(2)}</strong>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <Modal show={showModal} onHide={handleCancelRemove}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirm Removal</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>Are you sure you want to remove one unit of this item?</Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCancelRemove} className="custom-modal-btn">
+            Cancel
+          </Button>
+          <Button variant="danger" onClick={handleConfirmRemove} className="custom-modal-btn">
+            Remove
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    </div>
+  );
+};
 
 export default Checkout;
