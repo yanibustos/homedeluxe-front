@@ -9,6 +9,9 @@
 
   .about-container {
     margin-top: 10px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
   }
 
   .container-fluid {
@@ -53,7 +56,7 @@
 
   .about-text p {
     font-size: 1.1rem;
-    max-width: 85%;
+    max-width: 69%;
     margin: 0 auto;
   }
 
@@ -64,15 +67,15 @@
     min-height: 250px;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
     background-color: white;
+    max-width: 70%;
   }
 
   .card-columns {
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
-    gap: 20px;
-    padding-top: 15px;
-    max-width: 100%;
+    justify-content: center;
+    gap: 30px;
+    padding: 20px;
   }
 
   .icon-container {
@@ -132,7 +135,7 @@
   .centered-text {
     text-align: center;
     margin: 0 auto;
-    max-width: 75%;
+    max-width: 68%;
   }
 
   @media (max-width: 768px) {
@@ -145,10 +148,6 @@
     .team-card {
       max-width: 18rem;
       height: auto;
-    }
-
-    .info-cards .col-md-4 {
-      margin-bottom: 20px;
     }
 
     .info-cards {
