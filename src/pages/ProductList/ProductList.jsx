@@ -16,7 +16,7 @@ const products = [
     slug: "sofa-sense-white-2-seater",
   },
   {
-    id: "B2aZ7YpXq9Jv5rT6C0Lg",
+    id: "B2aZ7YpXq9Jv5rT6C0Lj",
     name: "Captivating Brown Circular Coffee Table",
     sku: "SKU002",
     price: 990,
@@ -29,7 +29,7 @@ const products = [
     slug: "coffee-table-cautiva-brown-circular",
   },
   {
-    id: "B2aZ7YpXq9Jv5rT6C0Lg",
+    id: "B2aZ7YpXq9Jv5rT6C0Lh",
     name: "URBAN BEIGE Right Modular Sofa",
     sku: "SKU003",
     price: 4610,
@@ -42,7 +42,7 @@ const products = [
     slug: "four-seater-modular-sofa-right-chaise-beige",
   },
   {
-    id: "d5XJf9QzL3Kv7yW8A1mN",
+    id: "d5XJf9QzL3Kv7yW8A1ma",
     name: "SOFA SENSE White 2-Seater",
     sku: "SKU001",
     price: 890,
@@ -55,7 +55,7 @@ const products = [
     slug: "sofa-sense-white-2-seater",
   },
   {
-    id: "B2aZ7YpXq9Jv5rT6C0Lg",
+    id: "B2aZ7YpXq9Jv5rT6C0Lr",
     name: "Captivating Brown Circular Coffee Table",
     sku: "SKU002",
     price: 990,
@@ -68,7 +68,7 @@ const products = [
     slug: "coffee-table-cautiva-brown-circular",
   },
   {
-    id: "B2aZ7YpXq9Jv5rT6C0Lg",
+    id: "B2aZ7YpXq9Jv5rT6C0Lq",
     name: "URBAN BEIGE Right Modular Sofa",
     sku: "SKU003",
     price: 4610,
@@ -100,7 +100,7 @@ function ProductList() {
               handleFilter();
             }}
           >
-            <i class="bi bi-funnel-fill"></i> <span className="filter-text">Filter</span>
+            <i className="bi bi-funnel-fill"></i> <span className="filter-text">Filter</span>
           </button>
           <select
             name="order"
@@ -109,9 +109,7 @@ function ProductList() {
               handleFilter();
             }}
           >
-            <option value="recommended" selected>
-              Recommended
-            </option>
+            <option value="recommended">Recommended</option>
             <option value="recent">Recent</option>
             <option value="category">Category</option>
             <option value="lowerPrice">Lower Price</option>
