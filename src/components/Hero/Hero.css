@@ -1,9 +1,12 @@
 .home-swipper {
-  height: 100vh;
+  .swipper {
+    width: 100vw;
+    height: 100vh;
+  }
 
-  .home-swipper img {
+  img {
     width: 100%;
-    height: 100vh !important;
+    height: 100%;
     object-fit: cover;
   }
 
