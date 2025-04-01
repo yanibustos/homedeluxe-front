@@ -13,26 +13,22 @@ import "./Hero.css";
 const slides = [
   {
     id: 1,
-    image:
-      "https://f.fcdn.app/imgs/7d0621/www.viasono.com.uy/viasuy/644d/webp/recursos/1517/1920x1100/banner-kids-1920-x-1100.jpg",
+    image: "./img/hero/slide1.png",
     url: "/products",
   },
   {
     id: 2,
-    image:
-      "https://f.fcdn.app/imgs/64487c/www.viasono.com.uy/viasuy/25f7/webp/recursos/1480/1920x1100/alma-collection25.jpg",
+    image: "./img/hero/slide2.png",
     url: "/products",
   },
   {
     id: 3,
-    image:
-      "https://f.fcdn.app/imgs/7d3dc1/www.viasono.com.uy/viasuy/9acc/webp/recursos/1227/1920x1100/1920x1100-7.jpg",
+    image: "./img/hero/slide3.png",
     url: "/products",
   },
   {
-    id: 4,
-    image:
-      "https://f.fcdn.app/imgs/ae1b19/www.viasono.com.uy/viasuy/23ea/webp/recursos/1380/1920x1100/1920x1100-3.jpg",
+    id: 3,
+    image: "./img/hero/slide4.png",
     url: "/products",
   },
 ];
