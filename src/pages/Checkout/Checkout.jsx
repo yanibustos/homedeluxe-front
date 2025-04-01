@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import * as Yup from "yup";
 import { Modal, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 
 import BlackButton from "../../components/commons/BlackButton/BlackButton";
 import Input from "../../components/commons/Input/Input";
@@ -128,9 +129,17 @@ const Checkout = () => {
 
   const handleRedirectPayment = (method) => {
     if (method === "paypal") {
-      window.location.href = "https://www.paypal.com";
+      return (
+        <Link to="https://www.paypal.com" target="_blank" rel="noopener noreferrer">
+          Go to PayPal
+        </Link>
+      );
     } else if (method === "mercadopago") {
-      window.location.href = "https://www.mercadopago.com";
+      return (
+        <Link to="https://www.mercadopago.com" target="_blank" rel="noopener noreferrer">
+          Go to Mercado Pago
+        </Link>
+      );
     }
   };
 
