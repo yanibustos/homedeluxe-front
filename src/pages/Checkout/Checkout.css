@@ -64,10 +64,20 @@
   color: #fff;
 }
 
+.custom-modal-btn-danger {
+  background-color: #000000;
+  color: white;
+  border: none;
+}
+
+.custom-modal-btn-danger:hover {
+  background-color: #4a4a4a;
+}
+
 .btn-primary {
   background-color: #ffffff;
   color: var(--primary-color);
-  border: 1px solid var(--primary-color);
+  border: none;
   padding: 10px 20px;
   border-radius: 5px;
   width: 100%;
@@ -78,7 +88,7 @@
 .btn-primary:hover {
   background-color: var(--secondary-hover);
   color: var(--primary-hover);
-  border-color: var(--primary-hover);
+  border: none;
 }
 
 .modal-header,
