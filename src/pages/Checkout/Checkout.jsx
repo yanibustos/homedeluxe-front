@@ -1,10 +1,12 @@
-import React, { useState } from "react";
-import { Formik, Field, Form, ErrorMessage } from "formik";
+import React, { useState, useEffect } from "react";
 import * as Yup from "yup";
-import ShippingForm from "../../components/ShippingForm/ShippingForm";
-import "./Checkout.css";
 import { Modal, Button } from "react-bootstrap";
+
 import BlackButton from "../../components/commons/BlackButton/BlackButton";
+import Input from "../../components/commons/Input/Input";
+import ShippingForm from "../../components/ShippingForm/ShippingForm";
+
+import "./Checkout.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
 const validationSchema = Yup.object({
@@ -55,6 +57,28 @@ const Checkout = () => {
   const [showModal, setShowModal] = useState(false);
   const [itemToRemove, setItemToRemove] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    phone: "",
+    country: "",
+    address: "",
+    city: "",
+    zip: "",
+    nameOnCard: "",
+    cardNumber: "",
+    expiry: "",
+    cvv: "",
+  });
+
+  const [isFormValid, setIsFormValid] = useState(false); 
+
+  useEffect(() => {
+    validationSchema.isValid(formData).then((valid) => {
+      setIsFormValid(valid); 
+    });
+  }, [formData]);
 
   const handlePaymentMethodChange = (method) => {
     setPaymentMethod(method);
@@ -110,206 +134,198 @@ const Checkout = () => {
     }
   };
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
   const handleNumberInput = (e) => {
     const value = e.target.value.replace(/\D/g, "");
     e.target.value = value;
+    handleInputChange(e);
+  };
+
+  const handleSubmit = () => {
+    setIsProcessing(true);
+    setTimeout(() => {
+      console.log("Checkout data:", formData);
+      setIsProcessing(false);
+      alert("Order confirmed!");
+    }, 2000);
   };
 
   return (
     <div className="container">
       <h2 className="my-5 text-center">Checkout</h2>
       <div className="checkout-container row">
-
         <div className="col-md-7">
-          <Formik
-            initialValues={{
-              firstName: "",
-              lastName: "",
-              email: "",
-              phone: "",
-              country: "",
-              address: "",
-              city: "",
-              zip: "",
-              nameOnCard: "",
-              cardNumber: "",
-              expiry: "",
-              cvv: "",
-            }}
-            validationSchema={validationSchema}
-            onSubmit={(values) => {
-              setIsProcessing(true);
-              setTimeout(() => {
-                console.log("Checkout data:", values);
-                setIsProcessing(false);
-                alert("Order confirmed!");
-              }, 2000);
-            }}
-          >
-            {({ values, handleChange, isValid, dirty }) => (
-              <Form className="checkout-form">
-                <ShippingForm formData={values} handleChange={handleChange} />
+          <form className="checkout-form" onSubmit={handleSubmit}>
+            <ShippingForm formData={formData} handleChange={handleInputChange} />
 
-                <div className="payment-method">
-                  <h4 className="mb-4 pt-5">Payment Method</h4>
+            <div className="payment-method">
+              <h4 className="mb-4 pt-5">Payment Method</h4>
 
-                  <hr className="my-4" />
+              <hr className="my-4" />
 
-                  <div className="mb-4">
-                    <div className="form-check">
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        id="creditCard"
-                        name="paymentMethod"
-                        value="creditCard"
-                        checked={paymentMethod === "creditCard"}
-                        onChange={() => handlePaymentMethodChange("creditCard")}
+              <div className="mb-4">
+                <div className="form-check">
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    id="creditCard"
+                    name="paymentMethod"
+                    value="creditCard"
+                    checked={paymentMethod === "creditCard"}
+                    onChange={() => handlePaymentMethodChange("creditCard")}
+                    required
+                  />
+                  <label className="form-check-label" htmlFor="creditCard">
+                    Credit Card
+                  </label>
+                </div>
+                <div className="form-check">
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    id="paypal"
+                    name="paymentMethod"
+                    value="paypal"
+                    checked={paymentMethod === "paypal"}
+                    onChange={() => handlePaymentMethodChange("paypal")}
+                    required
+                  />
+                  <label className="form-check-label" htmlFor="paypal">
+                    PayPal
+                  </label>
+                </div>
+                <div className="form-check">
+                  <input
+                    className="form-check-input"
+                    type="radio"
+                    id="mercadopago"
+                    name="paymentMethod"
+                    value="mercadopago"
+                    checked={paymentMethod === "mercadopago"}
+                    onChange={() => handlePaymentMethodChange("mercadopago")}
+                    required
+                  />
+                  <label className="form-check-label" htmlFor="mercadopago">
+                    Mercado Pago
+                  </label>
+                </div>
+              </div>
+
+              {paymentMethod === "creditCard" && (
+                <div>
+                  <div className="mb-3">
+                    <label htmlFor="nameOnCard" className="form-label mt-3">
+                      Name on Card
+                    </label>
+                    <Input
+                      type="text"
+                      className="form-control"
+                      id="nameOnCard"
+                      name="nameOnCard"
+                      value={formData.nameOnCard}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                  <div className="mb-3">
+                    <label htmlFor="cardNumber" className="form-label">
+                      Card Number
+                    </label>
+                    <Input
+                      type="text"
+                      className="form-control"
+                      id="cardNumber"
+                      name="cardNumber"
+                      value={formData.cardNumber}
+                      onInput={handleNumberInput}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                  <div className="row mb-5">
+                    <div className="col-md-6 mb-3">
+                      <label htmlFor="expiry" className="form-label">
+                        Expiration Date
+                      </label>
+                      <Input
+                        type="text"
+                        className="form-control"
+                        id="expiry"
+                        name="expiry"
+                        value={formData.expiry}
+                        onInput={handleNumberInput}
+                        onChange={handleInputChange}
                         required
                       />
-                      <label className="form-check-label" htmlFor="creditCard">
-                        Credit Card
-                      </label>
                     </div>
-                    <div className="form-check">
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        id="paypal"
-                        name="paymentMethod"
-                        value="paypal"
-                        checked={paymentMethod === "paypal"}
-                        onChange={() => handlePaymentMethodChange("paypal")}
+                    <div className="col-md-6 mb-3">
+                      <label htmlFor="cvv" className="form-label">
+                        CVV
+                      </label>
+                      <Input
+                        type="text"
+                        className="form-control"
+                        id="cvv"
+                        name="cvv"
+                        value={formData.cvv}
+                        onInput={handleNumberInput}
+                        onChange={handleInputChange}
                         required
                       />
-                      <label className="form-check-label" htmlFor="paypal">
-                        PayPal
-                      </label>
-                    </div>
-                    <div className="form-check">
-                      <input
-                        className="form-check-input"
-                        type="radio"
-                        id="mercadopago"
-                        name="paymentMethod"
-                        value="mercadopago"
-                        checked={paymentMethod === "mercadopago"}
-                        onChange={() => handlePaymentMethodChange("mercadopago")}
-                        required
-                      />
-                      <label className="form-check-label" htmlFor="mercadopago">
-                        Mercado Pago
-                      </label>
                     </div>
                   </div>
-
-                  {paymentMethod === "creditCard" && (
-                    <div>
-                      <div className="mb-3">
-                        <label htmlFor="nameOnCard" className="form-label mt-3">
-                          Name on Card
-                        </label>
-                        <Field
-                          type="text"
-                          className="form-control"
-                          id="nameOnCard"
-                          name="nameOnCard"
-                          required
-                        />
-                        <ErrorMessage name="nameOnCard" component="div" className="text-danger" />
-                      </div>
-                      <div className="mb-3">
-                        <label htmlFor="cardNumber" className="form-label">
-                          Card Number
-                        </label>
-                        <Field
-                          type="text"
-                          className="form-control"
-                          id="cardNumber"
-                          name="cardNumber"
-                          onInput={handleNumberInput}
-                          required
-                        />
-                        <ErrorMessage name="cardNumber" component="div" className="text-danger" />
-                      </div>
-                      <div className="row mb-5">
-                        <div className="col-md-6 mb-3">
-                          <label htmlFor="expiry" className="form-label">
-                            Expiration Date
-                          </label>
-                          <Field
-                            type="text"
-                            className="form-control"
-                            id="expiry"
-                            name="expiry"
-                            onInput={handleNumberInput}
-                            required
-                          />
-                          <ErrorMessage name="expiry" component="div" className="text-danger" />
-                        </div>
-                        <div className="col-md-6 mb-3">
-                          <label htmlFor="cvv" className="form-label">
-                            CVV
-                          </label>
-                          <Field
-                            type="text"
-                            className="form-control"
-                            id="cvv"
-                            name="cvv"
-                            onInput={handleNumberInput}
-                            required
-                          />
-                          <ErrorMessage name="cvv" component="div" className="text-danger" />
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {paymentMethod === "paypal" && (
-                    <div className="mt-4">
-                      <BlackButton
-                        name="Pay with PayPal"
-                        loading={isProcessing}
-                        disabled={isProcessing}
-                        handleOnClick={() => handleRedirectPayment(paymentMethod)}
-                        className="w-100"
-                      >
-                        <i className="bi bi-paypal" style={{ marginLeft: "10px" }}></i>
-                      </BlackButton>
-                    </div>
-                  )}
-
-                  {paymentMethod === "mercadopago" && (
-                    <div className="mt-4">
-                      <BlackButton
-                        name="Pay with Mercado Pago"
-                        loading={isProcessing}
-                        disabled={isProcessing}
-                        handleOnClick={() => handleRedirectPayment(paymentMethod)}
-                        className="w-100"
-                      >
-                        <i className="bi bi-credit-card" style={{ marginLeft: "10px" }}></i>
-                      </BlackButton>
-                    </div>
-                  )}
                 </div>
+              )}
 
-                <BlackButton
-                  name={isProcessing ? "Processing..." : "Confirm Order"}
-                  className="w-100 mt-4"
-                  loading={isProcessing}
-                  disabled={isProcessing || !(isValid && dirty)}
-                  handleOnClick={() => alert("Order Confirmed!")}
-                />
-              </Form>
-            )}
-          </Formik>
+              {paymentMethod === "paypal" && (
+                <div className="mt-4">
+                  <BlackButton
+                    name="Pay with PayPal"
+                    loading={isProcessing}
+                    disabled={isProcessing}
+                    handleOnClick={() => handleRedirectPayment(paymentMethod)}
+                    className="w-100"
+                  >
+                    <i className="bi bi-paypal" style={{ marginLeft: "10px" }}></i>
+                  </BlackButton>
+                </div>
+              )}
+
+              {paymentMethod === "mercadopago" && (
+                <div className="mt-4">
+                  <BlackButton
+                    name="Pay with Mercado Pago"
+                    loading={isProcessing}
+                    disabled={isProcessing}
+                    handleOnClick={() => handleRedirectPayment(paymentMethod)}
+                    className="w-100"
+                  >
+                    <i className="bi bi-credit-card" style={{ marginLeft: "10px" }}></i>
+                  </BlackButton>
+                </div>
+              )}
+            </div>
+
+            <BlackButton
+              name={isProcessing ? "Processing..." : "Confirm Order"}
+              className="w-100 mt-4 mb-3"
+              loading={isProcessing}
+              disabled={isProcessing || !isFormValid}
+              handleOnClick={handleSubmit}
+            />
+          </form>
         </div>
 
         <div className="col-md-6">
-          <div className="order-summary mt-5">
-         
-            <h4 className="order-summary-title mb-4">Order Summary</h4>
+          <div className="order-summary">
+            <h4 className="order-summary-title mb-4"> Order Summary</h4>
             <ul className="list-group mb-3">
               {orderSummary.items.map((item) => (
                 <li
