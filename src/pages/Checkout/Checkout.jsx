@@ -393,7 +393,7 @@ const Checkout = () => {
             Cancel
           </Button>
           <Button
-            variant="danger"
+            variant="dark"
             onClick={handleConfirmRemove}
             className="custom-modal-btn custom-modal-btn-danger"
           >
