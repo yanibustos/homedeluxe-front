@@ -52,7 +52,6 @@ const teamMembers = [
   },
 ];
 
-// InfoCard
 const InfoCard = ({ icon, title, text }) => (
   <div className="col-12 col-md-4">
     <div className="card shadow-sm text-center p-4 position-relative mx-auto">
@@ -104,7 +103,6 @@ function About() {
 
         <hr className="w-75 mx-auto my-5 border-2 border-dark opacity-90" />
 
-        {/* Sección del equipo */}
         <div className="team-section mt-5">
           <h2 className="text-center fw-bold fs-1">Our Team</h2>
           <p className="mt-5 centered-text">
