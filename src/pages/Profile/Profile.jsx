@@ -22,9 +22,12 @@ const schema = yup
     phone: yup.string(),
     address: yup.string(),
     changePassword: yup.boolean(),
+
+    //Validates password if the checkbox is checked
     currentPassword: yup.string().when("changePassword", {
       is: true,
       then: (schema) => schema.required("Current password is required"),
+      otherwise: (schema) => schema.notRequired(),
     }),
     newPassword: yup.string().when("changePassword", {
       is: true,
@@ -33,6 +36,7 @@ const schema = yup
           .required("New password is required")
           .min(8, "Password must be at least 8 characters")
           .max(50, "Password must not exceed 50 characters"),
+      otherwise: (schema) => schema.notRequired(),
     }),
     repeatPassword: yup.string().when("changePassword", {
       is: true,
@@ -40,9 +44,18 @@ const schema = yup
         schema
           .required("Please confirm your new password")
           .oneOf([yup.ref("newPassword")], "Passwords must match"),
+      otherwise: (schema) => schema.notRequired(),
     }),
     avatar: yup.mixed().test("fileType", "Only images are allowed", (value) => {
+      // If value is a string (URL), skip the validation
+      if (typeof value === "string" && value.startsWith("http")) {
+        return true;
+      }
+
+      // If no file selected, skip validation
       if (!value || value.length === 0) return true;
+
+      // Validate file type if a file is selected
       return ["image/jpeg", "image/png"].includes(value[0].type);
     }),
   })
