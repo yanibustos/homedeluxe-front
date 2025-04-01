@@ -1,158 +1,165 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden;
+}
+
 .about-container {
-  html,
-  body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    overflow-x: hidden;
-  }
+  margin-top: 10px;
+}
 
-  .about-container {
-    margin-top: 10px;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-  }
+.container-fluid {
+  padding: 0;
+}
 
-  .container-fluid {
-    padding: 0;
-  }
+.about-text {
+  width: 100%;
+  min-height: 700px;
+  background: url("https://www.aquaclean.com/assets/grocery_crud/texteditor/tinymce_4/responsive_filemanager/uploads/2014/decoracionsofas.jpg")
+    center/cover no-repeat;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  text-align: center;
+  color: white;
+  padding: 150px 1.25rem 0;
+}
 
-  .about-text {
-    width: 100%;
-    min-height: 700px;
-    background: url("https://www.aquaclean.com/assets/grocery_crud/texteditor/tinymce_4/responsive_filemanager/uploads/2014/decoracionsofas.jpg")
-      center/cover no-repeat;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    text-align: center;
-    color: white;
-    padding: 150px 1.25rem 0;
-  }
+.about-text::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.65);
+  z-index: 0;
+}
 
-  .about-text::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.65);
-    z-index: 0;
-  }
+.about-text h1,
+.about-text p {
+  position: relative;
+  z-index: 1;
+  margin-top: 2.7rem;
+}
 
-  .about-text h1,
-  .about-text p {
-    position: relative;
-    z-index: 1;
-    margin-top: 2.7rem;
-  }
+.about-text h1 {
+  font-size: 2.9rem;
+  font-weight: bold;
+  margin-bottom: 1.25rem;
+}
 
-  .about-text h1 {
-    font-size: 2.9rem;
-    font-weight: bold;
-    margin-bottom: 1.25rem;
-  }
+.about-text p {
+  font-size: 1.1rem;
+  max-width: 85%;
+  margin: 0 auto;
+}
 
-  .about-text p {
-    font-size: 1.1rem;
-    max-width: 69%;
-    margin: 0 auto;
-  }
+.card {
+  border: none;
+  border-radius: 10px;
+  padding: 25px;
+  min-height: 250px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  background-color: white;
+}
 
-  .card {
-    border: none;
-    border-radius: 10px;
-    padding: 25px;
-    min-height: 250px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-    background-color: white;
-    max-width: 70%;
-  }
+.card-columns {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding-top: 15px;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
 
+.icon-container {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgb(210, 234, 242);
+  padding: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 9px;
+}
+
+.icon {
+  font-size: 24px;
+}
+
+.team-section {
+  background-color: #ececec;
+  padding-top: 75px;
+  padding-bottom: 70px;
+}
+
+.team-member {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.team-member h5 {
+  margin-bottom: 0.625rem;
+}
+
+.team-member p {
+  margin-bottom: 0.625rem;
+}
+
+.team-card {
+  width: 100%;
+  max-width: 30rem;
+  height: 22rem;
+  margin: 0 auto;
+}
+
+.info-cards {
+  margin-top: -60px;
+  padding: 0 10px;
+}
+
+.centered-text {
+  text-align: center;
+  margin: 0 auto;
+  max-width: 75%;
+}
+
+@media (max-width: 768px) {
   .card-columns {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 30px;
-    padding: 20px;
-  }
-
-  .icon-container {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgb(210, 234, 242);
-    padding: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 50px;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 9px;
-  }
-
-  .icon {
-    font-size: 24px;
-  }
-
-  .team-section {
-    background-color: #ececec;
-    padding-top: 75px;
-    padding-bottom: 70px;
-  }
-
-  .team-member {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    margin-bottom: 1rem;
-  }
-
-  .team-member h5 {
-    margin-bottom: 0.625rem;
-  }
-
-  .team-member p {
-    margin-bottom: 0.625rem;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
   }
 
   .team-card {
-    width: 100%;
-    max-width: 30rem;
-    height: 22rem;
-    margin: 10px;
+    max-width: 18rem;
+    height: auto;
+  }
+
+  .info-cards .col-md-4 {
+    margin-bottom: 20px;
   }
 
   .info-cards {
-    margin-top: -60px;
-    padding: 0 17px;
-  }
-
-  .centered-text {
-    text-align: center;
-    margin: 0 auto;
-    max-width: 68%;
-  }
-
-  @media (max-width: 768px) {
-    .card-columns {
-      flex-direction: row;
-      justify-content: space-around;
-      align-items: flex-start;
-    }
-
-    .team-card {
-      max-width: 18rem;
-      height: auto;
-    }
-
-    .info-cards {
-      margin-top: 20px;
-      padding: 0 15px;
-    }
+    margin-top: 20px;
+    padding: 0 15px;
   }
 }
