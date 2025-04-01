@@ -6,6 +6,7 @@ const testUser = {
   lastname: "Doe",
   email: "johndoe@example.com",
   accessToken: "fake-jwt-token-123456789",
+  avatar: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsd6jEYWceiGnd-fmcfMQU81ME5zJj63buBw&s",
 };
 
 const userSlice = createSlice({
