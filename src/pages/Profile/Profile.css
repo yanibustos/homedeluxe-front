@@ -7,8 +7,27 @@
     line-height: 25px;
   }
 
+  .profile-text {
+    font-size: 12px;
+  }
+
+  .profile-avatar {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+  }
+
+  .profile-avatar-label {
+    font-size: 12px;
+    min-width: 60px;
+  }
+
   @media (max-width: 768px) {
     .profile-input-label {
+      min-width: 60px;
+    }
+
+    .profile-avatar-label {
       min-width: 60px;
     }
   }
