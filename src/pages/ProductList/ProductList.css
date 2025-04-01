@@ -1,5 +1,8 @@
 .productList-container {
   margin-top: 50px;
+  hr {
+    opacity: 0.1;
+  }
   .card-container {
     height: 50%;
     width: 300px;
@@ -112,7 +115,7 @@
       padding-left: 70px;
     }
     .main-text {
-      border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
       padding-bottom: 20px;
     }
     .div-text-category {
