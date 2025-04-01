@@ -3,7 +3,7 @@ import React from "react";
 const ShippingForm = ({ formData, handleChange }) => {
   return (
     <div>
-      <h4 className="mb-4">Shipping Information</h4>
+      <h4 className="mb-4 mt-3">Shipping Information</h4>
       <hr className="my-4" />
       <div className="row">
         <div className="col-md-6 mb-3">
