@@ -1,6 +1,8 @@
 .productList-container {
+  margin-top: 50px;
   .card-container {
-    border-radius: 8px;
+    height: 50%;
+    width: 300px;
     padding: 20px;
     background-color: #f8f8f8;
   }
@@ -16,18 +18,23 @@
       transition: all 0.3s ease-in-out;
     }
   }
+  .select-option {
+    color: #7a7a7a;
+    font-size: 0.8rem;
+  }
   .card-img-top {
     width: 100%;
   }
   .filter-btn {
     border: none;
     color: #fff;
-    background-color: #000;
+    background-color: #7a7a7a;
     letter-spacing: 1px;
     border-radius: 4px;
   }
   .filter-text {
     font-size: 0.8rem;
+    letter-spacing: 2px;
   }
   .div-border {
     width: 40px;
@@ -37,14 +44,12 @@
   }
   .text-description {
     font-family: "Montserrat", sans-serif;
-    font-size: 0.6rem;
+    font-size: 0.7rem;
     text-align: center;
     font-weight: 700;
+    height: 2.8rem;
   }
-  .card-container {
-    height: 50%;
-    width: 300px;
-  }
+
   .all-cards {
     width: 100%;
   }
@@ -52,8 +57,20 @@
     font-family: "Playfair Display", serif;
     color: #000;
     letter-spacing: 5px;
-    font-size: 48px;
-    text-align: center;
+    font-size: 1.6rem;
+    line-height: 1.8rem;
+    height: 100%;
+    max-height: 3.6em;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    display: box;
+    line-clamp: 2;
+  }
+
+  .usd-text {
+    font-size: 11px;
   }
 
   .main-text {
@@ -61,9 +78,10 @@
   }
 
   .card-text-btn {
-    font-size: 13px;
+    font-size: 16px;
+    font-weight: 600;
     text-transform: uppercase;
-    color: white;
+    color: rgb(255, 255, 255);
     background-color: black;
     border: none;
     padding: 12px 24px;
@@ -85,9 +103,9 @@
     background-color: rgb(0, 0, 0);
     color: rgb(255, 255, 255);
     font-family: "Montserrat", sans-serif;
-    font-size: 16px;
-    width: 90px;
-    height: 90px;
+    font-size: 14px;
+    width: 80px;
+    height: 80px;
   }
   @media (max-width: 768px) {
     .header-container {
