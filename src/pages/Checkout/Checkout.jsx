@@ -72,11 +72,11 @@ const Checkout = () => {
     cvv: "",
   });
 
-  const [isFormValid, setIsFormValid] = useState(false); 
+  const [isFormValid, setIsFormValid] = useState(false);
 
   useEffect(() => {
     validationSchema.isValid(formData).then((valid) => {
-      setIsFormValid(valid); 
+      setIsFormValid(valid);
     });
   }, [formData]);
 
@@ -383,7 +383,11 @@ const Checkout = () => {
           <Button variant="secondary" onClick={handleCancelRemove} className="custom-modal-btn">
             Cancel
           </Button>
-          <Button variant="danger" onClick={handleConfirmRemove} className="custom-modal-btn">
+          <Button
+            variant="danger"
+            onClick={handleConfirmRemove}
+            className="custom-modal-btn custom-modal-btn-danger"
+          >
             Remove
           </Button>
         </Modal.Footer>
