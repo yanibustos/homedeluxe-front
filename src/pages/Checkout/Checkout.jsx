@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import * as Yup from "yup";
 import { Modal, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
 
 import BlackButton from "../../components/commons/BlackButton/BlackButton";
 import Input from "../../components/commons/Input/Input";
 import ShippingForm from "../../components/ShippingForm/ShippingForm";
 
 import "./Checkout.css";
-import "bootstrap-icons/font/bootstrap-icons.css";
 
 const validationSchema = Yup.object({
   firstName: Yup.string().required("First name is required"),
@@ -40,14 +40,16 @@ const Checkout = () => {
         name: "Product 1",
         price: 30.0,
         quantity: 2,
-        image: "https://via.placeholder.com/50",
+        image:
+          "https://f.fcdn.app/imgs/4de0fb/www.divino.com.uy/div/1706/original/catalogo/239467002_0/1500-1500/sillon-3-cuerpos-tela-gris-luares.jpg",
       },
       {
         id: 2,
         name: "Product 2",
         price: 15.0,
         quantity: 1,
-        image: "https://via.placeholder.com/50",
+        image:
+          "https://balton.com.uy/cdn/shop/files/base-de-cama-queen-basic-off-white-dalla-costa-2352-large.jpg?v=1719857680",
       },
     ],
     subtotal: 75.0,
@@ -129,17 +131,9 @@ const Checkout = () => {
 
   const handleRedirectPayment = (method) => {
     if (method === "paypal") {
-      return (
-        <Link to="https://www.paypal.com" target="_blank" rel="noopener noreferrer">
-          Go to PayPal
-        </Link>
-      );
+      toast.success("This function is still under development...");
     } else if (method === "mercadopago") {
-      return (
-        <Link to="https://www.mercadopago.com" target="_blank" rel="noopener noreferrer">
-          Go to Mercado Pago
-        </Link>
-      );
+      toast.success("This function is still under development...");
     }
   };
 
@@ -168,6 +162,17 @@ const Checkout = () => {
 
   return (
     <div className="container">
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <h2 className="my-5 text-center">Checkout</h2>
       <div className="checkout-container row">
         <div className="col-md-7">
@@ -261,7 +266,7 @@ const Checkout = () => {
                   <div className="row mb-5">
                     <div className="col-md-6 mb-3">
                       <label htmlFor="expiry" className="form-label">
-                        Expiration Date
+                        Expiry Date
                       </label>
                       <Input
                         type="text"
@@ -331,7 +336,6 @@ const Checkout = () => {
             />
           </form>
         </div>
-
         <div className="col-md-6">
           <div className="order-summary">
             <h4 className="order-summary-title mb-4"> Order Summary</h4>
