@@ -1,0 +1,18 @@
+/* Aseguramos que los inputs dentro de la fila tengan el mismo espaciado */
+.row .col-md-6 {
+  margin-bottom: 1.5rem; /* Espacio entre las columnas */
+}
+
+.checkout-form .form-control {
+  margin-bottom: 1rem; /* Espacio consistente debajo de cada input */
+}
+
+/* Si el input es único y no está en una columna */
+.checkout-form .form-group {
+  margin-bottom: 1.5rem; /* Espacio entre los inputs fuera de las filas */
+}
+
+/* Estilo adicional para que los inputs se alineen mejor */
+.checkout-form input.form-control {
+  padding: 10px;
+}
