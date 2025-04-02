@@ -190,9 +190,9 @@ const Checkout = () => {
       <div className="container">
         <div className="fake-navbar d-flex align-items-center p-3">
           <button onClick={handleBackToHome} className="btn btn-link back-home-btn">
-            &larr; Back
+            &larr; Back home
           </button>
-          <h2 className="title text-center">Checkout</h2>
+          <h2 className="title text-center">CHECKOUT</h2>
         </div>
         <ToastContainer
           position="top-right"
@@ -269,7 +269,7 @@ const Checkout = () => {
 
                 {paymentMethod === "creditCard" && (
                   <div>
-                    <div>
+                    <div className="form-group">
                       <label htmlFor="nameOnCard" className="form-label mt-3">
                         Name on Card
                       </label>
@@ -283,7 +283,7 @@ const Checkout = () => {
                         required
                       />
                     </div>
-                    <div>
+                    <div className="form-group">
                       <label htmlFor="cardNumber" className="form-label">
                         Card Number
                       </label>
@@ -300,7 +300,7 @@ const Checkout = () => {
                       />
                     </div>
                     <div className="row mb-5">
-                      <div className="col-md-6">
+                      <div className="col-md-6 form-group">
                         <label htmlFor="expiry" className="form-label">
                           Expiry Date
                         </label>
@@ -316,7 +316,7 @@ const Checkout = () => {
                           required
                         />
                       </div>
-                      <div className="col-md-6">
+                      <div className="col-md-6 form-group">
                         <label htmlFor="cvv" className="form-label">
                           CVV
                         </label>
@@ -440,16 +440,16 @@ const Checkout = () => {
           </Modal.Header>
           <Modal.Body>Are you sure you want to remove one unit of this item?</Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleCancelRemove} className="custom-modal-btn">
-              Cancel
-            </Button>
-            <Button
-              variant="dark"
-              onClick={handleConfirmRemove}
+            <BlackButton
+              name="Cancel"
+              handleOnClick={handleCancelRemove}
+              className="custom-modal-btn gray-button"
+            />
+            <BlackButton
+              name="Remove"
+              handleOnClick={handleConfirmRemove}
               className="custom-modal-btn custom-modal"
-            >
-              Remove
-            </Button>
+            />
           </Modal.Footer>
         </Modal>
       </div>
