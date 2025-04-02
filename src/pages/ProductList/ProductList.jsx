@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import fetchApi from "../../api/fetchApi";
 import "./ProductList.css";
+import currencyFormatter from "../../helpers/formatPrice";
 
 //Uncomment when not using DB
 // const products = [
@@ -112,11 +113,13 @@ function ProductList() {
 
   return (
     <div className="productList-container overflow-hidden">
-      <div className="container header-container d-md-flex justify-content-between mt-4">
+      <div className="container header-container d-md-flex justify-content-between align-items-center mt-4">
         <div className="text-center div-text-category">
-          <h5 className="fw-bold main-text ">MATTRESSES AND SOMMIERS</h5>
+          {products.length > 0 && (
+            <h5 className="fw-bold main-text text-uppercase">{products[0].category}</h5>
+          )}
         </div>
-        <div className="text-center div-search-products">
+        <div className="text-center d-flex align-items-center justify-content-center div-search-products">
           <span className="pe-3 d-md-inline-block d-none">{products.length} items</span>
           <button
             className="filter-btn"
@@ -145,18 +148,17 @@ function ProductList() {
 
       <div className="container">
         <div className="container-fluid">
-          <div className="d-flex flex-wrap mt-4 justify-content-center text-center all-cards py-5">
+          <div className="d-flex flex-wrap my-4 justify-content-center text-center all-cards">
             {products.map((product) => (
               <div key={product.id} className="p-0 mx-4 my-4 card-container mb-4">
                 <div className="card position-relative">
-                  <div className="position-absolute rounded-circle d-flex justify-content-center align-items-center price-container">
-                    <span>
-                      <span className="usd-text">USD </span>
-
-                      {product.price}
-                    </span>
+                  <div className="position-absolute rounded-circle d-flex justify-content-center align-items-center flex-wrap gap-1 price-container">
+                    <small>{product.currency}</small>
+                    <span>{currencyFormatter(product.price)}</span>
                   </div>
-                  <img src={product.image} className="card-img-top" alt={product.name} />
+                  {product?.image?.length > 0 && (
+                    <img src={product.image[0]} className="card-img-top" alt={product.name} />
+                  )}
                 </div>
                 <div className="p-4">
                   <p className="accesories-text fw-bold">{product.category}</p>

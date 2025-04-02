@@ -2,10 +2,9 @@
   hr {
     opacity: 0.1;
   }
+
   .card-container {
-    height: 50%;
     width: 300px;
-    padding: 20px;
     background-color: #f8f8f8;
   }
   .card-container:hover {
@@ -36,7 +35,6 @@
   }
   .filter-text {
     font-size: 0.8rem;
-    letter-spacing: 2px;
   }
   .div-border {
     width: 40px;
@@ -50,6 +48,15 @@
     text-align: center;
     font-weight: 700;
     height: 2.8rem;
+
+    p {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-height: 3rem;
+    }
   }
 
   .all-cards {
@@ -69,10 +76,6 @@
     -webkit-line-clamp: 2;
     display: box;
     line-clamp: 2;
-  }
-
-  .usd-text {
-    font-size: 11px;
   }
 
   .main-text {
@@ -110,26 +113,13 @@
     height: 80px;
   }
   @media (max-width: 768px) {
-    .header-container {
-      padding-left: 70px;
-    }
     .main-text {
       border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-      padding-bottom: 20px;
-    }
-    .div-text-category {
-      margin-right: 50px;
-    }
-    .div-search-products {
-      margin: 10px 50px 0 0;
+      padding-bottom: 1rem;
+      margin-bottom: 1rem;
     }
   }
 
-  @media (max-width: 366px) {
-    .filter-btn {
-      margin-bottom: 10px;
-    }
-  }
   .ammount {
     font-size: 12px;
   }
