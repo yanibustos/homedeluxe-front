@@ -341,6 +341,7 @@ const Checkout = () => {
                       handleOnClick={() => handleRedirectPayment(paymentMethod)}
                       className="w-100"
                     >
+                      <span> Pay with PayPal</span>
                       <i className="bi bi-paypal" style={{ marginLeft: "10px" }}></i>
                     </BlackButton>
                   </div>
@@ -348,6 +349,7 @@ const Checkout = () => {
 
                 {paymentMethod === "mercadopago" && (
                   <div className="mt-4">
+                    <p>Pay with Mercado Pago</p>
                     <BlackButton
                       name="Pay with Mercado Pago"
                       loading={isProcessing}
@@ -355,6 +357,7 @@ const Checkout = () => {
                       handleOnClick={() => handleRedirectPayment(paymentMethod)}
                       className="w-100"
                     >
+                      <span> Pay with MercadoPago</span>
                       <i className="bi bi-credit-card" style={{ marginLeft: "10px" }}></i>
                     </BlackButton>
                   </div>
