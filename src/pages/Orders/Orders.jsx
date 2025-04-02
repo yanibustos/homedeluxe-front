@@ -93,10 +93,19 @@ function Orders() {
             <div className="d-flex justify-content-center justify-content-md-start gap-2 gap-sm-3">
               <BlackButton
                 type="button"
-                name={expandedOrders[order.id] ? "Hide Order" : "View Order"}
                 handleOnClick={() => handleViewOrder(order.id)}
-                className="px-3"
-              />
+                className="px-3 text-white"
+              >
+                {expandedOrders[order.id] ? (
+                  <>
+                    Hide Order <i className="bi bi-chevron-compact-up text-white ms-1"></i>
+                  </>
+                ) : (
+                  <>
+                    View Order <i className="bi bi-chevron-compact-down ms-1"></i>
+                  </>
+                )}
+              </BlackButton>
               <BlackButton
                 type="button"
                 name="View Invoice"
