@@ -6,7 +6,7 @@ function AccountLayout() {
   const isAccountRoot = location.pathname === "/account";
 
   return (
-    <div className="accountLayout-container vh-100 bg-white">
+    <div className="accountLayout-container bg-white mb-5">
       <div className="container-fluid border-bottom  mb-3">
         <div className="fw-semibold container d-flex justify-content-center justify-content-lg-start py-4 text-uppercase accountLayout-title">
           Account
