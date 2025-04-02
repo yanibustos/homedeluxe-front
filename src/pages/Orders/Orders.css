@@ -1,3 +1,49 @@
 .orders-container {
-  background-color: azure;
+  font-size: 12px;
+  .orders-container {
+    max-width: 800px;
+    margin: auto;
+  }
+
+  .order-container {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .order-item {
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+
+  .order-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+
+  .order-details {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+  }
+
+  .order-details.open {
+    max-height: 500px;
+  }
+
+  .order-item {
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+
+  .order-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 6px;
+  }
 }
