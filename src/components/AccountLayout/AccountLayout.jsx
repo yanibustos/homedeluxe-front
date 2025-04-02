@@ -21,7 +21,10 @@ function AccountLayout() {
                 const isActive = match || (isAccountRoot && path === "profile");
 
                 return (
-                  <li key={path} className="text-uppercase border-bottom mb-3 pb-3">
+                  <li
+                    key={path}
+                    className="accountLayout-li text-uppercase border-bottom mb-3 pb-3"
+                  >
                     <Link
                       to={path}
                       className={`text-decoration-none account-link ${isActive ? "active" : ""}`}
@@ -31,7 +34,7 @@ function AccountLayout() {
                   </li>
                 );
               })}
-              <li className="text-uppercase border-bottom mb-3 pb-3">
+              <li className="accountLayout-li text-uppercase border-bottom mb-3 pb-3">
                 <Link to="/logout" className="text-decoration-none account-link">
                   Logout
                 </Link>
