@@ -13,4 +13,8 @@
     outline: none;
     padding: 0 10px;
   }
+
+  .input-error-container {
+    height: fit-content;
+  }
 }
