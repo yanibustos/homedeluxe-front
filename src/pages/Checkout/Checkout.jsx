@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import { Modal, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -387,7 +389,7 @@ const Checkout = () => {
                       <i className="bi bi-trash"></i>
                     </button>
                     <span className="mt-2">Qty: {item.quantity}</span>
-                    <span>${(item.price * item.quantity).toFixed(2)}</span>
+                    <span>USD {(item.price * item.quantity).toFixed(2)}</span>
                   </div>
                 </li>
               ))}
@@ -397,16 +399,16 @@ const Checkout = () => {
             <ul className="list-group">
               <li className="list-group-item d-flex justify-content-between align-items-center">
                 Subtotal
-                <span>${orderSummary.subtotal.toFixed(2)}</span>
+                <span>USD {orderSummary.subtotal.toFixed(2)}</span>
               </li>
               <li className="list-group-item d-flex justify-content-between align-items-center">
                 Shipping
-                <span>${orderSummary.shipping.toFixed(2)}</span>
+                <span>USD {orderSummary.shipping.toFixed(2)}</span>
               </li>
               <hr />
               <li className="list-group-item d-flex justify-content-between align-items-center pb-4">
                 <strong>Total</strong>
-                <strong>${orderSummary.total.toFixed(2)}</strong>
+                <strong>USD {orderSummary.total.toFixed(2)}</strong>
               </li>
             </ul>
           </div>
