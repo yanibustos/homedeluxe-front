@@ -1,7 +1,8 @@
 import React from "react";
+import TeamCard from "../../components/TeamCard/TeamCard";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./About.css";
-import TeamCard from "../../components/TeamCard/TeamCard";
 
 const teamMembers = [
   {
@@ -51,10 +52,9 @@ const teamMembers = [
   },
 ];
 
-// InfoCard
 const InfoCard = ({ icon, title, text }) => (
-  <div className="col-md-4">
-    <div className="card shadow-sm text-center p-4 position-relative">
+  <div className="col-12 col-md-4">
+    <div className="card shadow-sm text-center p-4 position-relative mx-auto">
       <div className="icon-container">
         <span className="bi">{icon}</span>
       </div>
