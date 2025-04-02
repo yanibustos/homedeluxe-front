@@ -12,3 +12,9 @@
     background-color: #cccccc;
   }
 }
+
+.gray-button {
+  background-color: gray !important;
+  border-color: gray !important;
+  color: white !important;
+}
