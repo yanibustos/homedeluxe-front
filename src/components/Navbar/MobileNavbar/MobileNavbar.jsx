@@ -68,7 +68,7 @@ const MobileNavbar = () => {
                   type="button"
                   className="btn btn-link nav-link my-account d-flex"
                   onClick={() => {
-                    !user.accessToken ? navigate("/profile") : toggleAccount();
+                    !user.accessToken ? navigate("/account/profile") : toggleAccount();
                   }}
                 >
                   <span className="user-icon-wrapper me-2">
@@ -82,10 +82,10 @@ const MobileNavbar = () => {
                 {user.accessToken && showAccount && (
                   <div id="collapseOne" className="collapse show" aria-labelledby="headingOne">
                     <div>
-                      <Link to="/profile" className="nav-link" onClick={toggleSidebar}>
+                      <Link to="/account/profile" className="nav-link" onClick={toggleSidebar}>
                         My Profile
                       </Link>
-                      <Link to="/orders" className="nav-link" onClick={toggleSidebar}>
+                      <Link to="/account/orders" className="nav-link" onClick={toggleSidebar}>
                         My Orders
                       </Link>
                       <Link
