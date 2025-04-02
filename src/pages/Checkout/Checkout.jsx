@@ -270,44 +270,42 @@ const Checkout = () => {
                 {paymentMethod === "creditCard" && (
                   <div>
                     <div className="form-group">
-                      <label htmlFor="nameOnCard" className="form-label mt-3">
+                      <label htmlFor="nameOnCard" className="form-label">
                         Name on Card
                       </label>
-                      <Input
+                      <input
                         type="text"
                         className="form-control"
                         id="nameOnCard"
                         name="nameOnCard"
-                        value={formData.nameOnCard}
+                        value={formData.email} // VER, CAMBIAR
                         onChange={handleInputChange}
                         required
                       />
                     </div>
+
                     <div className="form-group">
-                      <label htmlFor="cardNumber" className="form-label">
+                      <label htmlFor="cardNumber" className="form-label mt-3">
                         Card Number
                       </label>
-                      <Input
+                      <input
                         type="text"
-                        inputMode="numeric"
-                        pattern="\d*"
                         className="form-control"
                         id="cardNumber"
                         name="cardNumber"
                         value={formData.cardNumber}
-                        onChange={handleNumberInput}
+                        onChange={handleInputChange}
                         required
                       />
                     </div>
-                    <div className="row mb-5">
-                      <div className="col-md-6 form-group">
+
+                    <div className="d-flex gap-5 mt-3">
+                      <div className="col-md-6">
                         <label htmlFor="expiry" className="form-label">
                           Expiry Date
                         </label>
-                        <Input
+                        <input
                           type="text"
-                          inputMode="numeric"
-                          pattern="\d*"
                           className="form-control"
                           id="expiry"
                           name="expiry"
@@ -316,14 +314,12 @@ const Checkout = () => {
                           required
                         />
                       </div>
-                      <div className="col-md-6 form-group">
+                      <div className="col-md-6">
                         <label htmlFor="cvv" className="form-label">
                           CVV
                         </label>
-                        <Input
+                        <input
                           type="text"
-                          inputMode="numeric"
-                          pattern="\d*"
                           className="form-control"
                           id="cvv"
                           name="cvv"
