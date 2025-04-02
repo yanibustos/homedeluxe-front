@@ -1,20 +1,4 @@
 .about-container {
-  html,
-  body {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    overflow-x: hidden;
-  }
-
-  .about-container {
-    margin-top: 10px;
-  }
-
-  .container-fluid {
-    padding: 0;
-  }
-
   .about-text {
     width: 100%;
     min-height: 700px;
@@ -23,11 +7,10 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     text-align: center;
     color: white;
-    padding: 150px 1.25rem 0;
   }
 
   .about-text::before {
@@ -40,9 +23,7 @@
 
   .about-text h1,
   .about-text p {
-    position: relative;
     z-index: 1;
-    margin-top: 2.7rem;
   }
 
   .about-text h1 {
@@ -54,15 +35,12 @@
   .about-text p {
     font-size: 1.1rem;
     max-width: 85%;
-    margin: 0 auto;
   }
 
   .card {
     border: none;
     border-radius: 10px;
-    padding: 25px;
     min-height: 250px;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
     background-color: white;
   }
 
@@ -126,7 +104,6 @@
 
   .info-cards {
     margin-top: -60px;
-    padding: 0 17px;
   }
 
   .centered-text {
@@ -153,7 +130,6 @@
 
     .info-cards {
       margin-top: 20px;
-      padding: 0 15px;
     }
   }
 }
