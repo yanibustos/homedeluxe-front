@@ -7,7 +7,7 @@ import "./Layout.css";
 
 function Layout() {
   return (
-    <div className="layout-container vh-100">
+    <div className="layout-container">
       <NavMenu />
       <Outlet />
       <Footer />
