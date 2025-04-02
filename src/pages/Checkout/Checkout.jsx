@@ -155,11 +155,9 @@ const Checkout = () => {
   const handleNumberInput = (e) => {
     const { name, value } = e.target;
     const numericValue = value.replace(/\D/g, "");
-
     if (value && !/^\d+$/.test(value)) {
       toast.error("Only numbers are allowed in this field.");
     }
-
     setFormData((prevState) => ({
       ...prevState,
       [name]: numericValue,
@@ -188,271 +186,273 @@ const Checkout = () => {
   };
 
   return (
-    <div className="container">
-      <div className="fake-navbar d-flex align-items-center p-3">
-        <button onClick={handleBackToHome} className="btn btn-link back-home-btn text-white">
-          &larr; Back
-        </button>
-        <h2 className="title text-center">Checkout</h2>
-      </div>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-      />
-      <div className="checkout-container row">
-        <div className="col-md-7">
-          <form className="checkout-form" onSubmit={handleSubmit}>
-            <ShippingForm
-              formData={formData}
-              handleChange={handleInputChange}
-              handleNumberInput={handleNumberInput}
-            />
+    <div className="checkout-container">
+      <div className="container">
+        <div className="fake-navbar d-flex align-items-center p-3">
+          <button onClick={handleBackToHome} className="btn btn-link back-home-btn">
+            &larr; Back
+          </button>
+          <h2 className="title text-center">Checkout</h2>
+        </div>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+        <div className="row">
+          <div className="col-md-7">
+            <form className="checkout-form" onSubmit={handleSubmit}>
+              <ShippingForm
+                formData={formData}
+                handleChange={handleInputChange}
+                handleNumberInput={handleNumberInput}
+              />
 
-            <div className="payment-method">
-              <h4 className="mb-4 pt-5">Payment Method</h4>
+              <div className="payment-method">
+                <h4 className="mb-4 pt-5">Payment Method</h4>
 
-              <hr className="my-4" />
+                <hr className="my-4" />
 
-              <div className="mb-4">
-                <div className="form-check">
-                  <input
-                    className="form-check-input"
-                    type="radio"
-                    id="creditCard"
-                    name="paymentMethod"
-                    value="creditCard"
-                    checked={paymentMethod === "creditCard"}
-                    onChange={() => handlePaymentMethodChange("creditCard")}
-                    required
-                  />
-                  <label className="form-check-label" htmlFor="creditCard">
-                    Credit Card
-                  </label>
+                <div className="mb-4">
+                  <div className="form-check">
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      id="creditCard"
+                      name="paymentMethod"
+                      value="creditCard"
+                      checked={paymentMethod === "creditCard"}
+                      onChange={() => handlePaymentMethodChange("creditCard")}
+                      required
+                    />
+                    <label className="form-check-label" htmlFor="creditCard">
+                      Credit Card
+                    </label>
+                  </div>
+                  <div className="form-check">
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      id="paypal"
+                      name="paymentMethod"
+                      value="paypal"
+                      checked={paymentMethod === "paypal"}
+                      onChange={() => handlePaymentMethodChange("paypal")}
+                      required
+                    />
+                    <label className="form-check-label" htmlFor="paypal">
+                      PayPal
+                    </label>
+                  </div>
+                  <div className="form-check">
+                    <input
+                      className="form-check-input"
+                      type="radio"
+                      id="mercadopago"
+                      name="paymentMethod"
+                      value="mercadopago"
+                      checked={paymentMethod === "mercadopago"}
+                      onChange={() => handlePaymentMethodChange("mercadopago")}
+                      required
+                    />
+                    <label className="form-check-label" htmlFor="mercadopago">
+                      Mercado Pago
+                    </label>
+                  </div>
                 </div>
-                <div className="form-check">
-                  <input
-                    className="form-check-input"
-                    type="radio"
-                    id="paypal"
-                    name="paymentMethod"
-                    value="paypal"
-                    checked={paymentMethod === "paypal"}
-                    onChange={() => handlePaymentMethodChange("paypal")}
-                    required
-                  />
-                  <label className="form-check-label" htmlFor="paypal">
-                    PayPal
-                  </label>
-                </div>
-                <div className="form-check">
-                  <input
-                    className="form-check-input"
-                    type="radio"
-                    id="mercadopago"
-                    name="paymentMethod"
-                    value="mercadopago"
-                    checked={paymentMethod === "mercadopago"}
-                    onChange={() => handlePaymentMethodChange("mercadopago")}
-                    required
-                  />
-                  <label className="form-check-label" htmlFor="mercadopago">
-                    Mercado Pago
-                  </label>
-                </div>
+
+                {paymentMethod === "creditCard" && (
+                  <div>
+                    <div>
+                      <label htmlFor="nameOnCard" className="form-label mt-3">
+                        Name on Card
+                      </label>
+                      <Input
+                        type="text"
+                        className="form-control"
+                        id="nameOnCard"
+                        name="nameOnCard"
+                        value={formData.nameOnCard}
+                        onChange={handleInputChange}
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label htmlFor="cardNumber" className="form-label">
+                        Card Number
+                      </label>
+                      <Input
+                        type="text"
+                        inputMode="numeric"
+                        pattern="\d*"
+                        className="form-control"
+                        id="cardNumber"
+                        name="cardNumber"
+                        value={formData.cardNumber}
+                        onChange={handleNumberInput}
+                        required
+                      />
+                    </div>
+                    <div className="row mb-5">
+                      <div className="col-md-6">
+                        <label htmlFor="expiry" className="form-label">
+                          Expiry Date
+                        </label>
+                        <Input
+                          type="text"
+                          inputMode="numeric"
+                          pattern="\d*"
+                          className="form-control"
+                          id="expiry"
+                          name="expiry"
+                          value={formData.expiry}
+                          onChange={handleNumberInput}
+                          required
+                        />
+                      </div>
+                      <div className="col-md-6">
+                        <label htmlFor="cvv" className="form-label">
+                          CVV
+                        </label>
+                        <Input
+                          type="text"
+                          inputMode="numeric"
+                          pattern="\d*"
+                          className="form-control"
+                          id="cvv"
+                          name="cvv"
+                          value={formData.cvv}
+                          onChange={handleNumberInput}
+                          required
+                        />
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {paymentMethod === "paypal" && (
+                  <div className="mt-4">
+                    <BlackButton
+                      name="Pay with PayPal"
+                      loading={isProcessing}
+                      disabled={isProcessing}
+                      handleOnClick={() => handleRedirectPayment(paymentMethod)}
+                      className="w-100"
+                    >
+                      <i className="bi bi-paypal" style={{ marginLeft: "10px" }}></i>
+                    </BlackButton>
+                  </div>
+                )}
+
+                {paymentMethod === "mercadopago" && (
+                  <div className="mt-4">
+                    <BlackButton
+                      name="Pay with Mercado Pago"
+                      loading={isProcessing}
+                      disabled={isProcessing}
+                      handleOnClick={() => handleRedirectPayment(paymentMethod)}
+                      className="w-100"
+                    >
+                      <i className="bi bi-credit-card" style={{ marginLeft: "10px" }}></i>
+                    </BlackButton>
+                  </div>
+                )}
               </div>
 
-              {paymentMethod === "creditCard" && (
-                <div>
-                  <div className="mb-3">
-                    <label htmlFor="nameOnCard" className="form-label mt-3">
-                      Name on Card
-                    </label>
-                    <Input
-                      type="text"
-                      className="form-control"
-                      id="nameOnCard"
-                      name="nameOnCard"
-                      value={formData.nameOnCard}
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </div>
-                  <div className="mb-3">
-                    <label htmlFor="cardNumber" className="form-label">
-                      Card Number
-                    </label>
-                    <Input
-                      type="text"
-                      inputMode="numeric"
-                      pattern="\d*"
-                      className="form-control"
-                      id="cardNumber"
-                      name="cardNumber"
-                      value={formData.cardNumber}
-                      onChange={handleNumberInput}
-                      required
-                    />
-                  </div>
-                  <div className="row mb-5">
-                    <div className="col-md-6 mb-3">
-                      <label htmlFor="expiry" className="form-label">
-                        Expiry Date
-                      </label>
-                      <Input
-                        type="text"
-                        inputMode="numeric"
-                        pattern="\d*"
-                        className="form-control"
-                        id="expiry"
-                        name="expiry"
-                        value={formData.expiry}
-                        onChange={handleNumberInput}
-                        required
-                      />
-                    </div>
-                    <div className="col-md-6 mb-3">
-                      <label htmlFor="cvv" className="form-label">
-                        CVV
-                      </label>
-                      <Input
-                        type="text"
-                        inputMode="numeric"
-                        pattern="\d*"
-                        className="form-control"
-                        id="cvv"
-                        name="cvv"
-                        value={formData.cvv}
-                        onChange={handleNumberInput}
-                        required
-                      />
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {paymentMethod === "paypal" && (
-                <div className="mt-4">
-                  <BlackButton
-                    name="Pay with PayPal"
-                    loading={isProcessing}
-                    disabled={isProcessing}
-                    handleOnClick={() => handleRedirectPayment(paymentMethod)}
-                    className="w-100"
+              <BlackButton
+                name={isProcessing ? "Processing..." : "Confirm Order"}
+                className="w-100 mt-4"
+                loading={isProcessing}
+                disabled={isProcessing || !isFormValid}
+                handleOnClick={handleSubmit}
+              />
+            </form>
+          </div>
+          <div className="col-md-6">
+            <div className="order-summary">
+              <h4 className="order-summary-title mb-4"> Order Summary</h4>
+              <ul className="list-group">
+                {orderSummary.items.map((item) => (
+                  <li
+                    key={item.id}
+                    className="list-group-item d-flex justify-content-between align-items-center"
                   >
-                    <i className="bi bi-paypal" style={{ marginLeft: "10px" }}></i>
-                  </BlackButton>
-                </div>
-              )}
-
-              {paymentMethod === "mercadopago" && (
-                <div className="mt-4">
-                  <BlackButton
-                    name="Pay with Mercado Pago"
-                    loading={isProcessing}
-                    disabled={isProcessing}
-                    handleOnClick={() => handleRedirectPayment(paymentMethod)}
-                    className="w-100"
-                  >
-                    <i className="bi bi-credit-card" style={{ marginLeft: "10px" }}></i>
-                  </BlackButton>
-                </div>
-              )}
-            </div>
-
-            <BlackButton
-              name={isProcessing ? "Processing..." : "Confirm Order"}
-              className="w-100 mt-4 mb-3"
-              loading={isProcessing}
-              disabled={isProcessing || !isFormValid}
-              handleOnClick={handleSubmit}
-            />
-          </form>
-        </div>
-        <div className="col-md-6">
-          <div className="order-summary">
-            <h4 className="order-summary-title mb-4"> Order Summary</h4>
-            <ul className="list-group mb-3">
-              {orderSummary.items.map((item) => (
-                <li
-                  key={item.id}
-                  className="list-group-item d-flex justify-content-between align-items-center"
-                >
-                  <div className="d-flex align-items-center">
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="img-thumbnail mr-3 product-image"
-                    />
-                    <span className="product-name">{item.name}</span>
-                  </div>
-
-                  <div className="d-flex flex-column align-items-end">
-                    <div className="d-flex justify-content-between">
-                      <div className="text-center">
-                        <span className="d-block">Quantity</span>
-                        <span>{item.quantity}</span>
-                      </div>
-                      <div className="text-center">
-                        <span className="d-block">Price</span>
-                        <span>USD {(item.price * item.quantity).toFixed(2)}</span>
-                      </div>
+                    <div className="d-flex align-items-center">
+                      <img
+                        src={item.image}
+                        alt={item.name}
+                        className="img-thumbnail mr-3 product-image"
+                      />
+                      <span className="product-name">{item.name}</span>
                     </div>
-                    <button
-                      className="btn btn-sm btn-danger mt-2"
-                      onClick={() => handleRemoveItemClick(item.id)}
-                    >
-                      <i className="bi bi-trash"></i>
-                    </button>
-                  </div>
-                </li>
-              ))}
-            </ul>
 
-            <hr />
-            <ul className="list-group">
-              <li className="list-group-item d-flex justify-content-between align-items-center">
-                Subtotal
-                <span>USD {orderSummary.subtotal.toFixed(2)}</span>
-              </li>
-              <li className="list-group-item d-flex justify-content-between align-items-center">
-                Shipping
-                <span>USD {orderSummary.shipping.toFixed(2)}</span>
-              </li>
+                    <div className="d-flex flex-column align-items-end">
+                      <div className="d-flex justify-content-between">
+                        <div className="text-center">
+                          <span className="d-block">Quantity</span>
+                          <span>{item.quantity}</span>
+                        </div>
+                        <div className="text-center">
+                          <span className="d-block">Price</span>
+                          <span>USD {(item.price * item.quantity).toFixed(2)}</span>
+                        </div>
+                      </div>
+                      <button
+                        className="btn btn-sm mt-2"
+                        onClick={() => handleRemoveItemClick(item.id)}
+                      >
+                        <i className="bi bi-trash"></i>
+                      </button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+
               <hr />
-              <li className="list-group-item d-flex justify-content-between align-items-center pb-4">
-                <strong>Total</strong>
-                <strong>USD {orderSummary.total.toFixed(2)}</strong>
-              </li>
-            </ul>
+              <ul className="list-group">
+                <li className="list-group-item d-flex justify-content-between align-items-center">
+                  Subtotal
+                  <span>USD {orderSummary.subtotal.toFixed(2)}</span>
+                </li>
+                <li className="list-group-item d-flex justify-content-between align-items-center">
+                  Shipping
+                  <span>USD {orderSummary.shipping.toFixed(2)}</span>
+                </li>
+                <hr />
+                <li className="list-group-item d-flex justify-content-between align-items-center pb-4">
+                  <strong>Total</strong>
+                  <strong>USD {orderSummary.total.toFixed(2)}</strong>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
-      </div>
 
-      <Modal show={showModal} onHide={handleCancelRemove}>
-        <Modal.Header closeButton>
-          <Modal.Title>Confirm Removal</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Are you sure you want to remove one unit of this item?</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleCancelRemove} className="custom-modal-btn">
-            Cancel
-          </Button>
-          <Button
-            variant="dark"
-            onClick={handleConfirmRemove}
-            className="custom-modal-btn custom-modal-btn-danger"
-          >
-            Remove
-          </Button>
-        </Modal.Footer>
-      </Modal>
+        <Modal show={showModal} onHide={handleCancelRemove}>
+          <Modal.Header closeButton>
+            <Modal.Title>Confirm Removal</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>Are you sure you want to remove one unit of this item?</Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleCancelRemove} className="custom-modal-btn">
+              Cancel
+            </Button>
+            <Button
+              variant="dark"
+              onClick={handleConfirmRemove}
+              className="custom-modal-btn custom-modal"
+            >
+              Remove
+            </Button>
+          </Modal.Footer>
+        </Modal>
+      </div>
     </div>
   );
 };
