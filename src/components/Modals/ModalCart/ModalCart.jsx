@@ -34,8 +34,8 @@ function ModalCart({ show, setShow }) {
                   <div className="col-7 text-uppercase ps-0">
                     Articles ({totalQty(shoppingCart)})
                   </div>
-                  <div className="col-2 text-uppercase qty text-center">Qty. </div>
-                  <div className="col-2 text-uppercase price text-end">Price </div>
+                  <div className="col-2 text-uppercase qty p-0">Quantity</div>
+                  <div className="col-2 text-uppercase price text-end">Price</div>
                 </div>
               </div>
               <div className="container content position-relative">
