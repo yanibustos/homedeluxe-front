@@ -53,15 +53,12 @@ function Login() {
   const onSubmit = async ({ email, password, rememberMe }) => {
     try {
       setLoading(true);
-      //TODO: Uncomment when Api is available
-      // const user = await fetchApi({
-      //   method: "post",
-      //   url: "/tokens",
-      //   data: { email, password },
-      // });
-      // dispatch(login(user));
-
-      dispatch(login({ accessToken: "12345678" })); //for testing purposes
+      const user = await fetchApi({
+        method: "post",
+        url: "/tokens",
+        data: { email, password },
+      });
+      dispatch(login(user));
 
       if (rememberMe) {
         console.log("Save in localStorage");

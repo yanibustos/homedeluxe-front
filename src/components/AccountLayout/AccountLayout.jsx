@@ -6,7 +6,7 @@ function AccountLayout() {
   const isAccountRoot = location.pathname === "/account";
 
   return (
-    <div className="accountLayout-container vh-100 bg-white">
+    <div className="accountLayout-container bg-white mb-5">
       <div className="container-fluid border-bottom  mb-3">
         <div className="fw-semibold container d-flex justify-content-center justify-content-lg-start py-4 text-uppercase accountLayout-title">
           Account
@@ -21,7 +21,10 @@ function AccountLayout() {
                 const isActive = match || (isAccountRoot && path === "profile");
 
                 return (
-                  <li key={path} className="text-uppercase border-bottom mb-3 pb-3">
+                  <li
+                    key={path}
+                    className="accountLayout-li text-uppercase border-bottom mb-3 pb-3"
+                  >
                     <Link
                       to={path}
                       className={`text-decoration-none account-link ${isActive ? "active" : ""}`}
@@ -31,7 +34,7 @@ function AccountLayout() {
                   </li>
                 );
               })}
-              <li className="text-uppercase border-bottom mb-3 pb-3">
+              <li className="accountLayout-li text-uppercase border-bottom mb-3 pb-3">
                 <Link to="/logout" className="text-decoration-none account-link">
                   Logout
                 </Link>

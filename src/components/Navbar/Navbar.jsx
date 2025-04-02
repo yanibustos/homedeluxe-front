@@ -41,14 +41,18 @@ function Navbar() {
           navRef.current.classList.toggle("nav-dark", window.scrollY > 59);
         } else {
           navRef.current.classList.add("nav-dark");
+          navRef.current.classList.add("sticky-top");
           navRef.current.classList.remove("nav-transparent");
+          navRef.current.classList.remove("fixed-top");
         }
       }
     };
 
     if (isHomePath) {
       navRef.current.classList.remove("nav-dark");
+      navRef.current.classList.remove("sticky-top");
       navRef.current.classList.add("nav-transparent");
+      navRef.current.classList.add("fixed-top");
     }
 
     window.addEventListener("scroll", handleScroll);
@@ -58,7 +62,7 @@ function Navbar() {
   }, [isHomePath]);
 
   return (
-    <nav ref={navRef} className="navbar navbar-expand-lg fixed-top nav-dark">
+    <nav ref={navRef} className="navbar navbar-expand-lg sticky-top w-100 nav-dark">
       {!isMobile ? (
         <div className="container d-flex align-items-center">
           <Link className="navbar-brand p-0" to="/">
@@ -111,8 +115,13 @@ function Navbar() {
                     </Link>
                   </li>
                   <li>
-                    <Link className="dropdown-item" to="/orders">
+                    <Link className="dropdown-item" to="account/orders">
                       Orders
+                    </Link>
+                  </li>
+                  <li>
+                    <Link className="dropdown-item" to="account/wishlist">
+                      Wishlist
                     </Link>
                   </li>
                   <li>
