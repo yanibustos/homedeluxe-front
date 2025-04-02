@@ -36,7 +36,7 @@ const MobileNavbar = () => {
   };
 
   return (
-    <div className="mobile-navbar container-fluid">
+    <div className="mobile-navbar container px-3">
       <button
         className="navbar-toggler"
         type="button"
