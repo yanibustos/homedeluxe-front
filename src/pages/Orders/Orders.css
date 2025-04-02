@@ -1,8 +1,10 @@
 .orders-container {
-  font-size: 12px;
-  .orders-container {
-    max-width: 800px;
-    margin: auto;
+  .orders-title {
+    line-height: 25px;
+  }
+
+  .order-wrapper {
+    font-size: 12px;
   }
 
   .order-container {
@@ -25,13 +27,12 @@
   }
 
   .order-details {
-    max-height: 0;
+    height: 0;
     overflow: hidden;
-    transition: max-height 0.3s ease-in-out;
   }
 
   .order-details.open {
-    max-height: 500px;
+    height: auto;
   }
 
   .order-item {

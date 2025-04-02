@@ -73,7 +73,6 @@ function Orders() {
   return (
     <div className="orders-container">
       <div className="orders-title fw-semibold mb-3">Orders</div>
-
       {orders.map((order) => (
         <div key={order.id} className="order-wrapper mb-4">
           <div className="order-container flex-column flex-md-row d-flex justify-content-between p-4 shadow-sm border rounded">
@@ -87,17 +86,23 @@ function Orders() {
                 <span>{order.created_at}</span>
               </div>
               <div className="d-flex flex-md-column">
-                <span className="fw-semibold">Total Amount</span>
+                <span className="fw-semibold me-2">Total Amount</span>
                 <span className="fw-semibold">{order.amount}</span>
               </div>
             </div>
-            <div className="d-flex gap-3">
+            <div className="d-flex justify-content-center justify-content-md-start gap-2 gap-sm-3">
               <BlackButton
                 type="button"
                 name={expandedOrders[order.id] ? "Hide Order" : "View Order"}
                 handleOnClick={() => handleViewOrder(order.id)}
+                className="px-3"
               />
-              <BlackButton type="button" name="View Invoice" handleOnClick={handleViewInvoice} />
+              <BlackButton
+                type="button"
+                name="View Invoice"
+                handleOnClick={handleViewInvoice}
+                className="px-3"
+              />
             </div>
           </div>
 
@@ -106,7 +111,7 @@ function Orders() {
               <ul className="list-unstyled my-3 px-4">
                 {order.items.map((item) => (
                   <li key={item.id} className="order-item p-3 border rounded shadow-sm">
-                    <div className="row align-items-center">
+                    <div className="row align-items-center p-2">
                       <div className="col-md-2 col-3">
                         <img className="order-image img-fluid" src={item.image} alt={item.name} />
                       </div>
