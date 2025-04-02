@@ -36,7 +36,7 @@ const MobileNavbar = () => {
   };
 
   return (
-    <div className="mobile-navbar container-fluid">
+    <div className="mobile-navbar container px-3">
       <button
         className="navbar-toggler"
         type="button"
@@ -82,10 +82,10 @@ const MobileNavbar = () => {
                 {user.accessToken && showAccount && (
                   <div id="collapseOne" className="collapse show" aria-labelledby="headingOne">
                     <div>
-                      <Link to="/profile" className="nav-link" onClick={toggleSidebar}>
+                      <Link to="/account/profile" className="nav-link" onClick={toggleSidebar}>
                         My Profile
                       </Link>
-                      <Link to="/orders" className="nav-link" onClick={toggleSidebar}>
+                      <Link to="/account/orders" className="nav-link" onClick={toggleSidebar}>
                         My Orders
                       </Link>
                       <Link

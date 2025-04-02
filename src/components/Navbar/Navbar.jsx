@@ -106,7 +106,7 @@ function Navbar() {
               {user.accessToken && (
                 <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <li>
-                    <Link className="dropdown-item" to="/profile">
+                    <Link className="dropdown-item" to="/account/profile">
                       Profile
                     </Link>
                   </li>
