@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
 import Input from "../../components/commons/Input/Input";
 
 import { useForm } from "react-hook-form";
@@ -83,7 +82,7 @@ function Profile() {
 
   const handleCancel = () => {
     reset(user);
-    setPreview(user.avatar || "/avatar.png");
+    setPreview(user.avatar || "/img/avatar.png");
     setIsEditing(false);
   };
 
@@ -157,9 +156,9 @@ function Profile() {
             </label>
             <div className="flex-grow-1 d-flex align-items-center gap-3">
               <img
-                src={preview || "/avatar.png"}
+                src={preview || "/img/avatar.png"}
                 alt="Profile"
-                className="rounded-circle border border-2 profile-avatar"
+                className="rounded-circle border border-2 profile-avatar bg-dark"
               />
               {isEditing && (
                 <>
@@ -196,9 +195,9 @@ function Profile() {
               name="firstname"
               id="firstname"
               label="Firstname"
-              classNameContainer="col-12 d-flex align-items-center gap-3"
-              classNameInput={`flex-grow-1 mb-3 `}
-              classNameLabel="col-1 mb-3 fw-semibold profile-input-label"
+              classNameContainer="col-12 d-flex gap-3 mb-3"
+              classNameInput={`flex-grow-1 `}
+              classNameLabel="col-1 fw-semibold profile-input-label"
               register={{ ...register("firstname") }}
               errors={errors}
               disabled={!isEditing}
@@ -210,9 +209,9 @@ function Profile() {
               name="lastname"
               id="lastname"
               label="Lastname"
-              classNameContainer="col-12 d-flex align-items-center gap-3"
-              classNameInput={`flex-grow-1 mb-3`}
-              classNameLabel="col-1 mb-3 fw-semibold profile-input-label"
+              classNameContainer="col-12 d-flex gap-3 mb-3"
+              classNameInput={`flex-grow-1 `}
+              classNameLabel="col-1 fw-semibold profile-input-label"
               register={{ ...register("lastname") }}
               errors={errors}
               disabled={!isEditing}
@@ -224,9 +223,9 @@ function Profile() {
               name="ci"
               id="ci"
               label="CI"
-              classNameContainer="col-12 d-flex align-items-center gap-3"
-              classNameInput={`flex-grow-1 mb-3`}
-              classNameLabel="col-1 mb-3 fw-semibold profile-input-label"
+              classNameContainer="col-12 d-flex gap-3 mb-3"
+              classNameInput={`flex-grow-1 `}
+              classNameLabel="col-1 fw-semibold profile-input-label"
               register={{ ...register("ci") }}
               errors={errors}
               disabled={!isEditing}
@@ -239,9 +238,9 @@ function Profile() {
               name="email"
               id="email"
               label="Email"
-              classNameContainer="col-12 d-flex align-items-center gap-3"
-              classNameInput={`flex-grow-1 mb-3`}
-              classNameLabel="col-1 mb-3 fw-semibold profile-input-label"
+              classNameContainer="col-12 d-flex gap-3 mb-3"
+              classNameInput={`flex-grow-1 `}
+              classNameLabel="col-1 fw-semibold profile-input-label"
               register={{ ...register("email") }}
               errors={errors}
               disabled={!isEditing}
@@ -254,9 +253,9 @@ function Profile() {
               name="phone"
               id="phone"
               label="Phone"
-              classNameContainer="col-12 d-flex align-items-center gap-3"
-              classNameInput={`flex-grow-1 mb-3`}
-              classNameLabel="col-1 mb-3 fw-semibold profile-input-label"
+              classNameContainer="col-12 d-flex gap-3 mb-3"
+              classNameInput={`flex-grow-1 `}
+              classNameLabel="col-1 fw-semibold profile-input-label"
               register={{ ...register("phone") }}
               errors={errors}
               disabled={!isEditing}
@@ -268,9 +267,9 @@ function Profile() {
               name="address"
               id="address"
               label="Address"
-              classNameContainer="col-12 d-flex align-items-center gap-3"
-              classNameInput={`flex-grow-1 mb-3`}
-              classNameLabel="col-1 mb-3 fw-semibold profile-input-label"
+              classNameContainer="col-12 d-flex gap-3 mb-3"
+              classNameInput={`flex-grow-1 `}
+              classNameLabel="col-1 fw-semibold profile-input-label"
               register={{ ...register("address") }}
               errors={errors}
               disabled={!isEditing}
@@ -306,9 +305,9 @@ function Profile() {
                 name="currentPassword"
                 id="currentPassword"
                 label="Current Password"
-                classNameContainer="col-12 d-flex align-items-center gap-3"
-                classNameInput={`flex-grow-1 mb-3`}
-                classNameLabel="col-1 mb-3 fw-semibold profile-input-label"
+                classNameContainer="col-12 d-flex gap-3 mb-3"
+                classNameInput={`flex-grow-1 `}
+                classNameLabel="col-1 fw-semibold profile-input-label pt-0"
                 register={{ ...register("currentPassword") }}
                 errors={errors}
                 disabled={!isEditing}
@@ -318,9 +317,9 @@ function Profile() {
                 name="newPassword"
                 id="newPassword"
                 label="New Password"
-                classNameContainer="col-12 d-flex align-items-center gap-3"
-                classNameInput={`flex-grow-1 mb-3`}
-                classNameLabel="col-1 mb-3 fw-semibold profile-input-label"
+                classNameContainer="col-12 d-flex gap-3 mb-3"
+                classNameInput={`flex-grow-1 `}
+                classNameLabel="col-1 fw-semibold profile-input-label pt-0"
                 register={{ ...register("newPassword") }}
                 errors={errors}
                 disabled={!isEditing}
@@ -330,9 +329,9 @@ function Profile() {
                 name="repeatPassword"
                 id="repeatPassword"
                 label="Repeat New Password"
-                classNameContainer="col-12 d-flex align-items-center gap-3"
-                classNameInput={`flex-grow-1 mb-3`}
-                classNameLabel="col-1 mb-3 fw-semibold profile-input-label"
+                classNameContainer="col-12 d-flex gap-3 mb-3"
+                classNameInput={`flex-grow-1 `}
+                classNameLabel="col-1 fw-semibold profile-input-label pt-0"
                 register={{ ...register("repeatPassword") }}
                 errors={errors}
                 disabled={!isEditing}
