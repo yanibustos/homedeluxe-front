@@ -1,6 +1,6 @@
 import React from "react";
 
-const ShippingForm = ({ formData, handleChange }) => {
+const ShippingForm = ({ formData, handleChange, handleNumberInput }) => {
   return (
     <div>
       <h4 className="mb-4 mt-3">Shipping Information</h4>
@@ -92,7 +92,7 @@ const ShippingForm = ({ formData, handleChange }) => {
             id="phone"
             name="phone"
             value={formData.phone}
-            onChange={handleChange}
+            onChange={handleNumberInput} 
             required
           />
         </div>
@@ -106,7 +106,7 @@ const ShippingForm = ({ formData, handleChange }) => {
             id="zip"
             name="zip"
             value={formData.zip}
-            onChange={handleChange}
+            onChange={handleNumberInput}
             required
           />
         </div>
