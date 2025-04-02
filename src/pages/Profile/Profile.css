@@ -1,3 +1,15 @@
 .profile-container {
-  background-color: azure;
+  .profile-edit-button {
+    line-height: 25px;
+  }
+
+  .profile-title {
+    line-height: 25px;
+  }
+
+  @media (max-width: 768px) {
+    .profile-input-label {
+      min-width: 60px;
+    }
+  }
 }

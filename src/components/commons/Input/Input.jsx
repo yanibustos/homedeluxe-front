@@ -1,9 +1,20 @@
 import "./Input.css";
 
-function Input({ type, id, name, label, register, errors }) {
+function Input({
+  type,
+  id,
+  name,
+  label,
+  register,
+  errors,
+  classNameContainer = "",
+  classNameLabel = "",
+  classNameInput = "",
+  disabled = false,
+}) {
   return (
-    <div className="input-container">
-      <label htmlFor={id} className="form-label fw-bold input-text">
+    <div className={`input-container ${classNameContainer}`}>
+      <label htmlFor={id} className={`form-label input-text ${classNameLabel}`}>
         {label}
       </label>
       <input
@@ -11,7 +22,8 @@ function Input({ type, id, name, label, register, errors }) {
         name={name}
         id={id}
         {...register}
-        className={`${errors?.[name] ? "is-invalid" : ""}`}
+        className={`${errors?.[name] ? "is-invalid" : ""} ${classNameInput}`}
+        disabled={disabled}
       />
       {errors?.[name] && <span className="text-danger input-text">{errors[name].message}</span>}
     </div>
