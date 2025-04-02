@@ -102,7 +102,7 @@ const ProductDetails = () => {
                   }}
                 >
                   <span className="text-center">
-                    <i class="bi bi-suit-heart"></i>
+                    <i className="bi bi-suit-heart"></i>
                   </span>
                 </button>
                 <button className="buy-button text-uppercase fw-bold">Add to cart</button>

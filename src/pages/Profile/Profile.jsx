@@ -1,26 +1,16 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
 import Input from "../../components/commons/Input/Input";
 
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
-import "./Profile.css";
-import { useState } from "react";
 import InputCheckbox from "../../components/commons/InputCheckbox/InputCheckbox";
 import BlackButton from "../../components/commons/BlackButton/BlackButton";
 import fetchApi from "../../api/fetchApi";
+import { useSelector } from "react-redux";
 
-const user = {
-  firstname: "Yanina",
-  lastname: "Bustos",
-  ci: "Not available",
-  email: "yanibustos4596@gmail.com",
-  password: "********",
-  phone: "Not available",
-  address: "Not available",
-  changePassword: false,
-};
+import "./Profile.css";
 
 const schema = yup
   .object({
@@ -31,6 +21,13 @@ const schema = yup
     phone: yup.string(),
     address: yup.string(),
     changePassword: yup.boolean(),
+
+    //Validates password if the checkbox is checked
+    currentPassword: yup.string().when("changePassword", {
+      is: true,
+      then: (schema) => schema.required("Current password is required"),
+      otherwise: (schema) => schema.notRequired(),
+    }),
     newPassword: yup.string().when("changePassword", {
       is: true,
       then: (schema) =>
@@ -38,11 +35,34 @@ const schema = yup
           .required("New password is required")
           .min(8, "Password must be at least 8 characters")
           .max(50, "Password must not exceed 50 characters"),
+      otherwise: (schema) => schema.notRequired(),
+    }),
+    repeatPassword: yup.string().when("changePassword", {
+      is: true,
+      then: (schema) =>
+        schema
+          .required("Please confirm your new password")
+          .oneOf([yup.ref("newPassword")], "Passwords must match"),
+      otherwise: (schema) => schema.notRequired(),
+    }),
+    avatar: yup.mixed().test("fileType", "Only images are allowed", (value) => {
+      // If value is a string (URL), skip the validation
+      if (typeof value === "string" && value.startsWith("http")) {
+        return true;
+      }
+
+      // If no file selected, skip validation
+      if (!value || value.length === 0) return true;
+
+      // Validate file type if a file is selected
+      return ["image/jpeg", "image/png"].includes(value[0].type);
     }),
   })
   .required();
 
 function Profile() {
+  const user = useSelector((state) => state.user);
+  const [preview, setPreview] = useState(user.avatar || null);
   const [isEditing, setIsEditing] = useState(false);
 
   const {
@@ -50,6 +70,7 @@ function Profile() {
     handleSubmit,
     watch,
     reset,
+    setValue,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
@@ -61,21 +82,47 @@ function Profile() {
 
   const handleCancel = () => {
     reset(user);
+    setPreview(user.avatar || "/img/avatar.png");
     setIsEditing(false);
+  };
+
+  const handleFileChange = (event) => {
+    const file = event.target.files[0];
+    if (file) {
+      setPreview(URL.createObjectURL(file));
+      setValue("avatar", event.target.files);
+    }
   };
 
   const handleProfileUpdate = async (data) => {
     try {
       if (!data.changePassword) {
+        delete data.currentPassword;
         delete data.newPassword;
+        delete data.repeatPassword;
       }
+
+      const formData = new FormData();
+      Object.keys(data).forEach((key) => {
+        if (data[key] !== undefined && data[key] !== null) {
+          if (key === "avatar" && data[key].length > 0) {
+            formData.append(key, data[key][0]);
+          } else {
+            formData.append(key, data[key]);
+          }
+        }
+      });
 
       const response = await fetchApi({
         method: "patch",
         url: "/users",
-        data: data,
+        data: formData,
+        headers: { "Content-Type": "multipart/form-data" },
       });
+
       console.log("Profile updated:", response.data);
+      reset(response.data);
+      setPreview(response.data.avatar || null);
       setIsEditing(false);
     } catch (error) {
       console.error("Error updating profile:", error.response?.data || error.message);
@@ -101,10 +148,46 @@ function Profile() {
             />
           )}
         </div>
-        <div className="d-flex justify-content-start">
-          {" "}
-          <div className="profile-avatar"></div>
+
+        <div className="row mb-3">
+          <div className="col-12 d-flex align-items-center gap-3">
+            <label htmlFor="avatar-input" className="col-1 fw-semibold profile-avatar-label">
+              Avatar
+            </label>
+            <div className="flex-grow-1 d-flex align-items-center gap-3">
+              <img
+                src={preview || "/img/avatar.png"}
+                alt="Profile"
+                className="rounded-circle border border-2 profile-avatar bg-dark"
+              />
+              {isEditing && (
+                <>
+                  <BlackButton
+                    type="button"
+                    classNameContainer="btn btn-secondary profile-avatar-button"
+                    handleOnClick={() => document.getElementById("avatar-input").click()}
+                    name="Update"
+                  />
+                  <input
+                    type="file"
+                    id="avatar-input"
+                    accept="image/*"
+                    className="d-none"
+                    {...register("avatar")}
+                    onChange={handleFileChange}
+                  />
+                </>
+              )}
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-1"></div>
+            <div className="flex-grow-1">
+              {errors.avatar && <p className="text-danger profile-text">{errors.avatar.message}</p>}
+            </div>
+          </div>
         </div>
+
         <form onSubmit={handleSubmit(handleProfileUpdate)}>
           <div className="row">
             <Input
@@ -112,9 +195,9 @@ function Profile() {
               name="firstname"
               id="firstname"
               label="Firstname"
-              classNameContainer="col-12 d-flex align-items-center gap-3"
-              classNameInput={`flex-grow-1 mb-3 `}
-              classNameLabel="col-1 mb-3 fw-semibold profile-input-label"
+              classNameContainer="col-12 d-flex gap-3 mb-3"
+              classNameInput={`flex-grow-1 `}
+              classNameLabel="col-1 fw-semibold profile-input-label"
               register={{ ...register("firstname") }}
               errors={errors}
               disabled={!isEditing}
@@ -126,9 +209,9 @@ function Profile() {
               name="lastname"
               id="lastname"
               label="Lastname"
-              classNameContainer="col-12 d-flex align-items-center gap-3"
-              classNameInput={`flex-grow-1 mb-3`}
-              classNameLabel="col-1 mb-3 fw-semibold profile-input-label"
+              classNameContainer="col-12 d-flex gap-3 mb-3"
+              classNameInput={`flex-grow-1 `}
+              classNameLabel="col-1 fw-semibold profile-input-label"
               register={{ ...register("lastname") }}
               errors={errors}
               disabled={!isEditing}
@@ -140,9 +223,9 @@ function Profile() {
               name="ci"
               id="ci"
               label="CI"
-              classNameContainer="col-12 d-flex align-items-center gap-3"
-              classNameInput={`flex-grow-1 mb-3`}
-              classNameLabel="col-1 mb-3 fw-semibold profile-input-label"
+              classNameContainer="col-12 d-flex gap-3 mb-3"
+              classNameInput={`flex-grow-1 `}
+              classNameLabel="col-1 fw-semibold profile-input-label"
               register={{ ...register("ci") }}
               errors={errors}
               disabled={!isEditing}
@@ -155,9 +238,9 @@ function Profile() {
               name="email"
               id="email"
               label="Email"
-              classNameContainer="col-12 d-flex align-items-center gap-3"
-              classNameInput={`flex-grow-1 mb-3`}
-              classNameLabel="col-1 mb-3 fw-semibold profile-input-label"
+              classNameContainer="col-12 d-flex gap-3 mb-3"
+              classNameInput={`flex-grow-1 `}
+              classNameLabel="col-1 fw-semibold profile-input-label"
               register={{ ...register("email") }}
               errors={errors}
               disabled={!isEditing}
@@ -170,9 +253,9 @@ function Profile() {
               name="phone"
               id="phone"
               label="Phone"
-              classNameContainer="col-12 d-flex align-items-center gap-3"
-              classNameInput={`flex-grow-1 mb-3`}
-              classNameLabel="col-1 mb-3 fw-semibold profile-input-label"
+              classNameContainer="col-12 d-flex gap-3 mb-3"
+              classNameInput={`flex-grow-1 `}
+              classNameLabel="col-1 fw-semibold profile-input-label"
               register={{ ...register("phone") }}
               errors={errors}
               disabled={!isEditing}
@@ -184,9 +267,9 @@ function Profile() {
               name="address"
               id="address"
               label="Address"
-              classNameContainer="col-12 d-flex align-items-center gap-3"
-              classNameInput={`flex-grow-1 mb-3`}
-              classNameLabel="col-1 mb-3 fw-semibold profile-input-label"
+              classNameContainer="col-12 d-flex gap-3 mb-3"
+              classNameInput={`flex-grow-1 `}
+              classNameLabel="col-1 fw-semibold profile-input-label"
               register={{ ...register("address") }}
               errors={errors}
               disabled={!isEditing}
@@ -218,38 +301,38 @@ function Profile() {
           {isChangingPassword && isEditing && (
             <div className="mt-3">
               <Input
-                type="text"
+                type="password"
+                name="currentPassword"
+                id="currentPassword"
+                label="Current Password"
+                classNameContainer="col-12 d-flex gap-3 mb-3"
+                classNameInput={`flex-grow-1 `}
+                classNameLabel="col-1 fw-semibold profile-input-label pt-0"
+                register={{ ...register("currentPassword") }}
+                errors={errors}
+                disabled={!isEditing}
+              />
+              <Input
+                type="password"
                 name="newPassword"
                 id="newPassword"
                 label="New Password"
-                classNameContainer="col-12 d-flex align-items-center gap-3"
-                classNameInput={`flex-grow-1 mb-3`}
-                classNameLabel="col-1 mb-3 fw-semibold profile-input-label"
+                classNameContainer="col-12 d-flex gap-3 mb-3"
+                classNameInput={`flex-grow-1 `}
+                classNameLabel="col-1 fw-semibold profile-input-label pt-0"
                 register={{ ...register("newPassword") }}
                 errors={errors}
                 disabled={!isEditing}
               />
               <Input
-                type="text"
-                name="newPassword"
-                id="newPassword"
-                label="New Password"
-                classNameContainer="col-12 d-flex align-items-center gap-3"
-                classNameInput={`flex-grow-1 mb-3`}
-                classNameLabel="col-1 mb-3 fw-semibold profile-input-label"
-                register={{ ...register("newPassword") }}
-                errors={errors}
-                disabled={!isEditing}
-              />
-              <Input
-                type="text"
-                name="newPassword"
-                id="newPassword"
-                label="New Password"
-                classNameContainer="col-12 d-flex align-items-center gap-3"
-                classNameInput={`flex-grow-1 mb-3`}
-                classNameLabel="col-1 mb-3 fw-semibold profile-input-label"
-                register={{ ...register("newPassword") }}
+                type="password"
+                name="repeatPassword"
+                id="repeatPassword"
+                label="Repeat New Password"
+                classNameContainer="col-12 d-flex gap-3 mb-3"
+                classNameInput={`flex-grow-1 `}
+                classNameLabel="col-1 fw-semibold profile-input-label pt-0"
+                register={{ ...register("repeatPassword") }}
                 errors={errors}
                 disabled={!isEditing}
               />

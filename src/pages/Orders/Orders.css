@@ -1,3 +1,50 @@
 .orders-container {
-  background-color: azure;
+  .orders-title {
+    line-height: 25px;
+  }
+
+  .order-wrapper {
+    font-size: 12px;
+  }
+
+  .order-container {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.1);
+  }
+
+  .order-item {
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+
+  .order-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 6px;
+  }
+
+  .order-details {
+    height: 0;
+    overflow: hidden;
+  }
+
+  .order-details.open {
+    height: auto;
+  }
+
+  .order-item {
+    background: #f8f9fa;
+    border-radius: 8px;
+    margin-bottom: 10px;
+  }
+
+  .order-image {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 6px;
+  }
 }

@@ -34,7 +34,7 @@ const router = createBrowserRouter([
 
       {
         path: "account",
-        element: <ProtectedRoute />, // Ensures only authenticated users can access
+        element: <ProtectedRoute />,
         children: [
           {
             path: "",

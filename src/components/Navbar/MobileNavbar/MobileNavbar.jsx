@@ -68,7 +68,7 @@ const MobileNavbar = () => {
                   type="button"
                   className="btn btn-link nav-link my-account d-flex"
                   onClick={() => {
-                    !user.accessToken ? navigate("/profile") : toggleAccount();
+                    !user.accessToken ? navigate("/account/profile") : toggleAccount();
                   }}
                 >
                   <span className="user-icon-wrapper me-2">
