@@ -392,15 +392,24 @@ const Checkout = () => {
                     />
                     <span className="product-name">{item.name}</span>
                   </div>
+
                   <div className="d-flex flex-column align-items-end">
+                    <div className="d-flex justify-content-between">
+                      <div className="text-center">
+                        <span className="d-block">Quantity</span>
+                        <span>{item.quantity}</span>
+                      </div>
+                      <div className="text-center">
+                        <span className="d-block">Price</span>
+                        <span>USD {(item.price * item.quantity).toFixed(2)}</span>
+                      </div>
+                    </div>
                     <button
                       className="btn btn-sm btn-danger mt-2"
                       onClick={() => handleRemoveItemClick(item.id)}
                     >
                       <i className="bi bi-trash"></i>
                     </button>
-                    <span className="mt-2">Qty: {item.quantity}</span>
-                    <span>USD {(item.price * item.quantity).toFixed(2)}</span>
                   </div>
                 </li>
               ))}
