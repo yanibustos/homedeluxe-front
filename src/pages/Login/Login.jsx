@@ -61,6 +61,8 @@ function Login() {
       // });
       // dispatch(login(user));
 
+      dispatch(login({ accessToken: "12345678" })); //for testing purposes
+
       if (rememberMe) {
         console.log("Save in localStorage");
       }
@@ -102,6 +104,7 @@ function Login() {
               label="Email"
               register={{ ...register("email") }}
               errors={errors}
+              classNameLabel="fw-semibold"
             />
           </div>
           <div className="mt-4">
@@ -112,6 +115,7 @@ function Login() {
               label="Password"
               register={{ ...register("password") }}
               errors={errors}
+              classNameLabel="fw-semibold"
             />
           </div>
 
@@ -127,7 +131,7 @@ function Login() {
             <div className="text-end">
               <Link
                 to={"/reset-password"}
-                className="text-decoration-none text-dark fw-bold login-text h-100 d-flex"
+                className="text-decoration-none text-dark fw-semibold login-text h-100 d-flex"
               >
                 Forgot your password?
               </Link>
@@ -140,7 +144,7 @@ function Login() {
         </form>
         <div className="mt-4 px-4 w-100">
           <span className="login-text me-1">Don't have an account yet?</span>
-          <Link to={"/register"} className=" login-text text-dark fw-bold ">
+          <Link to={"/register"} className=" login-text text-dark fw-semibold ">
             Sign Up
           </Link>
         </div>

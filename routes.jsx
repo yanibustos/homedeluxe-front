@@ -13,6 +13,9 @@ import ProductList from "./src/pages/ProductList/ProductList";
 import Profile from "./src/pages/Profile/Profile";
 import SignUp from "./src/pages/SignUp/SignUp";
 import ProductFeatured from "./src/pages/ProductFeatured/ProductFeatured";
+import Logout from "./src/pages/Logout/Logout";
+import AccountLayout from "./src/components/AccountLayout/AccountLayout";
+import Wishlist from "./src/pages/Wishlist/Wishlist";
 
 const router = createBrowserRouter([
   {
@@ -27,12 +30,22 @@ const router = createBrowserRouter([
 
       { path: "register", element: <SignUp /> },
       { path: "login", element: <Login /> },
+      { path: "logout", element: <Logout /> },
 
       {
-        element: <ProtectedRoute />,
+        path: "account",
+        element: <ProtectedRoute />, // Ensures only authenticated users can access
         children: [
-          { path: "profile", element: <Profile /> },
-          { path: "orders", element: <Orders /> },
+          {
+            path: "",
+            element: <AccountLayout />,
+            children: [
+              { path: "", element: <Profile /> },
+              { path: "profile", element: <Profile /> },
+              { path: "orders", element: <Orders /> },
+              { path: "wishlist", element: <Wishlist /> },
+            ],
+          },
         ],
       },
     ],
