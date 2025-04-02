@@ -15,7 +15,6 @@ function BlackButton({
       disabled={disabled || loading}
       className={`blackButton ${className}`}
       onClick={() => handleOnClick()}
-      children
     >
       {loading ? (
         <>
