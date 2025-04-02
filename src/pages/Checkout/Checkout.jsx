@@ -78,9 +78,12 @@ const Checkout = () => {
   const [isFormValid, setIsFormValid] = useState(false);
 
   useEffect(() => {
-    validationSchema.isValid(formData).then((valid) => {
+    const checkFormValidity = async () => {
+      const valid = await validationSchema.isValid(formData);
       setIsFormValid(valid);
-    });
+    };
+
+    checkFormValidity();
   }, [formData]);
 
   const handlePaymentMethodChange = (method) => {
@@ -146,12 +149,28 @@ const Checkout = () => {
   };
 
   const handleNumberInput = (e) => {
-    const value = e.target.value.replace(/\D/g, "");
-    e.target.value = value;
-    handleInputChange(e);
+    const { name, value } = e.target;
+    const numericValue = value.replace(/\D/g, "");
+
+    if (value && !/^\d+$/.test(value)) {
+      toast.error("Only numbers are allowed in this field.");
+    }
+
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: numericValue,
+    }));
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const isValid = await validationSchema.isValid(formData);
+    if (!isValid) {
+      toast.error("Please fill out all fields correctly.");
+      return;
+    }
+
     setIsProcessing(true);
     setTimeout(() => {
       console.log("Checkout data:", formData);
@@ -177,7 +196,11 @@ const Checkout = () => {
       <div className="checkout-container row">
         <div className="col-md-7">
           <form className="checkout-form" onSubmit={handleSubmit}>
-            <ShippingForm formData={formData} handleChange={handleInputChange} />
+            <ShippingForm
+              formData={formData}
+              handleChange={handleInputChange}
+              handleNumberInput={handleNumberInput}
+            />
 
             <div className="payment-method">
               <h4 className="mb-4 pt-5">Payment Method</h4>
@@ -254,12 +277,13 @@ const Checkout = () => {
                     </label>
                     <Input
                       type="text"
+                      inputMode="numeric"
+                      pattern="\d*"
                       className="form-control"
                       id="cardNumber"
                       name="cardNumber"
                       value={formData.cardNumber}
-                      onInput={handleNumberInput}
-                      onChange={handleInputChange}
+                      onChange={handleNumberInput}
                       required
                     />
                   </div>
@@ -270,12 +294,13 @@ const Checkout = () => {
                       </label>
                       <Input
                         type="text"
+                        inputMode="numeric"
+                        pattern="\d*"
                         className="form-control"
                         id="expiry"
                         name="expiry"
                         value={formData.expiry}
-                        onInput={handleNumberInput}
-                        onChange={handleInputChange}
+                        onChange={handleNumberInput}
                         required
                       />
                     </div>
@@ -285,12 +310,13 @@ const Checkout = () => {
                       </label>
                       <Input
                         type="text"
+                        inputMode="numeric"
+                        pattern="\d*"
                         className="form-control"
                         id="cvv"
                         name="cvv"
                         value={formData.cvv}
-                        onInput={handleNumberInput}
-                        onChange={handleInputChange}
+                        onChange={handleNumberInput}
                         required
                       />
                     </div>
