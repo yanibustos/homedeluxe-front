@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { Modal, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
@@ -34,6 +35,7 @@ const validationSchema = Yup.object({
 });
 
 const Checkout = () => {
+  const navigate = useNavigate();
   const [paymentMethod, setPaymentMethod] = useState("creditCard");
   const [orderSummary, setOrderSummary] = useState({
     items: [
@@ -181,8 +183,18 @@ const Checkout = () => {
     }, 2000);
   };
 
+  const handleBackToHome = () => {
+    navigate("/");
+  };
+
   return (
     <div className="container">
+      <div className="fake-navbar d-flex align-items-center p-3">
+        <button onClick={handleBackToHome} className="btn btn-link back-home-btn text-white">
+          &larr; Back
+        </button>
+        <h2 className="title text-center">Checkout</h2>
+      </div>
       <ToastContainer
         position="top-right"
         autoClose={5000}
@@ -194,7 +206,6 @@ const Checkout = () => {
         draggable
         pauseOnHover
       />
-      <h2 className="my-5 text-center">Checkout</h2>
       <div className="checkout-container row">
         <div className="col-md-7">
           <form className="checkout-form" onSubmit={handleSubmit}>
