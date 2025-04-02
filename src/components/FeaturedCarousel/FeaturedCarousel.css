@@ -1,3 +1,72 @@
 .featuredCarousel-container {
-  background-color: azure;
+  padding: 30px 0 70px 0;
+
+  .heading {
+    font-size: 18px;
+    line-height: 25px;
+    color: #000000;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  img {
+    cursor: pointer;
+  }
+
+  .image-hover {
+    position: relative;
+    min-width: 170px;
+    min-height: 170px;
+    aspect-ratio: 1/1;
+    transition: border 0.3s ease-in-out;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      position: absolute;
+      transition: opacity 0.5s ease-in-out;
+    }
+
+    &:hover {
+      border: 1px solid #000;
+    }
+  }
+
+  .image-hover {
+    .hover {
+      opacity: 0;
+    }
+
+    &:hover {
+      .hover {
+        opacity: 1;
+      }
+
+      .default {
+        opacity: 0;
+      }
+    }
+  }
+
+  .product-info {
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 600;
+    color: #000000;
+    text-decoration: none;
+  }
+
+  .product-info {
+    font-weight: 600;
+
+    .price {
+      font-weight: 900;
+    }
+  }
+
+  .currency {
+    font-size: 80%;
+  }
 }

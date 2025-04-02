@@ -1,0 +1,15 @@
+.product-cart-qty {
+  .btn-inc,
+  .btn-dec {
+    background: none;
+    cursor: pointer;
+    width: 15px;
+    line-height: 18px;
+    font-size: 14px;
+    padding: 0;
+    height: 20px;
+    border: 1px solid #e0e0e0;
+    vertical-align: middle;
+    border-radius: 0;
+  }
+}

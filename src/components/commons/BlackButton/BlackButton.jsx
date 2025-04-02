@@ -7,6 +7,7 @@ function BlackButton({
   className = "",
   name,
   handleOnClick = () => {},
+  children,
 }) {
   return (
     <button
@@ -14,6 +15,7 @@ function BlackButton({
       disabled={disabled || loading}
       className={`blackButton ${className}`}
       onClick={() => handleOnClick()}
+      children
     >
       {loading ? (
         <>
@@ -21,7 +23,7 @@ function BlackButton({
           <span role="status"> Loading...</span>
         </>
       ) : (
-        name
+        children || name
       )}
     </button>
   );

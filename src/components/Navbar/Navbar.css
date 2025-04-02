@@ -1,12 +1,121 @@
-* {
-  box-sizing: border-box;
-}
+.navbar {
+  display: flex;
+  align-items: center;
+  height: 50px;
+  transition: all 0.3s ease;
 
-.navbar-container {
-  background-color: black;
-}
+  &.nav-dark {
+    background-color: #000000;
+  }
 
-.nav-link, .nav-link:hover {
-  color: white;
-}
+  &.nav-transparent {
+    background-color: transparent;
+    height: 60px;
+  }
 
+  img {
+    position: relative;
+    bottom: 4px;
+    width: 165px;
+  }
+
+  span {
+    cursor: pointer;
+  }
+
+  .cart-qty {
+    font-weight: 400;
+    background-color: #999999;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4px 3px 3px;
+    width: 18px;
+    height: 18px;
+    font-size: 10px;
+
+    transform: translate(-60%, -60%) !important;
+    z-index: -1;
+  }
+
+  .total-price-wrapper {
+    font-size: 14px;
+  }
+
+  .currency {
+    font-size: 80%;
+  }
+
+  li {
+    .nav-link,
+    .nav-item {
+      text-transform: uppercase;
+      font-weight: normal;
+      line-height: 50px;
+      font-size: 14px;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+      color: #fff;
+      transition: color 0.3s ease, fill 0.3s ease;
+
+      svg {
+        fill: currentColor;
+      }
+
+      &:hover {
+        color: #dddddd;
+
+        svg {
+          fill: currentColor;
+        }
+      }
+    }
+
+    .dropdown-item {
+      text-align: center;
+      display: block;
+      color: #555555;
+      line-height: 20px;
+      font-size: 14px;
+      padding: 10px 0;
+
+      &:active {
+        background-color: none;
+      }
+    }
+  }
+
+  .dropdown-menu {
+    padding: 4px 19px;
+    width: 200px;
+
+    li {
+      &:not(:last-child) {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        padding-bottom: 4px;
+        border-bottom: 1px solid #e0e0e0;
+      }
+    }
+  }
+
+  .btn {
+    &:focus,
+    &:hover,
+    &:active,
+    &:focus-visible {
+      outline: none !important;
+      border: none;
+    }
+  }
+
+  button {
+    border: none;
+  }
+
+  .dropdown-toggle {
+    &::after {
+      display: none;
+    }
+  }
+}

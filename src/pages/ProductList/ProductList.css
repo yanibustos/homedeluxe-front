@@ -1,7 +1,10 @@
 .productList-container {
+  hr {
+    opacity: 0.1;
+  }
+
   .card-container {
-    border-radius: 8px;
-    padding: 20px;
+    width: 300px;
     background-color: #f8f8f8;
   }
   .card-container:hover {
@@ -16,13 +19,17 @@
       transition: all 0.3s ease-in-out;
     }
   }
+  .select-option {
+    color: #7a7a7a;
+    font-size: 0.8rem;
+  }
   .card-img-top {
     width: 100%;
   }
   .filter-btn {
     border: none;
     color: #fff;
-    background-color: #000;
+    background-color: #7a7a7a;
     letter-spacing: 1px;
     border-radius: 4px;
   }
@@ -37,14 +44,21 @@
   }
   .text-description {
     font-family: "Montserrat", sans-serif;
-    font-size: 0.6rem;
+    font-size: 0.7rem;
     text-align: center;
     font-weight: 700;
+    height: 2.8rem;
+
+    p {
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-height: 3rem;
+    }
   }
-  .card-container {
-    height: 50%;
-    width: 300px;
-  }
+
   .all-cards {
     width: 100%;
   }
@@ -52,8 +66,16 @@
     font-family: "Playfair Display", serif;
     color: #000;
     letter-spacing: 5px;
-    font-size: 48px;
-    text-align: center;
+    font-size: 1.6rem;
+    line-height: 1.8rem;
+    height: 100%;
+    max-height: 3.6em;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    display: box;
+    line-clamp: 2;
   }
 
   .main-text {
@@ -61,9 +83,10 @@
   }
 
   .card-text-btn {
-    font-size: 13px;
+    font-size: 16px;
+    font-weight: 600;
     text-transform: uppercase;
-    color: white;
+    color: rgb(255, 255, 255);
     background-color: black;
     border: none;
     padding: 12px 24px;
@@ -85,31 +108,18 @@
     background-color: rgb(0, 0, 0);
     color: rgb(255, 255, 255);
     font-family: "Montserrat", sans-serif;
-    font-size: 16px;
-    width: 90px;
-    height: 90px;
+    font-size: 14px;
+    width: 80px;
+    height: 80px;
   }
   @media (max-width: 768px) {
-    .header-container {
-      padding-left: 70px;
-    }
     .main-text {
-      border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-      padding-bottom: 20px;
-    }
-    .div-text-category {
-      margin-right: 50px;
-    }
-    .div-search-products {
-      margin: 10px 50px 0 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      padding-bottom: 1rem;
+      margin-bottom: 1rem;
     }
   }
 
-  @media (max-width: 366px) {
-    .filter-btn {
-      margin-bottom: 10px;
-    }
-  }
   .ammount {
     font-size: 12px;
   }

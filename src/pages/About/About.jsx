@@ -1,7 +1,8 @@
 import React from "react";
+import TeamCard from "../../components/TeamCard/TeamCard";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./About.css";
-import TeamCard from "../../components/TeamCard/TeamCard";
 
 const teamMembers = [
   {
@@ -51,10 +52,9 @@ const teamMembers = [
   },
 ];
 
-// InfoCard
 const InfoCard = ({ icon, title, text }) => (
-  <div className="col-md-4">
-    <div className="card shadow-sm text-center p-4 position-relative">
+  <div className="col-12 col-md-4">
+    <div className="card shadow-sm text-center p-4 position-relative mx-auto">
       <div className="icon-container">
         <span className="bi">{icon}</span>
       </div>
@@ -66,19 +66,19 @@ const InfoCard = ({ icon, title, text }) => (
 
 function About() {
   return (
-    <div className="about-container py-5">
-      <div className="container-fluid">
-        <div className="about-text">
-          <h1 className="fw-bold mb-3">About this Project</h1>
-          <p className="mt-4">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quod natus omnis officiis
-            possimus consectetur est dolorem similique eaque tempora ab ipsum iste fugit aliquid et
-            velit deserunt labore, delectus laudantium ad. Officia officiis modi veniam repudiandae,
-            fugiat ratione aut nemo illo ab qui. Fugiat, magnam sunt? Asperiores pariatur laboriosam
-            voluptates!
-          </p>
-        </div>
+    <div className="about-container ">
+      <div className="about-text">
+        <h1 className="fw-bold mb-3">About this Project</h1>
+        <p className="mt-4">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quod natus omnis officiis
+          possimus consectetur est dolorem similique eaque tempora ab ipsum iste fugit aliquid et
+          velit deserunt labore, delectus laudantium ad. Officia officiis modi veniam repudiandae,
+          fugiat ratione aut nemo illo ab qui. Fugiat, magnam sunt? Asperiores pariatur laboriosam
+          voluptates!
+        </p>
+      </div>
 
+      <div className="container-fluid">
         <div className="info-cards row g-4">
           <InfoCard
             icon={<i className="bi bi-hourglass-split" style={{ fontSize: "22px" }}></i>}
@@ -96,22 +96,22 @@ function About() {
             text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo quibusdam iusto perferendis ab, voluptatibus adipisci similique at nam iste. Dolores doloremque nulla nihil odio magni."
           />
         </div>
+      </div>
 
-        <hr className="w-75 mx-auto my-5 border-2 border-dark opacity-90" />
+      <hr className="w-75 mx-auto my-5 border-2 border-dark opacity-90" />
 
-        {/* Sección del equipo */}
-        <div className="team-section mt-5">
-          <h2 className="text-center fw-bold fs-1">Our Team</h2>
-          <p className="mt-5 centered-text">
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nostrum maxime maiores, minima
-            numquam aspernatur magnam placeat temporibus ad eaque quae vel quos cum mollitia
-            aliquam, nam cupiditate harum ab qui.
-          </p>
-          <div className="card-columns mt-5">
-            {teamMembers.map((member, index) => (
-              <TeamCard key={index} {...member} />
-            ))}
-          </div>
+      {/* Sección del equipo */}
+      <div className="team-section mt-5">
+        <h2 className="text-center fw-bold fs-1">Our Team</h2>
+        <p className="mt-5 centered-text">
+          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nostrum maxime maiores, minima
+          numquam aspernatur magnam placeat temporibus ad eaque quae vel quos cum mollitia aliquam,
+          nam cupiditate harum ab qui.
+        </p>
+        <div className="card-columns mt-5">
+          {teamMembers.map((member, index) => (
+            <TeamCard key={index} {...member} />
+          ))}
         </div>
       </div>
     </div>
