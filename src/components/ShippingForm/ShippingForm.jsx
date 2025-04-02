@@ -62,8 +62,8 @@ const ShippingForm = ({ handleChange, handleNumberInput }) => {
       <h4 className="mb-4 mt-3">Shipping Information</h4>
       <hr className="my-4" />
 
-      <div className="row">
-        <div className="col-md-6 ">
+      <div className="d-flex gap-5">
+        <div className="col-md-6">
           <label htmlFor="firstName" className="form-label">
             Firstname
           </label>
@@ -77,7 +77,7 @@ const ShippingForm = ({ handleChange, handleNumberInput }) => {
             required
           />
         </div>
-        <div className="col-md-6 ">
+        <div className="col-md-6">
           <label htmlFor="lastName" className="form-label">
             Lastname
           </label>
@@ -93,7 +93,7 @@ const ShippingForm = ({ handleChange, handleNumberInput }) => {
         </div>
       </div>
 
-      <div className="">
+      <div className="mb-3">
         <label htmlFor="email" className="form-label">
           Email
         </label>
@@ -108,86 +108,7 @@ const ShippingForm = ({ handleChange, handleNumberInput }) => {
         />
       </div>
 
-      <div className="row">
-        <div className="col-md-6 ">
-          <label htmlFor="country" className="form-label">
-            Country
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="country"
-            name="country"
-            value={formData.country}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div className="col-md-6 ">
-          <label htmlFor="city" className="form-label">
-            City
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="city"
-            name="city"
-            value={formData.city}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-      </div>
-
-      <div className="row">
-        <div className="col-md-6">
-          <label htmlFor="firstName" className="form-label">
-            Firstname
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="firstName"
-            name="firstName"
-            value={formData.firstName}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div className="col-md-6">
-          <label htmlFor="lastName" className="form-label">
-            Lastname
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="lastName"
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-      </div>
-
-      <div className="row">
-        <div className="col-md-6">
-          <label htmlFor="email" className="form-label">
-            Email
-          </label>
-          <input
-            type="email"
-            className="form-control"
-            id="email"
-            name="email"
-            value={formData.email}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-      </div>
-
-      <div className="row">
+      <div className="d-flex gap-5">
         <div className="col-md-6">
           <label htmlFor="country" className="form-label">
             Country
@@ -218,7 +139,7 @@ const ShippingForm = ({ handleChange, handleNumberInput }) => {
         </div>
       </div>
 
-      <div className="row">
+      <div className="d-flex gap-5">
         <div className="col-md-6">
           <label htmlFor="phone" className="form-label">
             Phone
@@ -249,21 +170,19 @@ const ShippingForm = ({ handleChange, handleNumberInput }) => {
         </div>
       </div>
 
-      <div className="row">
-        <div className="col-md-12">
-          <label htmlFor="address" className="form-label">
-            Address
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="address"
-            name="address"
-            value={formData.address}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
+      <div className="mb-3">
+        <label htmlFor="address" className="form-label">
+          Address
+        </label>
+        <input
+          type="text"
+          className="form-control"
+          id="address"
+          name="address"
+          value={formData.address}
+          onChange={handleInputChange}
+          required
+        />
       </div>
 
       <ToastContainer
