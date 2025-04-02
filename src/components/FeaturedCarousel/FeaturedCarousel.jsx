@@ -64,8 +64,8 @@ function FeaturedCarousel() {
         <div className="pt-3">
           <Swiper
             modules={[Navigation, Autoplay]}
-            loop={true}
-            spaceBetween={40}
+            loop
+            spaceBetween={20}
             breakpoints={{
               1024: { slidesPerView: 5 },
               768: { slidesPerView: 3 },

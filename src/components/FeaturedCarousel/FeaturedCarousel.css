@@ -16,8 +16,8 @@
 
   .image-hover {
     position: relative;
-    min-width: 190px;
-    min-height: 190px;
+    min-width: 170px;
+    min-height: 170px;
     aspect-ratio: 1/1;
     transition: border 0.3s ease-in-out;
 
