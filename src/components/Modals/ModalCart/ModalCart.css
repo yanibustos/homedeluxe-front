@@ -47,9 +47,13 @@
 
   .price-wrapper {
     padding-top: 2px;
+    flex: 1;
+    justify-content: space-between;
+    padding-right: 0;
   }
 
   .qty-wrapper {
+    max-width: 96px;
     input {
       font-size: 11px;
       padding: 0;
@@ -193,6 +197,10 @@
   .bi-trash {
     font-size: 14px;
     cursor: pointer;
+  }
+
+  .qty {
+    max-width: 96px;
   }
 
   .qty-wrapper {
