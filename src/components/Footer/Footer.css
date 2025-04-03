@@ -1,7 +1,7 @@
 .footer-container {
   background-color: black;
   color: #fff;
-  padding: 60px 0;
+  padding: 60px 0 20px 0px;
   width: 100%;
 }
 
@@ -123,29 +123,28 @@
   width: 70%;
   margin: 20px auto;
   border: 1.5px solid #ccc;
-  margin-top: 35px;
+  margin-top: 60px;
 }
 
 .footer-bottom {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 
 .footer-bottom p {
   font-size: 14px;
-  color: #ccc;
+  color: #787878;
 }
-
 
 @media (max-width: 1024px) {
   .footer-content {
     grid-template-columns: repeat(2, 1fr);
     gap: 15px;
-    text-align: center; 
+    text-align: center;
   }
 
   .footer-column {
-    align-items: center; 
+    align-items: center;
   }
 
   .social-media-icons {
