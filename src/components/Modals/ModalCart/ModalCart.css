@@ -10,6 +10,7 @@
 
   .currency {
     font-size: 80%;
+    padding-right: 2px;
   }
 
   .header {
@@ -42,6 +43,10 @@
     border: 1px solid #e0e0e0;
     vertical-align: middle;
     border-radius: 0;
+  }
+
+  .price-wrapper {
+    padding-top: 2px;
   }
 
   .qty-wrapper {
@@ -114,12 +119,10 @@
     color: #999999;
   }
 
-  .price,
   .price-value {
     color: #555555;
     font-size: 12px;
     gap: 2px;
-    padding-top: 2px;
 
     .currency {
       padding-top: 3px;
@@ -141,7 +144,12 @@
       padding: 10px 0 0 0;
     }
 
-    .price {
+    .price-wrapper {
+      margin-top: 11px;
+      justify-content: end;
+    }
+
+    .price .price {
       display: flex;
       gap: 4px;
       align-items: end;
@@ -184,7 +192,6 @@
 
   .bi-trash {
     font-size: 14px;
-    padding-top: 2px;
     cursor: pointer;
   }
 
