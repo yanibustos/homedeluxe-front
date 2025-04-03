@@ -299,8 +299,8 @@ const Checkout = () => {
                       />
                     </div>
 
-                    <div className="d-flex gap-5 mt-3">
-                      <div className="col-md-6">
+                    <div className="d-flex flex-wrap gap-3 mt-3">
+                      <div className="col-12 col-md-6 mb-3">
                         <label htmlFor="expiry" className="form-label">
                           Expiry Date
                         </label>
@@ -375,40 +375,40 @@ const Checkout = () => {
           </div>
           <div className="col-md-6">
             <div className="order-summary">
-              <h4 className="order-summary-title mb-4"> Order Summary</h4>
+              <h4 className="order-summary-title mb-4">Order Summary</h4>
               <ul className="list-group">
                 {orderSummary.items.map((item) => (
                   <li
                     key={item.id}
-                    className="list-group-item d-flex justify-content-between align-items-center"
+                    className="list-group-item d-flex justify-content-between align-items-center p-3"
                   >
-                    <div className="d-flex align-items-center">
-                      <img
-                        src={item.image}
-                        alt={item.name}
-                        className="img-thumbnail mr-3 product-image"
-                      />
-                      <span className="product-name">{item.name}</span>
-                    </div>
-
-                    <div className="d-flex flex-column align-items-end">
-                      <div className="d-flex justify-content-between">
-                        <div className="text-center">
-                          <span className="d-block">Quantity</span>
-                          <span>{item.quantity}</span>
-                        </div>
-                        <div className="text-center">
-                          <span className="d-block">Price</span>
-                          <span>USD {(item.price * item.quantity).toFixed(2)}</span>
-                        </div>
+                    <div className="d-flex align-items-center w-100">
+                      <div className="col-auto">
+                        <img
+                          src={item.image}
+                          alt={item.name}
+                          className="img-thumbnail"
+                          style={{ objectFit: "cover" }}
+                        />
                       </div>
-                      <button
-                        className="btn btn-sm mt-2"
-                        onClick={() => handleRemoveItemClick(item.id)}
-                      >
-                        <i className="bi bi-trash"></i>
-                      </button>
+                      <div className="col-6 col-md-5 p-2">
+                        <span className="product-name">{item.name}</span>
+                      </div>
+                      <div className="col-3 col-md-2 text-center p-2">
+                        <span className="d-block">Qty</span>
+                        <span>{item.quantity}</span>
+                      </div>
+                      <div className="col-3 col-md-2 text-end p-2">
+                        <span className="d-block">USD</span>
+                        <span>{(item.price * item.quantity).toFixed(2)}</span>
+                      </div>
                     </div>
+                    <button
+                      className="btn btn-sm mt-2 align-self-end"
+                      onClick={() => handleRemoveItemClick(item.id)}
+                    >
+                      <i className="bi bi-trash"></i>
+                    </button>
                   </li>
                 ))}
               </ul>
