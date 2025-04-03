@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialCart = [
+/* const initialCart = [
   {
     id: 1,
     name: "Travel Foam Mattress 1 Plaza",
@@ -23,13 +23,22 @@ const initialCart = [
       "https://f.fcdn.app/imgs/13dd1a/www.viasono.com.uy/viasuy/d923/webp/catalogo/B206010316_206010092_1/460x460/silla-lester-gris.jpg",
     slug: "chill-spring-mattress-2-plazas",
   },
-];
+]; */
 
 const shoppingCartSlice = createSlice({
   name: "shoppingCart",
-  initialState: initialCart,
+  initialState: [],
   reducers: {
-    addToCart(state, action) {},
+    addToCart(state, action) {
+      const product = action.payload;
+      const productInCart = state.find((item) => item.id === product.id);
+
+      if (!productInCart) {
+        state.push({ ...product, quantity: 1 });
+      } else {
+        productInCart.quantity += 1;
+      }
+    },
 
     removeFromcart(state, action) {
       return state.filter((product) => product.id !== action.payload);
