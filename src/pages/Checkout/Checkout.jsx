@@ -185,15 +185,38 @@ const Checkout = () => {
     navigate("/");
   };
 
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
   return (
     <div className="checkout-container">
       <div className="container">
         <div className="fake-navbar d-flex align-items-center p-3">
-          <button onClick={handleBackToHome} className="btn btn-link back-home-btn">
+          <button
+            onClick={handleBackToHome}
+            className="btn btn-link back-home-btn d-none d-md-block"
+          >
             &larr; Back home
           </button>
+
+          <button onClick={toggleMobileMenu} className="btn menu-btn d-md-none">
+            &#9776;
+          </button>
+
           <h2 className="title text-center">CHECKOUT</h2>
         </div>
+
+        {isMobileMenuOpen && (
+          <div className="mobile-menu">
+            <button className="btn btn-primary w-100" onClick={handleBackToHome}>
+              Back Home
+            </button>
+          </div>
+        )}
+
         <ToastContainer
           position="top-right"
           autoClose={5000}
@@ -278,7 +301,7 @@ const Checkout = () => {
                         className="form-control"
                         id="nameOnCard"
                         name="nameOnCard"
-                        value={formData.email} // VER, CAMBIAR
+                        value={formData.nameOnCard}
                         onChange={handleInputChange}
                         required
                       />
@@ -395,10 +418,10 @@ const Checkout = () => {
                         <span className="product-name">{item.name}</span>
                       </div>
                       <div className="col-3 col-md-2 text-center p-2">
-                        <span className="d-block">Qty</span>
+                        <span className="d-block">Quantity</span>
                         <span>{item.quantity}</span>
                       </div>
-                      <div className="col-3 col-md-2 text-end p-2">
+                      <div className="col-3 col-md-2 text-center p-2">
                         <span className="d-block">USD</span>
                         <span>{(item.price * item.quantity).toFixed(2)}</span>
                       </div>
