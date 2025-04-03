@@ -62,7 +62,7 @@ const ShippingForm = ({ handleChange, handleNumberInput }) => {
       <h4 className="mb-4 mt-3">Shipping Information</h4>
       <hr className="my-4" />
 
-      <div className="d-flex gap-5">
+      <div className="d-flex flex-wrap gap-3">
         <div className="col-md-6">
           <label htmlFor="firstName" className="form-label">
             Firstname
@@ -77,7 +77,7 @@ const ShippingForm = ({ handleChange, handleNumberInput }) => {
             required
           />
         </div>
-        <div className="col-md-6">
+        <div className="col-12 col-md-6">
           <label htmlFor="lastName" className="form-label">
             Lastname
           </label>
@@ -108,8 +108,8 @@ const ShippingForm = ({ handleChange, handleNumberInput }) => {
         />
       </div>
 
-      <div className="d-flex gap-5">
-        <div className="col-md-6">
+      <div className="d-flex flex-wrap gap-3">
+        <div className="col-12 col-md-6 mb-3">
           <label htmlFor="country" className="form-label">
             Country
           </label>
@@ -123,7 +123,7 @@ const ShippingForm = ({ handleChange, handleNumberInput }) => {
             required
           />
         </div>
-        <div className="col-md-6">
+        <div className="col-12 col-md-6 mb-3">
           <label htmlFor="city" className="form-label">
             City
           </label>
@@ -139,8 +139,8 @@ const ShippingForm = ({ handleChange, handleNumberInput }) => {
         </div>
       </div>
 
-      <div className="d-flex gap-5">
-        <div className="col-md-6">
+      <div className="d-flex flex-wrap gap-3">
+        <div className="col-12 col-md-6 mb-3">
           <label htmlFor="phone" className="form-label">
             Phone
           </label>
