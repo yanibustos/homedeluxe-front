@@ -105,7 +105,7 @@ const Checkout = () => {
         .map((item) => {
           if (item.id === itemToRemove) {
             if (item.quantity > 1) {
-              item.quantity -= 1;
+              return { ...item, quantity: item.quantity - 1 };
             } else {
               return null;
             }
@@ -191,6 +191,37 @@ const Checkout = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
+  const handleQuantityChange = (e, itemId) => {
+    const newQuantity = parseInt(e.target.value, 10);
+
+    if (newQuantity <= 0) return;
+
+    setOrderSummary((prevState) => {
+      const updatedItems = prevState.items.map((item) => {
+        if (item.id === itemId) {
+          if (newQuantity > item.quantity) {
+            item.quantity = newQuantity;
+          }
+        }
+        return item;
+      });
+
+      const newSubtotal = updatedItems.reduce(
+        (total, item) => total + item.price * item.quantity,
+        0,
+      );
+
+      const newTotal = newSubtotal + prevState.shipping;
+
+      return {
+        ...prevState,
+        items: updatedItems,
+        subtotal: newSubtotal,
+        total: newTotal,
+      };
+    });
+  };
+
   return (
     <div className="checkout-container">
       <div className="container">
@@ -229,7 +260,7 @@ const Checkout = () => {
           pauseOnHover
         />
         <div className="row">
-          <div className="col-md-7">
+          <div className="col-md-6">
             <form className="checkout-form" onSubmit={handleSubmit}>
               <ShippingForm
                 formData={formData}
@@ -372,7 +403,6 @@ const Checkout = () => {
 
                 {paymentMethod === "mercadopago" && (
                   <div className="mt-4">
-                    <p>Pay with Mercado Pago</p>
                     <BlackButton
                       name="Pay with Mercado Pago"
                       loading={isProcessing}
@@ -403,7 +433,7 @@ const Checkout = () => {
                 {orderSummary.items.map((item) => (
                   <li
                     key={item.id}
-                    className="list-group-item d-flex justify-content-between align-items-center p-3"
+                    className="list-group-item d-flex justify-content-between align-items-center p-3 position-relative"
                   >
                     <div className="d-flex align-items-center w-100">
                       <div className="col-auto">
@@ -419,16 +449,28 @@ const Checkout = () => {
                       </div>
                       <div className="col-3 col-md-2 text-center p-2">
                         <span className="d-block">Quantity</span>
-                        <span>{item.quantity}</span>
+                        <input
+                          type="number"
+                          className="form-control quantity-input"
+                          value={item.quantity}
+                          onChange={(e) => handleQuantityChange(e, item.id)}
+                          min="1"
+                          style={{ textAlign: "center" }}
+                        />
                       </div>
                       <div className="col-3 col-md-2 text-center p-2">
                         <span className="d-block">USD</span>
                         <span>{(item.price * item.quantity).toFixed(2)}</span>
                       </div>
                     </div>
+
                     <button
-                      className="btn btn-sm mt-2 align-self-end"
+                      className="btn btn-sm position-absolute top-50 end-0 translate-middle-y"
                       onClick={() => handleRemoveItemClick(item.id)}
+                      style={{
+                        marginRight: "10px",
+                        padding: "8px 12px",
+                      }}
                     >
                       <i className="bi bi-trash"></i>
                     </button>
@@ -465,12 +507,12 @@ const Checkout = () => {
             <BlackButton
               name="Cancel"
               handleOnClick={handleCancelRemove}
-              className="custom-modal-btn gray-button"
+              className="custom-modal-btn gray-button w-25"
             />
             <BlackButton
               name="Remove"
               handleOnClick={handleConfirmRemove}
-              className="custom-modal-btn custom-modal"
+              className="custom-modal-btn custom-modal w-25"
             />
           </Modal.Footer>
         </Modal>
