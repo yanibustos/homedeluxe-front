@@ -34,8 +34,8 @@ function ModalCart({ show, setShow }) {
                   <div className="col-7 text-uppercase ps-0">
                     Articles ({totalQty(shoppingCart)})
                   </div>
-                  <div className="col-2 text-uppercase qty text-center">Qty. </div>
-                  <div className="col-2 text-uppercase price text-end">Price </div>
+                  <div className="col-3 text-uppercase qty p-0">Quantity</div>
+                  <div className="col-2 text-uppercase price ps-0">Price</div>
                 </div>
               </div>
               <div className="container content position-relative">
@@ -43,18 +43,18 @@ function ModalCart({ show, setShow }) {
                   <div className="row product d-flex" key={item.id}>
                     <div className="col-7 ps-0">
                       <Link to={`products/${item.slug}`} className="text-decoration-none d-flex">
-                        <img src={item.image} alt={item.name} className="me-2" />
+                        <img src={item.image[0]} alt={item.name} className="me-2" />
                         <div>
                           <p className="mb-0 fw-bold">{item.name}</p>
-                          <p className="sku">{item.sku}</p>
+                          <p className="sku text-uppercase">sku00</p>
                         </div>
                       </Link>
                     </div>
-                    <div className="col-2 qty-wrapper text-center px-0">
+                    <div className="col-3 qty-wrapper px-0">
                       <ProductCartQty product={item} />
                     </div>
-                    <div className="col-2 text-center px-0 d-flex justify-content-end">
-                      <span className="price-value d-flex me-2">
+                    <div className="col-2 price-wrapper d-flex ps-0">
+                      <span className="price-value me-2">
                         <span className="currency text-uppercase">usd</span>
                         <span>{currencyFormatter(item.price * item.quantity)}</span>
                       </span>

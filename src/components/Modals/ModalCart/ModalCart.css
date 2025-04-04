@@ -10,14 +10,25 @@
 
   .currency {
     font-size: 80%;
+    padding-right: 2px;
   }
 
-  .header div {
-    font-size: 11px;
+  .header {
+    div {
+      font-size: 11px;
+    }
   }
 
-  .row.product p {
-    font-size: 12px;
+  .row.product {
+    p {
+      font-size: 12px;
+    }
+
+    & + .row.product {
+      margin-top: 10px;
+      border-top: 1px solid #e0e0e0;
+      padding-top: 9px;
+    }
   }
 
   .btn-inc,
@@ -34,64 +45,56 @@
     border-radius: 0;
   }
 
-  .qty-wrapper input {
-    font-size: 11px;
-    padding: 0;
-    vertical-align: middle;
-    border-radius: 0;
-    text-align: center;
-    display: inline-block;
-    line-height: 20px;
-    height: 20px;
-    border: 1px solid #e0e0e0;
-    width: 40px;
+  .price-wrapper {
+    padding-top: 2px;
+    flex: 1;
+    justify-content: space-between;
+    padding-right: 0;
   }
 
-  .qty-wrapper input {
-    &:focus {
-      outline: none;
-      box-shadow: none;
-      border-color: none;
-    }
+  .qty-wrapper {
+    max-width: 96px;
   }
 
-  @media (max-width: 480px) {
-    .header {
-      .qty,
-      .price {
-        display: none;
-      }
-    }
+  .trash-wrapper {
+    align-self: start;
   }
 
   @media (max-width: 480px) {
     .col-7 {
       width: 100%;
     }
-  }
 
-  .content img {
-    aspect-ratio: 1/1;
-    width: 70px;
-  }
+    .header {
+      .qty,
+      .price {
+        display: none;
+      }
+    }
 
-  .row.product {
-    & + .row.product {
-      margin-top: 10px;
-      border-top: 1px solid #e0e0e0;
-      padding-top: 9px;
+    .trash-wrapper {
+      padding-top: 1px;
     }
   }
 
-  .details .amount::after,
-  .content.container::after {
-    content: "";
-    border-top: 1px solid #e0e0e0;
-    display: block;
-    position: absolute;
-    top: 0;
-    width: 100vw;
-    left: -16px;
+  .content {
+    img {
+      aspect-ratio: 1/1;
+      width: 70px;
+    }
+  }
+
+  .details .amount,
+  .content.container {
+    &::after {
+      content: "";
+      border-top: 1px solid #e0e0e0;
+      display: block;
+      position: absolute;
+      top: 0;
+      width: 100vw;
+      left: -16px;
+    }
   }
 
   .content.container {
@@ -108,12 +111,10 @@
     color: #999999;
   }
 
-  .price,
   .price-value {
     color: #555555;
     font-size: 12px;
     gap: 2px;
-    padding-top: 2px;
 
     .currency {
       padding-top: 3px;
@@ -135,42 +136,55 @@
       padding: 10px 0 0 0;
     }
 
-    .price {
+    .price-wrapper {
+      margin-top: 11px;
+      justify-content: end;
+    }
+
+    .price .price {
       display: flex;
       gap: 4px;
       align-items: end;
       padding: 10px 0 0 0;
     }
 
-    .qty-wrapper + .col-2 {
-      padding: 0;
-      margin-left: auto;
+    .qty-wrapper {
+      + .col-2 {
+        padding: 0;
+        margin-left: auto;
+      }
     }
 
     .price-value {
       align-items: end;
     }
 
-    .trash-wrapper i {
-      line-height: 17px;
-    }
-
     .trash-wrapper {
-      align-items: end;
+      i {
+        line-height: 17px;
+      }
     }
 
-    .qty-wrapper + div {
-      flex: 1;
+    .qty-wrapper {
+      + div {
+        flex: 1;
+      }
     }
   }
 
-  .ico::before {
-    content: "\003C";
+  .ico {
+    &::before {
+      content: "\003C";
+    }
   }
 
   .bi-trash {
     font-size: 14px;
-    padding-top: 2px;
+    cursor: pointer;
+  }
+
+  .qty {
+    max-width: 96px;
   }
 
   .qty-wrapper {
@@ -178,8 +192,10 @@
   }
 
   @media (min-width: 480px) and (max-width: 640px) {
-    .row.product > div:first-child {
-      padding-right: 24px;
+    .row.product {
+      > div:first-child {
+        padding-right: 24px;
+      }
     }
   }
 }
