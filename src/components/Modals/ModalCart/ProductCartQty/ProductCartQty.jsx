@@ -1,46 +1,36 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-
 import { incrementQty, decrementQty, setQty } from "../../../../redux/shoppingCartSlice";
-
 import "./ProductCartQty.css";
 
-function ProductCartQty({ product }) {
-  const dispatch = useDispatch();
-
-  const handleIncrement = (productId) => {
-    dispatch(incrementQty(productId));
-  };
-
-  const handleDecrement = (productId) => {
-    dispatch(decrementQty(productId));
-  };
-
-  const handleQtyChange = (id, qty) => {
-    const newQty = Number(qty);
+function ProductCartQty({ product, handleIncrement, handleDecrement }) {
+  const handleQtyChange = (e) => {
+    const newQty = Number(e.target.value);
 
     if (!isNaN(newQty) && newQty > 0) {
-      dispatch(setQty({ id, qty: newQty }));
+      handleDecrement(product.id, newQty);
     }
   };
 
   return (
-    <div className="product-cart-qty d-flex">
+    <div className="product-cart-qty d-flex align-items-center">
       <button
-        className="btn-dec"
+        className="btn btn-dec"
         onClick={() => handleDecrement(product.id)}
         disabled={product.quantity === 1}
       >
         -
       </button>
+
       <input
-        type="text"
-        maxLength="4"
+        type="number"
         value={product.quantity}
-        onChange={(e) => handleQtyChange(product.id, e.target.value)}
-        name="quantity"
-      ></input>
-      <button className="btn-inc" onClick={() => handleIncrement(product.id)}>
+        onChange={(e) => handleQtyChange(e)}
+        min="1"
+        maxLength="4"
+      />
+
+      <button className="btn btn-inc" onClick={() => handleIncrement(product.id)}>
         +
       </button>
     </div>
