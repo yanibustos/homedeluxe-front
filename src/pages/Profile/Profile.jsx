@@ -18,9 +18,12 @@ const schema = yup
     firstname: yup.string().required("Firstname is required"),
     lastname: yup.string().required("Lastname is required"),
     email: yup.string().email("Invalid email format").required("Email is required"),
-    ci: yup.string(),
     phone: yup.string(),
     address: yup.string(),
+    country: yup.string(),
+    city: yup.string(),
+    state: yup.string(),
+    zip: yup.string(),
     changePassword: yup.boolean(),
 
     //Validates password if the checkbox is checked
@@ -130,7 +133,7 @@ function Profile() {
       if (response) {
         dispatch(setUser(response));
         reset(response);
-        setPreview(response.avatar || null);
+        setPreview(response.avatar || "null");
         setIsEditing(false);
       }
     } catch (error) {
@@ -142,7 +145,7 @@ function Profile() {
     user && (
       <div className="profile-container">
         <div className="d-flex justify-content-between align-items-center profile-header mb-3">
-          <div className="profile-title fw-semibold">Profile</div>
+          <div className="profile-title fw-semibold">My Profile</div>
           {!isEditing && (
             <BlackButton
               type="submit"
@@ -165,7 +168,15 @@ function Profile() {
             </label>
             <div className="flex-grow-1 d-flex align-items-center gap-3">
               <img
-                src={preview || "/img/avatar.png"}
+                src={
+                  preview?.startsWith("http") || preview?.startsWith("blob:")
+                    ? preview
+                    : preview?.startsWith("/img")
+                    ? preview
+                    : preview
+                    ? `${import.meta.env.VITE_IMAGE_DB_URL}${preview}`
+                    : "/img/avatar.png"
+                }
                 alt="Profile"
                 className="rounded-circle border border-2 profile-avatar bg-dark"
               />
@@ -270,6 +281,63 @@ function Profile() {
               disabled={!isEditing}
             />
           </div>
+          <div className="row">
+            <Input
+              type="text"
+              name="country"
+              id="country"
+              label="Country"
+              classNameContainer="col-12 d-flex gap-3 mb-3"
+              classNameInput={`flex-grow-1 `}
+              classNameLabel="col-1 fw-semibold profile-input-label"
+              register={{ ...register("country") }}
+              errors={errors}
+              disabled={!isEditing}
+            />
+          </div>
+          <div className="row">
+            <Input
+              type="text"
+              name="state"
+              id="state"
+              label="State"
+              classNameContainer="col-12 d-flex gap-3 mb-3"
+              classNameInput={`flex-grow-1 `}
+              classNameLabel="col-1 fw-semibold profile-input-label"
+              register={{ ...register("state") }}
+              errors={errors}
+              disabled={!isEditing}
+            />
+          </div>
+          <div className="row">
+            <Input
+              type="text"
+              name="city"
+              id="city"
+              label="City"
+              classNameContainer="col-12 d-flex gap-3 mb-3"
+              classNameInput={`flex-grow-1 `}
+              classNameLabel="col-1 fw-semibold profile-input-label"
+              register={{ ...register("city") }}
+              errors={errors}
+              disabled={!isEditing}
+            />
+          </div>
+
+          <div className="row">
+            <Input
+              type="text"
+              name="zip"
+              id="zip"
+              label="Zip Code"
+              classNameContainer="col-12 d-flex gap-3 mb-3"
+              classNameInput={`flex-grow-1 `}
+              classNameLabel="col-1 fw-semibold profile-input-label"
+              register={{ ...register("zip") }}
+              errors={errors}
+              disabled={!isEditing}
+            />
+          </div>
 
           {isEditing && (
             <div className="row">
@@ -339,7 +407,7 @@ function Profile() {
               <BlackButton
                 type="button"
                 name=" Cancel"
-                className="px-3"
+                className="px-3 profile-cancel-edit"
                 handleOnClick={() => handleCancel()}
               />
               <BlackButton type="submit" name=" Save" className="px-3" />
