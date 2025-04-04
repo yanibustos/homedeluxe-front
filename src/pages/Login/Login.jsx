@@ -14,6 +14,7 @@ import BlackButton from "../../components/commons/BlackButton/BlackButton";
 import Input from "../../components/commons/Input/Input";
 import InputCheckbox from "../../components/commons/InputCheckbox/InputCheckbox";
 import SideImage from "../../components/SideImage/SideImage";
+import ForgotPasswordModal from "../../components/Modals/ForgotPasswordModal/ForgotPasswordModal";
 
 import "./Login.css";
 
@@ -33,6 +34,7 @@ function Login() {
   const user = useSelector((state) => state.user);
   const { state: prevPage } = useLocation();
   const [loading, setLoading] = useState(false);
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -126,12 +128,13 @@ function Login() {
               />
             </div>
             <div className="text-end">
-              <Link
-                to={"/reset-password"}
-                className="text-decoration-none text-dark fw-semibold login-text h-100 d-flex"
+              <button
+                type="button"
+                className="btn btn-link text-dark fw-semibold login-text p-0 text-decoration-none"
+                onClick={() => setShowForgotPassword(true)}
               >
                 Forgot your password?
-              </Link>
+              </button>
             </div>
           </div>
 
@@ -146,6 +149,10 @@ function Login() {
           </Link>
         </div>
       </div>
+      <ForgotPasswordModal
+        show={showForgotPassword}
+        handleClose={() => setShowForgotPassword(false)}
+      />
     </SideImage>
   );
 }
