@@ -33,15 +33,14 @@ const ResetPassword = () => {
     mode: "onSubmit",
   });
 
-  const onSubmit = async () => {
+  const onSubmit = async ({ password }) => {
     try {
       const response = await fetchApi({
         method: "post",
         url: `/reset-password/${token}`,
         data: { password },
       });
-
-      if (response.data.msg === "Password reset successful") {
+      if (response.msg === "Password reset successful") {
         toast.success("Password reset successful! Redirecting to login...");
         setTimeout(() => {
           navigate("/login");
