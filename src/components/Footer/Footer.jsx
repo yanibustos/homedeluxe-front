@@ -78,7 +78,7 @@ function Footer() {
 
       <div className="footer-bottom">
         <hr />
-        <p className="py-4">Copyright © 2025 Hack Academy.</p>
+        <p className="pt-4">Copyright © 2025 Hack Academy.</p>
       </div>
     </div>
   );
