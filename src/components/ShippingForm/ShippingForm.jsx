@@ -4,8 +4,6 @@ import { ToastContainer, toast } from "react-toastify";
 import Select from "react-select";
 import ReactSelectCountryList from "react-select-country-list";
 
-import "react-toastify/dist/ReactToastify.css";
-
 const ShippingForm = ({ handleChange, handleNumberInput }) => {
   const user = useSelector((state) => state.user);
 
