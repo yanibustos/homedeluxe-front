@@ -10,6 +10,7 @@ import { ToastContainer, toast } from "react-toastify";
 import BlackButton from "../../components/commons/BlackButton/BlackButton";
 import ShippingForm from "../../components/ShippingForm/ShippingForm";
 import ProductCartQty from "../../components/Modals/ModalCart/ProductCartQty/ProductCartQty";
+import RemoveModal from "../../components/Modals/RemoveModal/RemoveModal";
 
 import "./Checkout.css";
 
@@ -103,18 +104,7 @@ const Checkout = () => {
 
   const handleConfirmRemove = () => {
     setOrderSummary((prevState) => {
-      const updatedItems = prevState.items
-        .map((item) => {
-          if (item.id === itemToRemove) {
-            if (item.quantity > 1) {
-              return { ...item, quantity: item.quantity - 1 };
-            } else {
-              return null;
-            }
-          }
-          return item;
-        })
-        .filter((item) => item !== null);
+      const updatedItems = prevState.items.filter((item) => item.id !== itemToRemove);
 
       const newSubtotal = updatedItems.reduce(
         (total, item) => total + item.price * item.quantity,
@@ -140,9 +130,9 @@ const Checkout = () => {
 
   const handleRedirectPayment = (method) => {
     if (method === "paypal") {
-      toast.success("This function is still under development...");
+      toast.warning("This function is still under development...");
     } else if (method === "mercadopago") {
-      toast.success("This function is still under development...");
+      toast.warning("This function is still under development...");
     }
   };
 
@@ -247,7 +237,7 @@ const Checkout = () => {
             onClick={handleBackToHome}
             className="btn btn-link back-home-btn d-none d-md-block"
           >
-            &larr; Back home
+            &larr; Back to home
           </button>
 
           <button
@@ -259,14 +249,6 @@ const Checkout = () => {
 
           <h2 className="title text-center">CHECKOUT</h2>
         </div>
-
-        {isMobileMenuOpen && (
-          <div className="mobile-menu">
-            <button className="btn btn-primary w-100" onClick={handleBackToHome}>
-              Back Home
-            </button>
-          </div>
-        )}
 
         <ToastContainer
           position="top-right"
@@ -515,24 +497,12 @@ const Checkout = () => {
           </div>
         </div>
 
-        <Modal show={showModal} onHide={handleCancelRemove}>
-          <Modal.Header closeButton>
-            <Modal.Title>Confirm Removal</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>Are you sure you want to remove one unit of this item?</Modal.Body>
-          <Modal.Footer>
-            <BlackButton
-              name="Cancel"
-              handleOnClick={handleCancelRemove}
-              className="custom-modal-btn gray-button w-25"
-            />
-            <BlackButton
-              name="Remove"
-              handleOnClick={handleConfirmRemove}
-              className="custom-modal-btn custom-modal w-25"
-            />
-          </Modal.Footer>
-        </Modal>
+        <RemoveModal
+          showModal={showModal}
+          itemToRemove={itemToRemove}
+          handleCancelRemove={handleCancelRemove}
+          handleConfirmRemove={handleConfirmRemove}
+        />
       </div>
     </div>
   );
