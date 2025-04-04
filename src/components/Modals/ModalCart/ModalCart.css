@@ -54,38 +54,26 @@
 
   .qty-wrapper {
     max-width: 96px;
-    input {
-      font-size: 11px;
-      padding: 0;
-      vertical-align: middle;
-      border-radius: 0;
-      text-align: center;
-      display: inline-block;
-      line-height: 20px;
-      height: 20px;
-      border: 1px solid #e0e0e0;
-      width: 40px;
-    }
+  }
 
-    &:focus {
-      outline: none;
-      box-shadow: none;
-      border-color: none;
-    }
+  .trash-wrapper {
+    align-self: start;
   }
 
   @media (max-width: 480px) {
+    .col-7 {
+      width: 100%;
+    }
+
     .header {
       .qty,
       .price {
         display: none;
       }
     }
-  }
 
-  @media (max-width: 480px) {
-    .col-7 {
-      width: 100%;
+    .trash-wrapper {
+      padding-top: 1px;
     }
   }
 
@@ -175,10 +163,6 @@
       i {
         line-height: 17px;
       }
-    }
-
-    .trash-wrapper {
-      align-items: end;
     }
 
     .qty-wrapper {
