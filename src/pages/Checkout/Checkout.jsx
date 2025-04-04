@@ -8,8 +8,8 @@ import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 
 import BlackButton from "../../components/commons/BlackButton/BlackButton";
-import Input from "../../components/commons/Input/Input";
 import ShippingForm from "../../components/ShippingForm/ShippingForm";
+import ProductCartQty from "../../components/Modals/ModalCart/ProductCartQty/ProductCartQty";
 
 import "./Checkout.css";
 
@@ -26,12 +26,14 @@ const validationSchema = Yup.object({
   zip: Yup.string().matches(/^\d+$/, "Zip code must be numeric").required("Zip code is required"),
   nameOnCard: Yup.string().required("Name on Card is required"),
   cardNumber: Yup.string()
-    .matches(/^\d+$/, "Card Number must be numeric")
+    .matches(/^\d{16}$/, "Card number must be exactly 16 digits")
     .required("Card Number is required"),
   expiry: Yup.string()
-    .matches(/^\d+$/, "Expiration Date must be numeric")
+    .matches(/^\d{4}$/, "Expiration date must be in MMYY format")
     .required("Expiration Date is required"),
-  cvv: Yup.string().matches(/^\d+$/, "CVV must be numeric").required("CVV is required"),
+  cvv: Yup.string()
+    .matches(/^\d{3}$/, "CVV must be exactly 3 digits")
+    .required("CVV is required"),
 });
 
 const Checkout = () => {
@@ -187,21 +189,36 @@ const Checkout = () => {
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
-  const toggleMobileMenu = () => {
-    setIsMobileMenuOpen(!isMobileMenuOpen);
-  };
-
-  const handleQuantityChange = (e, itemId) => {
-    const newQuantity = parseInt(e.target.value, 10);
-
-    if (newQuantity <= 0) return;
-
+  const handleIncrement = (itemId) => {
     setOrderSummary((prevState) => {
       const updatedItems = prevState.items.map((item) => {
         if (item.id === itemId) {
-          if (newQuantity > item.quantity) {
-            item.quantity = newQuantity;
-          }
+          return { ...item, quantity: item.quantity + 1 };
+        }
+        return item;
+      });
+
+      const newSubtotal = updatedItems.reduce(
+        (total, item) => total + item.price * item.quantity,
+        0,
+      );
+
+      const newTotal = newSubtotal + prevState.shipping;
+
+      return {
+        ...prevState,
+        items: updatedItems,
+        subtotal: newSubtotal,
+        total: newTotal,
+      };
+    });
+  };
+
+  const handleDecrement = (itemId) => {
+    setOrderSummary((prevState) => {
+      const updatedItems = prevState.items.map((item) => {
+        if (item.id === itemId && item.quantity > 1) {
+          return { ...item, quantity: item.quantity - 1 };
         }
         return item;
       });
@@ -233,8 +250,11 @@ const Checkout = () => {
             &larr; Back home
           </button>
 
-          <button onClick={toggleMobileMenu} className="btn menu-btn d-md-none">
-            &#9776;
+          <button
+            onClick={handleBackToHome}
+            className="btn btn-link back-home-btn d-block d-md-none"
+          >
+            &larr;
           </button>
 
           <h2 className="title text-center">CHECKOUT</h2>
@@ -433,10 +453,10 @@ const Checkout = () => {
                 {orderSummary.items.map((item) => (
                   <li
                     key={item.id}
-                    className="list-group-item d-flex justify-content-between align-items-center p-3 position-relative"
+                    className="list-group-item d-flex flex-wrap justify-content-between align-items-center p-3 position-relative"
                   >
                     <div className="d-flex align-items-center w-100">
-                      <div className="col-auto">
+                      <div className="col-auto mb-3 mb-sm-0">
                         <img
                           src={item.image}
                           alt={item.name}
@@ -449,13 +469,10 @@ const Checkout = () => {
                       </div>
                       <div className="col-3 col-md-2 text-center p-2">
                         <span className="d-block">Quantity</span>
-                        <input
-                          type="number"
-                          className="form-control quantity-input"
-                          value={item.quantity}
-                          onChange={(e) => handleQuantityChange(e, item.id)}
-                          min="1"
-                          style={{ textAlign: "center" }}
+                        <ProductCartQty
+                          product={item}
+                          handleIncrement={handleIncrement}
+                          handleDecrement={handleDecrement}
                         />
                       </div>
                       <div className="col-3 col-md-2 text-center p-2">
