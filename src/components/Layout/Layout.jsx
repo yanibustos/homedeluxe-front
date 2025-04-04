@@ -1,14 +1,14 @@
 import { Outlet } from "react-router-dom";
 
-import Navbar from "../Navbar/Navbar";
+import NavMenu from "../Navbar/Navbar";
 import Footer from "../Footer/Footer";
 
 import "./Layout.css";
 
 function Layout() {
   return (
-    <div className="layout-container vh-100">
-      <Navbar />
+    <div className="layout-container">
+      <NavMenu />
       <Outlet />
       <Footer />
     </div>

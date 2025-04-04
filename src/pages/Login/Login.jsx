@@ -9,6 +9,8 @@ import * as yup from "yup";
 import { login } from "../../redux/userSlice"; //Do not delete, inactive due to commented function
 
 import fetchApi from "../../api/fetchApi"; //Do not delete, inactive due to commented function
+
+import BlackButton from "../../components/commons/BlackButton/BlackButton";
 import Input from "../../components/commons/Input/Input";
 import InputCheckbox from "../../components/commons/InputCheckbox/InputCheckbox";
 import SideImage from "../../components/SideImage/SideImage";
@@ -51,13 +53,12 @@ function Login() {
   const onSubmit = async ({ email, password, rememberMe }) => {
     try {
       setLoading(true);
-      //TODO: Uncomment when Api is available
-      // const user = await fetchApi({
-      //   method: "post",
-      //   url: "/tokens",
-      //   data: { email, password },
-      // });
-      // dispatch(login(user));
+      const user = await fetchApi({
+        method: "post",
+        url: "/tokens",
+        data: { email, password },
+      });
+      dispatch(login(user));
 
       if (rememberMe) {
         console.log("Save in localStorage");
@@ -100,6 +101,7 @@ function Login() {
               label="Email"
               register={{ ...register("email") }}
               errors={errors}
+              classNameLabel="fw-semibold"
             />
           </div>
           <div className="mt-4">
@@ -110,6 +112,7 @@ function Login() {
               label="Password"
               register={{ ...register("password") }}
               errors={errors}
+              classNameLabel="fw-semibold"
             />
           </div>
 
@@ -125,7 +128,7 @@ function Login() {
             <div className="text-end">
               <Link
                 to={"/reset-password"}
-                className="text-decoration-none text-dark fw-bold login-text h-100 d-flex"
+                className="text-decoration-none text-dark fw-semibold login-text h-100 d-flex"
               >
                 Forgot your password?
               </Link>
@@ -133,18 +136,15 @@ function Login() {
           </div>
 
           <div className="d-grid mt-4">
-            <button type="submit" disabled={loading} className="login-button">
-              {loading ? (
-                <>
-                  <span className="spinner-border spinner-border-sm me-2" aria-hidden="true"></span>
-                  <span role="status"> Loading...</span>
-                </>
-              ) : (
-                "Login"
-              )}
-            </button>
+            <BlackButton type="submit" loading={loading} name="Login" />
           </div>
         </form>
+        <div className="mt-4 px-4 w-100">
+          <span className="login-text me-1">Don't have an account yet?</span>
+          <Link to={"/register"} className=" login-text text-dark fw-semibold ">
+            Sign Up
+          </Link>
+        </div>
       </div>
     </SideImage>
   );
