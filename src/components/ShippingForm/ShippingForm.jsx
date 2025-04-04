@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
+import Select from "react-select";
+import ReactSelectCountryList from "react-select-country-list";
+
 import "react-toastify/dist/ReactToastify.css";
 
 const ShippingForm = ({ handleChange, handleNumberInput }) => {
@@ -17,6 +20,8 @@ const ShippingForm = ({ handleChange, handleNumberInput }) => {
     zip: "",
   });
 
+  const [countries, setCountries] = useState([]);
+
   useEffect(() => {
     if (user) {
       setFormData({
@@ -31,6 +36,18 @@ const ShippingForm = ({ handleChange, handleNumberInput }) => {
       });
     }
   }, [user]);
+
+  useEffect(() => {
+    const countriesList = ReactSelectCountryList().getData();
+    setCountries(countriesList);
+  }, []);
+
+  const handleCountryChange = (selectedOption) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      country: selectedOption ? selectedOption.value : "",
+    }));
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -113,16 +130,14 @@ const ShippingForm = ({ handleChange, handleNumberInput }) => {
           <label htmlFor="country" className="form-label">
             Country
           </label>
-          <input
-            type="text"
-            className="form-control"
-            id="country"
-            name="country"
-            value={formData.country}
-            onChange={handleInputChange}
+          <Select
+            options={countries}
+            value={countries.find((country) => country.value === formData.country)}
+            onChange={handleCountryChange}
             required
           />
         </div>
+
         <div className="col-12 col-md-6 mb-3">
           <label htmlFor="city" className="form-label">
             City
