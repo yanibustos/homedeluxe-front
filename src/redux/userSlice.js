@@ -20,11 +20,14 @@ const userSlice = createSlice({
     logout(state, action) {
       return {};
     },
+    setUser(state, action) {
+      return { ...state, ...action.payload };
+    },
   },
 });
 
 const { reducer, actions } = userSlice;
 
-export const { login, logout } = actions;
+export const { login, logout, setUser } = actions;
 
 export default reducer;

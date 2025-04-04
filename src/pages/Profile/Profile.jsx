@@ -8,9 +8,10 @@ import * as yup from "yup";
 import InputCheckbox from "../../components/commons/InputCheckbox/InputCheckbox";
 import BlackButton from "../../components/commons/BlackButton/BlackButton";
 import fetchApi from "../../api/fetchApi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import "./Profile.css";
+import { login, setUser } from "../../redux/userSlice";
 
 const schema = yup
   .object({
@@ -46,16 +47,22 @@ const schema = yup
       otherwise: (schema) => schema.notRequired(),
     }),
     avatar: yup.mixed().test("fileType", "Only images are allowed", (value) => {
-      // If value is a string (URL), skip the validation
+      // Si es un string con URL, está bien
       if (typeof value === "string" && value.startsWith("http")) {
         return true;
       }
 
-      // If no file selected, skip validation
-      if (!value || value.length === 0) return true;
+      // Si es undefined, null o un array vacío
+      if (!value) {
+        return true;
+      }
 
-      // Validate file type if a file is selected
-      return ["image/jpeg", "image/png"].includes(value[0].type);
+      // Si es un archivo o FileList
+      if (value instanceof File) {
+        return ["image/jpeg", "image/png"].includes(value.type); // Validar el tipo MIME del archivo
+      }
+
+      return false; // Si no pasa ninguna condición válida
     }),
   })
   .required();
@@ -64,6 +71,7 @@ function Profile() {
   const user = useSelector((state) => state.user);
   const [preview, setPreview] = useState(user.avatar || null);
   const [isEditing, setIsEditing] = useState(false);
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -90,7 +98,7 @@ function Profile() {
     const file = event.target.files[0];
     if (file) {
       setPreview(URL.createObjectURL(file));
-      setValue("avatar", event.target.files);
+      setValue("avatar", file);
     }
   };
 
@@ -103,27 +111,28 @@ function Profile() {
       }
 
       const formData = new FormData();
+
       Object.keys(data).forEach((key) => {
-        if (data[key] !== undefined && data[key] !== null) {
-          if (key === "avatar" && data[key].length > 0) {
-            formData.append(key, data[key][0]);
-          } else {
-            formData.append(key, data[key]);
-          }
+        if (key === "avatar") {
+          formData.append("avatar", data.avatar);
+        } else if (data[key] !== undefined && data[key] !== null && data[key] !== "") {
+          formData.append(key, data[key]);
         }
       });
 
       const response = await fetchApi({
         method: "patch",
-        url: "/users",
+        url: `/users/${user.id}`,
         data: formData,
         headers: { "Content-Type": "multipart/form-data" },
       });
 
-      console.log("Profile updated:", response.data);
-      reset(response.data);
-      setPreview(response.data.avatar || null);
-      setIsEditing(false);
+      if (response) {
+        dispatch(setUser(response));
+        reset(response);
+        setPreview(response.avatar || null);
+        setIsEditing(false);
+      }
     } catch (error) {
       console.error("Error updating profile:", error.response?.data || error.message);
     }
@@ -151,7 +160,7 @@ function Profile() {
 
         <div className="row mb-3">
           <div className="col-12 d-flex align-items-center gap-3">
-            <label htmlFor="avatar-input" className="col-1 fw-semibold profile-avatar-label">
+            <label htmlFor="avatar" className="col-1 fw-semibold profile-avatar-label">
               Avatar
             </label>
             <div className="flex-grow-1 d-flex align-items-center gap-3">
@@ -165,12 +174,12 @@ function Profile() {
                   <BlackButton
                     type="button"
                     classNameContainer="btn btn-secondary profile-avatar-button"
-                    handleOnClick={() => document.getElementById("avatar-input").click()}
+                    handleOnClick={() => document.getElementById("avatar").click()}
                     name="Update"
                   />
                   <input
                     type="file"
-                    id="avatar-input"
+                    id="avatar"
                     accept="image/*"
                     className="d-none"
                     {...register("avatar")}
