@@ -38,7 +38,7 @@ function ProductCartQty({ product }) {
       </button>
       <input
         type="text"
-        maxLength="4"
+        maxLength="2"
         value={inputQty}
         onChange={(e) => handleQtyChange(e.target.value)}
         name="quantity"
