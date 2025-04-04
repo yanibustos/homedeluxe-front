@@ -217,20 +217,6 @@ function Profile() {
               disabled={!isEditing}
             />
           </div>
-          <div className="row">
-            <Input
-              type="text"
-              name="ci"
-              id="ci"
-              label="CI"
-              classNameContainer="col-12 d-flex gap-3 mb-3"
-              classNameInput={`flex-grow-1 `}
-              classNameLabel="col-1 fw-semibold profile-input-label"
-              register={{ ...register("ci") }}
-              errors={errors}
-              disabled={!isEditing}
-            />
-          </div>
 
           <div className="row">
             <Input
