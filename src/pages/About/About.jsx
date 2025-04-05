@@ -1,121 +1,197 @@
 import React from "react";
-import TeamCard from "../../components/TeamCard/TeamCard";
+import { Link } from "react-router-dom";
 
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
+import "@fortawesome/fontawesome-free/css/all.min.css";
 import "./About.css";
 
-const teamMembers = [
-  {
-    name: "Yanina Bustos",
-    role: "Junior Full Stack Developer",
-    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwbWumy8AHkD7mIdCNqSdq7_6BnvK838VJ9w&s",
-    twitter: "https://twitter.com",
-    linkedin: "https://linkedin.com",
-  },
-  {
-    name: "Cristofer Fernandez",
-    role: "Junior Full Stack Developer",
-    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsd6jEYWceiGnd-fmcfMQU81ME5zJj63buBw&s",
-    twitter: "https://twitter.com",
-    linkedin: "https://linkedin.com",
-  },
-  {
-    name: "Darlen Hornia",
-    role: "Junior Full Stack Developer",
-    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwbWumy8AHkD7mIdCNqSdq7_6BnvK838VJ9w&s",
-    twitter: "https://twitter.com",
-    linkedin: "https://linkedin.com",
-  },
-  {
-    name: "Federico Vargas",
-    role: "Junior Full Stack Developer",
-    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQsd6jEYWceiGnd-fmcfMQU81ME5zJj63buBw&s",
-    twitter: "https://twitter.com",
-    linkedin: "https://linkedin.com",
-  },
-  {
-    name: "Ayhesa Hinds",
-    role: "Junior Full Stack Developer",
-    description: "Lorem ipsum dolor sit amet consectetur adipisicing elit.",
-    image:
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwbWumy8AHkD7mIdCNqSdq7_6BnvK838VJ9w&s",
-    twitter: "https://twitter.com",
-    linkedin: "https://linkedin.com",
-  },
-];
+const About = () => {
+  const techTools = [
+    { iconClass: "fab fa-bootstrap", label: "Bootstrap" },
+    { iconClass: "fab fa-css3-alt", label: "CSS3" },
+    { iconClass: "fab fa-figma", label: "Figma" },
+    { iconClass: "fab fa-github", label: "GitHub" },
+    { iconClass: "fab fa-js-square", label: "JavaScript" },
+    { iconClass: "fab fa-mongodb", label: "MongoDB" },
+    { iconClass: "fab fa-node-js", label: "NodeJS" },
+    { iconClass: "fab fa-react", label: "React" },
+    { iconClass: "fab fa-reddit", label: "Redux" },
+    { iconClass: "fas fa-database", label: "SQL" },
+    { iconClass: "fab fa-trello", label: "Trello" },
+    { iconClass: "fab fa-discord", label: "Discord" },
+  ];
 
-const InfoCard = ({ icon, title, text }) => (
-  <div className="col-12 col-md-4">
-    <div className="card shadow-sm text-center p-4 position-relative mx-auto">
-      <div className="icon-container">
-        <span className="bi">{icon}</span>
-      </div>
-      <h5 className="card-title fw-bold mt-4">{title}</h5>
-      <p className="card-text text-muted">{text}</p>
-    </div>
-  </div>
-);
+  const teamMembers = [
+    {
+      id: 1,
+      name: "Yanina Bustos",
+      role: "Junior Full Stack Developer",
+      github: "https://github.com/member1",
+      linkedin: "https://linkedin.com/in/member1",
+      image: "/img/avatar.png",
+    },
+    {
+      id: 2,
+      name: "Cristofer Fernandez",
+      role: "Junior Full Stack Developer",
+      github: "https://github.com/member2",
+      linkedin: "https://linkedin.com/in/member2",
+      image: "/img/avatar.png",
+    },
+    {
+      id: 3,
+      name: "Darlen Hornia",
+      role: "Junior Full Stack Developer",
+      github: "https://github.com/member3",
+      linkedin: "https://linkedin.com/in/member3",
+      image: "/img/avatar.png",
+    },
+    {
+      id: 4,
+      name: "Federico Vargas",
+      role: "Junior Full Stack Developer",
+      github: "https://github.com/member4",
+      linkedin: "https://linkedin.com/in/member4",
+      image: "/img/avatar.png",
+    },
+    {
+      id: 5,
+      name: "Ayhesa Hinds",
+      role: "Junior Full Stack Developer",
+      github: "https://github.com/member5",
+      linkedin: "https://linkedin.com/in/member5",
+      image: "/img/avatar.png",
+    },
+  ];
 
-function About() {
   return (
-    <div className="about-container ">
-      <div className="about-text">
-        <h1 className="fw-bold mb-3">About this Project</h1>
-        <p className="mt-4">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quod natus omnis officiis
-          possimus consectetur est dolorem similique eaque tempora ab ipsum iste fugit aliquid et
-          velit deserunt labore, delectus laudantium ad. Officia officiis modi veniam repudiandae,
-          fugiat ratione aut nemo illo ab qui. Fugiat, magnam sunt? Asperiores pariatur laboriosam
-          voluptates!
-        </p>
-      </div>
-
-      <div className="container-fluid">
-        <div className="info-cards row g-4">
-          <InfoCard
-            icon={<i className="bi bi-hourglass-split" style={{ fontSize: "22px" }}></i>}
-            title="Duration"
-            text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo quibusdam iusto perferendis ab, voluptatibus adipisci similique at nam iste. Dolores doloremque nulla nihil odio magni."
-          />
-          <InfoCard
-            icon={<i className="bi bi-laptop" style={{ fontSize: "22px" }}></i>}
-            title="Technology Used"
-            text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo quibusdam iusto perferendis ab, voluptatibus adipisci similique at nam iste. Dolores doloremque nulla nihil odio magni."
-          />
-          <InfoCard
-            icon={<i className="bi bi-pencil-square" style={{ fontSize: "22px" }}></i>}
-            title="Task Division"
-            text="Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo quibusdam iusto perferendis ab, voluptatibus adipisci similique at nam iste. Dolores doloremque nulla nihil odio magni."
-          />
+    <div className="about-containter">
+      <section className="about-section section1">
+        <div className="container d-flex justify-content-center align-items-start flex-column">
+          <div className="text-center">
+            <h1>About This Project</h1>
+            <p>
+              This e-commerce website is a project developed by students from the Coding Bootcamp at
+              Hack Academy. The Bootcamp is an intensive, hands-on 3-month, full-time educational
+              program where students invest over 600 hours learning about Node.js, Express,
+              React.js, SQL, MongoDB, and Git. Throughout the program, students work on real-world
+              projects, enhancing their technical skills and preparing for careers in software
+              development.
+            </p>
+          </div>
         </div>
-      </div>
+      </section>
 
-      <hr className="w-75 mx-auto my-5 border-2 border-dark opacity-90" />
+      <section className="tech-section section2">
+        <div className="container text-center">
+          <h2 className="section-title">Technologies & Tools</h2>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae aperiam architecto
+            eius quo eaque blanditiis voluptatibus optio ab deserunt, assumenda ullam placeat
+            exercitationem tempore officia tempora animi quos a est enim maxime error? Laborum
+            magnam optio cupiditate voluptate deleniti harum.
+          </p>
 
-      {/* Sección del equipo */}
-      <div className="team-section mt-5">
-        <h2 className="text-center fw-bold fs-1">Our Team</h2>
-        <p className="mt-5 centered-text">
-          Lorem, ipsum dolor sit amet consectetur adipisicing elit. Nostrum maxime maiores, minima
-          numquam aspernatur magnam placeat temporibus ad eaque quae vel quos cum mollitia aliquam,
-          nam cupiditate harum ab qui.
-        </p>
-        <div className="card-columns mt-5">
-          {teamMembers.map((member, index) => (
-            <TeamCard key={index} {...member} />
-          ))}
+          <div className="tech-row">
+            {techTools.map((item, index) => (
+              <div className="tech-item" key={index}>
+                <i className={`${item.iconClass} tech-icon`}></i>
+                <p className="tecnology-name">{item.label}</p>
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      </section>
+
+      <section className="project-section section3">
+        <div className="container text-center">
+          <h2>Project Organization - MER</h2>
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto fuga id recusandae cum
+            beatae voluptates vero, maxime enim exercitationem voluptatibus consectetur nostrum
+            animi odio doloremque deleniti perspiciatis quibusdam. Porro, quidem.
+          </p>
+        </div>
+      </section>
+
+      <section className="dashboard-section section4">
+        <div className="container text-center">
+          <h2>Admin Dashboard</h2>
+
+          <div className="content-wrapper">
+            <div className="left-column">
+              <p>To test our Admin dashboard, you can follow these steps:</p>
+              <ol className="text-left">
+                <li>
+                  Visit our{" "}
+                  <Link to="/login" className="login-link">
+                    admin login page
+                  </Link>
+                </li>
+                <li>
+                  Use the email address <strong>"admin@admin.com"</strong> as your username.
+                </li>
+                <li>
+                  Input <strong>"123"</strong> as the password.
+                </li>
+                <li>Click on the login button or submit the form.</li>
+              </ol>
+            </div>
+
+            <div className="right-column">
+              <p>To test the application as a user, follow these steps:</p>
+              <ol className="text-left">
+                <li>
+                  Visit our{" "}
+                  <Link to="/login" className="login-link">
+                    admin login page
+                  </Link>
+                </li>
+                <li>
+                  Use the email address <strong>"admin@admin.com"</strong> as your username.
+                </li>
+                <li>
+                  Input <strong>"123"</strong> as the password.
+                </li>
+                <li>Click on the login button or submit the form.</li>
+              </ol>
+            </div>
+          </div>
+
+          <p className="final-note">
+            Now you can access the admin dashboard and test the application with the provided login
+            data. Enjoy the testing!
+          </p>
+        </div>
+      </section>
+
+      <section className="members-section section5">
+        <div className="container text-center">
+          <h2>Our Team</h2>
+          <div className="row justify-content-center">
+            {teamMembers.map((member) => (
+              <div className="col-md-2" key={member.id}>
+                <div className="team-member">
+                  <img src={member.image} alt={member.name} className="team-photo" />
+                  <h3>{member.name}</h3>
+                  <p>{member.role}</p>
+                  <div>
+                    <a href={member.github} target="_blank" rel="noopener noreferrer">
+                      <i className="bi bi-github"></i>
+                    </a>
+                    <a href={member.linkedin} target="_blank" rel="noopener noreferrer">
+                      <i className="bi bi-linkedin"></i>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
-}
+};
 
 export default About;
