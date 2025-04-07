@@ -165,7 +165,7 @@ const About = () => {
                 <li>
                   Visit our{" "}
                   <Link to="/login" className="login-link">
-                    admin login page
+                    login page
                   </Link>
                 </li>
                 <li>

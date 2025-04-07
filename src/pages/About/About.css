@@ -59,12 +59,21 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    padding-left: 120px;
-    padding-right: 90px;
+    padding-left: 10%;
+    padding-right: 5%;
     padding-top: 15px;
     background-color: rgb(141, 141, 141);
     color: white;
   }
+
+  .section2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    gap: 60px;
+  }
+
   .section2-text {
     text-align: left;
     padding-right: 20px;
@@ -73,7 +82,6 @@
   .icons {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
     justify-content: center;
   }
 
@@ -116,79 +124,112 @@
     }
   }
 
-  .section3 {
+  @media (max-width: 1000px) {
+    .section2 {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .section2-text {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .icons {
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .tecnology-item {
+      flex-basis: auto;
+      text-align: center;
+    }
+  }
+
+  .project-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-left: 10%;
+    padding-right: 5%;
+    padding-top: 15px;
     background-color: black;
     color: white;
-    padding: 50px 0;
+  }
+
+  .section3 {
     display: flex;
     justify-content: center;
     align-items: center;
-    text-align: left;
     position: relative;
-    z-index: 0;
-    padding-left: 120px;
-    padding-right: 90px;
+    gap: 60px;
   }
 
-  .section3 .image,
-  .section3 .text {
-    flex: 1;
-    max-width: 80%;
-    padding: 0 30px;
+  .section3-text {
+    text-align: left;
+    padding-right: 20px;
+    max-width: 50%;
+  }
+
+  .section3 .image {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .section3 .image img {
     width: 100%;
-    max-width: 100%;
     height: auto;
     border-radius: 8px;
+    object-fit: cover;
+    max-width: 100%;
   }
 
-  .section3 .text h2 {
-    margin-bottom: 20px;
+  @media (max-width: 1200px) {
+    .section3 .image img {
+      max-width: 90%;
+    }
+
+    .section3-text {
+      max-width: 80%;
+    }
   }
 
-  .section3 .text p {
-    line-height: 1.6;
-    font-size: 1.1rem;
+  @media (max-width: 1000px) {
+    .section3 {
+      flex-direction: column;
+      padding: 30px 20px;
+    }
+
+    .section3 .image,
+    .section3-text {
+      max-width: 100%;
+      flex: none;
+    }
+
+    .section3 .image img {
+      max-width: 90%;
+    }
+
+    .section3-text {
+      text-align: center;
+    }
   }
 
   @media (max-width: 767px) {
     .section3 {
-      padding-left: 30px;
-      padding-right: 30px;
-      flex-direction: column;
-      text-align: center;
-    }
-
-    .section3 .image,
-    .section3 .text {
-      max-width: 100%;
-      padding: 0 20px;
+      padding: 20px 10px;
     }
 
     .section3 .image img {
-      margin-bottom: 20px;
+      max-width: 100%;
     }
 
-    .section3 .text h2 {
-      font-size: 1.8rem;
-      margin-bottom: 15px;
-    }
-
-    .section3 .text p {
-      font-size: 1rem;
-      margin-bottom: 10px;
-    }
-  }
-
-  @media (max-width: 576px) {
-    .section3 .text h2 {
-      font-size: 1.6rem;
-    }
-
-    .section3 .text p {
-      font-size: 0.9rem;
+    .section3-text {
+      max-width: 90%;
     }
   }
 
@@ -205,13 +246,11 @@
     height: auto;
     border-radius: 8px;
     margin: 20px auto 30px;
-    display: block;
   }
 
   .content-wrapper {
     display: flex;
     justify-content: center;
-    align-items: flex-start;
     gap: 50px;
     flex-wrap: wrap;
     margin-top: 30px;
@@ -227,9 +266,15 @@
   .left-column ol li,
   .right-column ol li {
     padding-left: 25px;
-    font-size: 1rem;
+    font-size: 0.9rem;
     line-height: 1.6;
     text-align: left;
+  }
+
+  .left-column p,
+  .right-column p {
+    text-align: left;
+    font-size: 1rem;
   }
 
   .section4 ol {
