@@ -8,7 +8,7 @@ function SideImage({ children }) {
         <div className="col-12 col-xl-3 d-flex flex-column justify-content-center align-items-center">
           <div className="vh-100 w-100 d-flex flex-column justify-content-center form-center">
             <div className="d-flex justify-content-center align-items-center mb-4">
-              <img src="img/logo_principal.png" alt="Logo" className="img-fluid" />
+              <img src="/img/logo_principal.png" alt="Logo" className="img-fluid" />
             </div>
             {children}
           </div>

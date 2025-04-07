@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+
 import fetchApi from "../../api/fetchApi";
-import "./ProductList.css";
 import currencyFormatter from "../../helpers/formatPrice";
+import { addToCart } from "../../redux/shoppingCartSlice";
+
+import "./ProductList.css";
 
 //Uncomment when not using DB
 // const products = [
@@ -90,6 +94,7 @@ function ProductList() {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getProducts();
@@ -109,6 +114,10 @@ function ProductList() {
 
   const handleFilter = () => {
     toast.warning("Not available yet");
+  };
+
+  const handleAddToCart = (product) => {
+    dispatch(addToCart(product));
   };
 
   return (
@@ -167,7 +176,10 @@ function ProductList() {
                   <div className="text-description mb-4">
                     <p>{product.description}</p>
                   </div>
-                  <button className="card-text-btn rounded-pill">
+                  <button
+                    className="card-text-btn rounded-pill"
+                    onClick={() => handleAddToCart(product)}
+                  >
                     <span>Add to cart</span>
                   </button>
                 </div>
