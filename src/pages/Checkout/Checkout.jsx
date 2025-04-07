@@ -89,7 +89,7 @@ const Checkout = () => {
       const valid = await validationSchema.isValid(formData);
       setIsFormValid(valid);
     };
-
+    
     checkFormValidity();
   }, [formData]);
 
@@ -138,10 +138,10 @@ const Checkout = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+    setFormData((prevState) => {
+      const updatedFormData = { ...prevState, [name]: value };
+      return updatedFormData;
+    });
   };
 
   const handleNumberInput = (e) => {
@@ -156,10 +156,11 @@ const Checkout = () => {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  /*   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const isValid = await validationSchema.isValid(formData);
+
     if (!isValid) {
       toast.error("Please fill out all fields correctly.");
       return;
@@ -171,6 +172,14 @@ const Checkout = () => {
       setIsProcessing(false);
       alert("Order confirmed!");
     }, 2000);
+  }; */
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    console.log("Order confirmed with data:", formData);
+
+    toast.success("Your order has been confirmed!");
   };
 
   const handleBackToHome = () => {
@@ -419,13 +428,17 @@ const Checkout = () => {
                 )}
               </div>
 
-              <BlackButton
+              {/*      <BlackButton
                 name={isProcessing ? "Processing..." : "Confirm Order"}
                 className="w-100 mt-4"
                 loading={isProcessing}
-                disabled={isProcessing || !isFormValid}
+                        disabled={isProcessing || !isFormValid}
                 handleOnClick={handleSubmit}
-              />
+              /> */}
+
+              <button type="button" className="btn btn-primary w-100 mt-4" onClick={handleSubmit}>
+                Confirm Order
+              </button>
             </form>
           </div>
           <div className="col-md-6">
