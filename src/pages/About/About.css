@@ -61,7 +61,6 @@
     align-items: flex-start;
     padding-left: 10%;
     padding-right: 5%;
-    padding-top: 15px;
     background-color: rgb(141, 141, 141);
     color: white;
   }
@@ -83,6 +82,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    padding-top: 5px;
   }
 
   .tecnology-item {
@@ -154,7 +154,7 @@
     align-items: flex-start;
     padding-left: 10%;
     padding-right: 5%;
-    padding-top: 15px;
+    padding-top: 5px;
     background-color: black;
     color: white;
   }
@@ -337,7 +337,6 @@
   .section5 h3 {
     font-size: 1.2rem;
     margin-bottom: 10px;
-    font-weight: 600;
   }
 
   .section5 p {
