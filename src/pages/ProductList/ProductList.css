@@ -1,4 +1,15 @@
 .productList-container {
+  min-height: 90vh;
+  display: flex;
+  flex-direction: column;
+
+  .content-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+  }
+
   hr {
     opacity: 0.1;
   }
@@ -7,6 +18,7 @@
     width: 300px;
     background-color: #f8f8f8;
   }
+
   .card-container:hover {
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
     transition: all 0.3s ease;
@@ -14,34 +26,53 @@
       background-color: rgb(39, 39, 39);
       transition: all 0.3s ease-in-out;
     }
+
     .card-text-btn {
       background-color: rgb(39, 39, 39);
       transition: all 0.3s ease-in-out;
+
+      &:disabled {
+        background-color: #cccccc;
+      }
     }
   }
-  .select-option {
-    color: #7a7a7a;
-    font-size: 0.8rem;
-  }
+
   .card-img-top {
     width: 100%;
   }
+
   .filter-btn {
-    border: none;
+    /* border: none;
     color: #fff;
     background-color: #7a7a7a;
     letter-spacing: 1px;
-    border-radius: 4px;
+    border-radius: 4px; */
+
+    height: 30px;
+    line-height: 30px;
+    font-size: 12px;
+    padding: 0 10px;
+    text-transform: none;
+    text-align: center;
+    border-radius: 3px;
+    border: none;
+    transition: background 0.25s;
+    font-weight: 600;
+    cursor: pointer;
+    margin-left: 20px;
   }
+
   .filter-text {
     font-size: 0.8rem;
   }
+
   .div-border {
     width: 40px;
     height: 2px;
     background-color: black;
     margin: auto;
   }
+
   .text-description {
     font-family: "Montserrat", sans-serif;
     font-size: 0.7rem;
@@ -61,7 +92,9 @@
 
   .all-cards {
     width: 100%;
+    padding-bottom: 1rem;
   }
+
   .main-text-card {
     font-family: "Playfair Display", serif;
     color: #000;
@@ -80,6 +113,8 @@
 
   .main-text {
     color: #000;
+    margin-bottom: 0;
+    font-size: 20px;
   }
 
   .card-text-btn {
@@ -91,6 +126,10 @@
     border: none;
     padding: 12px 24px;
     transition: all 0.3s ease-in-out;
+
+    &:disabled {
+      background-color: #cccccc;
+    }
   }
 
   .accesories-text {
@@ -101,6 +140,7 @@
     color: #000;
     text-align: center;
   }
+
   .price-container {
     position: absolute;
     top: -18px;
@@ -112,6 +152,7 @@
     width: 80px;
     height: 80px;
   }
+
   @media (max-width: 768px) {
     .main-text {
       border-bottom: 1px solid rgba(0, 0, 0, 0.1);
@@ -122,5 +163,168 @@
 
   .ammount {
     font-size: 12px;
+  }
+
+  .div-search-products {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    > span {
+      font-size: 12px;
+    }
+  }
+
+  .btn-update-cart {
+    outline: 2px solid black;
+    outline-offset: 0;
+    background-color: transparent;
+    color: black;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 8px;
+    max-width: 100px;
+    margin: 0 auto;
+  }
+
+  &:hover {
+    border: none;
+  }
+
+  .product-cart-qty {
+    display: flex;
+    align-items: center;
+    > * {
+      border: 0;
+    }
+
+    input {
+      font-size: 14px;
+      background-color: transparent;
+      font-weight: 700;
+    }
+  }
+
+  .product-cart-qty {
+    justify-content: space-between;
+  }
+
+  .btn-inc,
+  .btn-dec {
+    font-size: 20px;
+    font-weight: 400;
+  }
+
+  .items {
+    align-self: center;
+    font-size: 12px;
+  }
+
+  @media (max-width: 767px) {
+    .filter-wrapper {
+      display: flex;
+      flex-direction: row-reverse;
+      justify-content: space-between;
+      flex: 1;
+    }
+
+    .filter-btn {
+      margin-left: 0;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .items {
+      display: none;
+    }
+
+    .filter-wrapper {
+      flex-direction: row;
+    }
+  }
+
+  .offcanvas {
+    width: 250px;
+  }
+
+  .offcanvas-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    button {
+      border-radius: 0;
+      font-weight: 600;
+    }
+  }
+
+  .blackButton {
+    font-weight: 600;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .categories {
+    cursor: pointer;
+    font-weight: normal;
+    font-size: 13px;
+    position: relative;
+  }
+
+  .price {
+    cursor: pointer;
+    font-weight: normal;
+    font-size: 13px;
+    position: relative;
+
+    input {
+      border-radius: 0;
+      border: 1px solid #e0e0e0;
+      background-color: #ffffff;
+      height: 30px;
+      font-size: 12px;
+      width: 100%;
+      outline: none;
+      padding: 0 10px;
+
+      &:focus {
+        border-color: #000000;
+      }
+    }
+
+    .btn-price-filter {
+      font-size: 11px;
+      line-height: 30px;
+      width: 45px;
+      padding: 0;
+    }
+  }
+
+  .filter-options {
+    .filter-heading {
+      font-size: 12px;
+      text-transform: uppercase;
+      color: #000000;
+      font-weight: bold;
+      line-height: 20px;
+    }
+  }
+
+  .chevron {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    background: url("/img/chevron-right.svg") no-repeat center center;
+    background-size: contain;
+    transform: rotate(90deg);
+    transition: transform 0.3s ease;
+    margin-right: 3px;
+  }
+
+  .chevron.rotated {
+    transform: rotate(-90deg);
   }
 }
