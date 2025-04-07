@@ -88,10 +88,20 @@ const About = () => {
           <div className="section2-text w-50">
             <h2>Technologies & Tools</h2>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae aperiam architecto
-              eius quo eaque blanditiis voluptatibus optio ab deserunt, assumenda ullam placeat
-              exercitationem tempore officia tempora animi quos a est enim maxime error? Laborum
-              magnam optio cupiditate voluptate deleniti harum.
+              During the coding bootcamp, we explored a variety of technologies across both backend
+              and frontend development. Additionally, we gained practical experience working with
+              databases and used various tools to streamline our workflow. To manage tasks
+              effectively within our team, we adopted Trello as our project management tool.
+            </p>
+            <br></br>
+            <p>
+              The project was broken down into three sprints, and we used Github as our main
+              platform for collaboration. Discord was essential in maintaining smooth communication
+              throughout the development process. For this project, we selected the following set of
+              tools to enhance our productivity.
+            </p>
+            <p>
+              For this project, we selected the following set of tools to enhance our productivity.
             </p>
           </div>
           <div className="icons w-50">
