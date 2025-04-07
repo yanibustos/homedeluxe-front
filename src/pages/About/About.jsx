@@ -83,9 +83,9 @@ const About = () => {
         </div>
       </div>
 
-      <div className="technologies-section">
-        <div className="section2">
-          <div className="section2-text">
+      <div className="technologies-section d-flex flex-wrap">
+        <div className="section2 d-flex">
+          <div className="section2-text w-50">
             <h2>Technologies & Tools</h2>
             <p>
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae aperiam architecto
@@ -94,10 +94,10 @@ const About = () => {
               magnam optio cupiditate voluptate deleniti harum.
             </p>
           </div>
-          <div className="icons">
-            <div className="technologies-row">
+          <div className="icons w-50">
+            <div className="technologies-row d-flex flex-wrap">
               {techTools.map((item, index) => (
-                <div className="tecnology-item" key={index}>
+                <div className="tecnology-item col-3 text-center" key={index}>
                   <i className={`${item.iconClass} tecnology-icon`}></i>
                   <p className="tecnology-name">{item.label}</p>
                 </div>
