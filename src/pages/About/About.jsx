@@ -13,7 +13,7 @@ const About = () => {
     { iconClass: "fab fa-figma", label: "Figma" },
     { iconClass: "fab fa-github", label: "GitHub" },
     { iconClass: "fab fa-js-square", label: "JavaScript" },
-    { iconClass: "fab fa-mongodb", label: "MongoDB" },
+    { iconClass: "fab fa-supabase", label: "Supabase" },
     { iconClass: "fab fa-node-js", label: "NodeJS" },
     { iconClass: "fab fa-react", label: "React" },
     { iconClass: "fab fa-reddit", label: "Redux" },
@@ -27,8 +27,8 @@ const About = () => {
       id: 1,
       name: "Yanina Bustos",
       role: "Junior Full Stack Developer",
-      github: "https://github.com/member1",
-      linkedin: "https://linkedin.com/in/member1",
+      github: "https://github.com/yanibustos",
+      linkedin: "https://www.linkedin.com/in/yanina-bustos",
       image: "/img/avatar.png",
     },
     {
@@ -97,8 +97,7 @@ const About = () => {
             <p>
               The project was broken down into three sprints, and we used Github as our main
               platform for collaboration. Discord was essential in maintaining smooth communication
-              throughout the development process. For this project, we selected the following set of
-              tools to enhance our productivity.
+              throughout the development process.
             </p>
             <p>
               For this project, we selected the following set of tools to enhance our productivity.
