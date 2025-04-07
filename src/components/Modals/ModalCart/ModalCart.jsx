@@ -1,27 +1,22 @@
 import React from "react";
 import { Modal } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-import { removeFromcart } from "../../../redux/shoppingCartSlice";
 import CloseModalBtn from "./CloseModalBtn/CloseModalBtn";
-import ProductCartQty from "./ProductCartQty/ProductCartQty";
+import ProductCartQty from "../../commons/ProductCartQty/ProductCartQty";
 import currencyFormatter from "../../../helpers/formatPrice";
 import totalPrice from "../../../helpers/totalPrice";
 import totalQty from "../../../helpers/totalQty";
+import RemoveFromCart from "../../commons/RemoveFromCart/RemoveFromCart";
 
 import "./ModalCart.css";
 
 function ModalCart({ show, setShow }) {
   const shoppingCart = useSelector((state) => state.shoppingCart);
-  const dispatch = useDispatch();
   const isEmpty = shoppingCart.length === 0;
 
   const handleClose = () => setShow(false);
-
-  const handleRemove = (productId) => {
-    dispatch(removeFromcart(productId));
-  };
 
   return (
     <div className="modalCart-container">
@@ -58,9 +53,7 @@ function ModalCart({ show, setShow }) {
                         <span className="currency text-uppercase">usd</span>
                         <span>{currencyFormatter(item.price * item.quantity)}</span>
                       </span>
-                      <div className="d-flex trash-wrapper">
-                        <i className="bi bi-trash" onClick={() => handleRemove(item.id)}></i>
-                      </div>
+                      <RemoveFromCart productId={item.id} />
                     </div>
                   </div>
                 ))}

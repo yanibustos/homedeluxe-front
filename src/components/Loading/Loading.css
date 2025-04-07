@@ -1,3 +1,6 @@
 .loading-container {
-  background-color: azure;
+  .loading-overlay {
+    z-index: 1050;
+    transition: opacity 0.3s ease;
+  }
 }
