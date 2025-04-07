@@ -22,6 +22,7 @@
   .select-option {
     color: #7a7a7a;
     font-size: 0.8rem;
+    border-radius: 4px;
   }
   .card-img-top {
     width: 100%;
@@ -52,6 +53,7 @@
     p {
       display: -webkit-box;
       -webkit-line-clamp: 3;
+      line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
       text-overflow: ellipsis;

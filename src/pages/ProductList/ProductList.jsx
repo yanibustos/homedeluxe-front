@@ -122,7 +122,7 @@ function ProductList() {
         <div className="text-center d-flex align-items-center justify-content-center div-search-products">
           <span className="pe-3 d-md-inline-block d-none">{products.length} items</span>
           <button
-            className="filter-btn"
+            className="filter-btn "
             onClick={() => {
               handleFilter();
             }}
@@ -131,7 +131,7 @@ function ProductList() {
           </button>
           <select
             name="order"
-            className="ms-3 p-1 select-option "
+            className="ms-3 p-1 select-option"
             onChange={() => {
               handleFilter();
             }}
@@ -152,7 +152,7 @@ function ProductList() {
             {products.map((product) => (
               <div key={product.id} className="p-0 mx-4 my-4 card-container mb-4">
                 <div className="card position-relative">
-                  <div className="position-absolute rounded-circle d-flex justify-content-center align-items-center flex-wrap gap-1 price-container">
+                  <div className="position-absolute rounded-circle d-flex justify-content-center align-items-center flex-wrap flex-column gap-1 price-container">
                     <small>{product.currency}</small>
                     <span>{currencyFormatter(product.price)}</span>
                   </div>

@@ -23,6 +23,8 @@
   .main-image {
     min-width: 460px;
     min-height: 460px;
+    max-width: 460px;
+    max-height: 460px;
   }
   .description-text {
     border-bottom: 4px solid black;

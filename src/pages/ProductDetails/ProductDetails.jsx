@@ -1,18 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Carousel from "react-bootstrap/Carousel";
 import "./ProductDetails.css";
 import { toast } from "react-toastify";
 import FeaturedCarousel from "../../components/FeaturedCarousel/FeaturedCarousel";
+import fetchApi from "../../api/fetchApi";
 
-const images = [
-  "https://f.fcdn.app/imgs/c8671a/www.viasono.com.uy/viasuy/ed68/webp/catalogo/B101021325_101020107_1/460x460/colchon-de-espuma-travel-1-plaza.jpg",
-  "https://f.fcdn.app/imgs/f46744/www.viasono.com.uy/viasuy/e3ee/webp/catalogo/B101021325_101020107_2/460x460/colchon-de-espuma-travel-1-plaza.jpg",
-  "https://f.fcdn.app/imgs/4a3fc6/www.viasono.com.uy/viasuy/0d19/webp/catalogo/B101021325_101020107_3/460x460/colchon-de-espuma-travel-1-plaza.jpg",
-  "https://f.fcdn.app/imgs/dc39a3/www.viasono.com.uy/viasuy/3504/webp/catalogo/B101021325_101020107_4/460x460/colchon-de-espuma-travel-1-plaza.jpg",
-];
+function ProductDetails() {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [selectedImage, setSelectedImage] = useState("");
 
-const ProductDetails = () => {
-  const [index, setIndex] = useState(0);
+  useEffect(() => {
+    getProducts();
+  }, []);
+
+  const getProducts = async () => {
+    try {
+      const data = await fetchApi({ method: "get", url: "/products" });
+      setProducts(data);
+      setSelectedImage(data[0]?.image[0]);
+    } catch (err) {
+      setError(err.message);
+      toast.error("Failed to load products.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleWishlist = () => {
     toast.warning("Not available yet");
   };
@@ -22,33 +37,37 @@ const ProductDetails = () => {
       <div className="product-content container position-relative">
         <div className="image-section d-flex">
           <div className="image-thumbnails d-lg-flex flex-column d-none">
-            {images.map((src, i) => (
-              <div key={i} className="img-styles ms-5 mt-4">
-                <img
-                  src={src}
-                  alt={`Miniatura ${i}`}
-                  className={`img-styles thumbnail ${index === i ? "selected" : ""}`}
-                  onClick={() => setIndex(i)}
-                />
+            {products.map((product) => (
+              <div key={product.id} className="img-styles ms-5 mt-4">
+                {product?.image?.length > 0 && (
+                  <img
+                    src={product.image[0]}
+                    alt={product.name}
+                    className={`img-styles thumbnail  ${
+                      selectedImage === product.image[0] ? "selected" : ""
+                    }`}
+                    onClick={() => setSelectedImage(product.image[0])}
+                  />
+                )}
               </div>
             ))}
           </div>
 
           <Carousel
-            activeIndex={index}
-            onSelect={(selectedIndex) => setIndex(selectedIndex)}
+            activeIndex={products.findIndex((product) => product.image[0] === selectedImage)}
+            onSelect={(selectedIndex) => setSelectedImage(products[selectedIndex]?.image[0])}
             controls={false}
             indicators={false}
             interval={null}
             slide={false}
             className="main-carousel"
           >
-            {images.map((src, i) => (
-              <Carousel.Item key={i}>
+            {products.map((product) => (
+              <Carousel.Item key={product.id}>
                 <div className="d-flex">
                   <img
-                    src={src}
-                    alt={`Slide ${i}`}
+                    src={product.image[0]}
+                    alt={product.name}
                     className="main-image ms-5 mt-3 pt-1 d-lg-flex d-none"
                   />
                 </div>
@@ -59,24 +78,24 @@ const ProductDetails = () => {
           <div className="carousel-container carousel-img mt-4">
             <div className="custom-carousel-controls d-lg-none  d-flex justify-content-center">
               <Carousel
-                activeIndex={index}
-                onSelect={(selectedIndex) => setIndex(selectedIndex)}
+                activeIndex={products.findIndex((product) => product.image[0] === selectedImage)}
+                onSelect={(selectedIndex) => setSelectedImage(products[selectedIndex]?.image[0])}
                 controls={false}
                 indicators={false}
                 interval={null}
                 slide={false}
               >
-                {images.map((src, i) => (
-                  <Carousel.Item key={i}>
-                    <img src={src} alt={`Slide ${i}`} className="carousel-img ms-3 " />
+                {products.map((product) => (
+                  <Carousel.Item key={product.id}>
+                    <img src={product.image[0]} alt={product.name} className="carousel-img ms-3 " />
                     <div className="custom-carousel-controls  ms-3 d-flex justify-content-center">
-                      {images.map((_, i) => (
+                      {products.map((product) => (
                         <button
-                          key={i}
+                          key={product.id}
                           className={`carousel-btn d-lg-none me-3 mt-3 ${
-                            index === i ? "active" : ""
+                            selectedImage === product.image[0] ? "selected" : ""
                           }`}
-                          onClick={() => setIndex(i)}
+                          onClick={() => setSelectedImage(product.image[0])}
                         ></button>
                       ))}
                     </div>
@@ -84,7 +103,6 @@ const ProductDetails = () => {
                 ))}
               </Carousel>
             </div>
-
             <div className="details-section ms-4 ">
               <h3>TRAVEL FOAM MATTRESS 1 PLACE</h3>
               <span className="usd-span fw-bold">
@@ -96,17 +114,12 @@ const ProductDetails = () => {
               </p>
 
               <div className="fixed-buttons ">
-                <button
-                  className="btn heart-button  bg-white me-3"
-                  onClick={() => {
-                    handleWishlist();
-                  }}
-                >
+                <button className="btn heart-button  bg-white me-3" onClick={handleWishlist}>
                   <span className="text-center">
                     <i className="bi bi-suit-heart"></i>
                   </span>
                 </button>
-                <button className="buy-button text-uppercase fw-bold  ">Add to cart</button>
+                <button className="buy-button text-uppercase fw-bold ">Add to cart</button>
               </div>
               <div className="payments-methods  mt-4 ms-1">
                 <i className="payment-icon pe-4 bi bi-paypal fs-3"></i>
@@ -115,25 +128,24 @@ const ProductDetails = () => {
 
               <div className="card-icons  p-2 mt-4">
                 <div className="pb-2 d-flex align-items-center">
-                  <i class="icons ms-2 bi bi-credit-card-2-front"></i>
-                  <span className="ms-2 ps-1  text-icons">
+                  <i className="icons ms-2 bi bi-credit-card-2-front"></i>
+                  <span className="ms-2 ps-1 text-icons">
                     Up to 12 installments with no additional charge
                   </span>
                 </div>
                 <div className="pb-2">
-                  <i class="icons ms-2 bi bi-truck"></i>
+                  <i className="icons ms-2 bi bi-truck"></i>
                   <span className="ms-2 ps-1 text-icons">Free shipping</span>
                 </div>
 
                 <div className="pb-2">
-                  <i class="icons ms-2 bi bi-arrow-return-left"></i>
+                  <i className="icons ms-2 bi bi-arrow-return-left"></i>
                   <span className="ms-2 ps-1 text-icons">Free return</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
         <div className="description-section container p-5">
           <div className="d-flex  flex-column justify-content-center align-items-center">
             <span className="description-text position-relative py-4">Description </span>
@@ -164,9 +176,10 @@ const ProductDetails = () => {
           </div>
         </div>
       </div>
+
       <FeaturedCarousel />
     </div>
   );
-};
+}
 
 export default ProductDetails;
