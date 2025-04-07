@@ -62,8 +62,9 @@
     padding-left: 120px;
     padding-right: 90px;
     padding-top: 15px;
+    background-color: rgb(141, 141, 141);
+    color: white;
   }
-
   .section2-text {
     text-align: left;
     padding-right: 20px;
@@ -83,13 +84,13 @@
 
   .tecnology-icon {
     font-size: 3rem;
-    color: #555;
+    color: rgb(233, 233, 233);
   }
 
   .tecnology-name {
     margin-top: 20px;
     font-size: 1rem;
-    color: #333;
+    color: rgb(233, 233, 233);
   }
 
   @media (max-width: 767px) {
@@ -132,7 +133,7 @@
   .section3 .image,
   .section3 .text {
     flex: 1;
-    max-width: 60%;
+    max-width: 80%;
     padding: 0 30px;
   }
 
@@ -244,7 +245,7 @@
   }
 
   .section5 {
-    background-color: gray;
+    background-color: rgb(141, 141, 141);
     color: white;
     padding: 50px 0;
     text-align: center;

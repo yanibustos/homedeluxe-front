@@ -97,7 +97,7 @@ const About = () => {
           <div className="icons w-50">
             <div className="technologies-row d-flex flex-wrap">
               {techTools.map((item, index) => (
-                <div className="tecnology-item col-3 text-center" key={index}>
+                <div className="tecnology-item col-3 text-center py-4" key={index}>
                   <i className={`${item.iconClass} tecnology-icon`}></i>
                   <p className="tecnology-name">{item.label}</p>
                 </div>
