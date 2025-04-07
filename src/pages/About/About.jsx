@@ -66,9 +66,9 @@ const About = () => {
   ];
 
   return (
-    <div className="about-containter">
-      <section className="about-section section1">
-        <div className="container d-flex justify-content-center align-items-start flex-column">
+    <div className="about-container">
+      <div className="about-section section1">
+        <div className="d-flex justify-content-center align-items-start flex-column">
           <div className="text-center">
             <h1>About This Project</h1>
             <p>
@@ -81,47 +81,67 @@ const About = () => {
             </p>
           </div>
         </div>
-      </section>
+      </div>
 
-      <section className="tech-section section2">
-        <div className="container text-center">
-          <h2 className="section-title">Technologies & Tools</h2>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae aperiam architecto
-            eius quo eaque blanditiis voluptatibus optio ab deserunt, assumenda ullam placeat
-            exercitationem tempore officia tempora animi quos a est enim maxime error? Laborum
-            magnam optio cupiditate voluptate deleniti harum.
-          </p>
-
-          <div className="tech-row">
-            {techTools.map((item, index) => (
-              <div className="tech-item" key={index}>
-                <i className={`${item.iconClass} tech-icon`}></i>
-                <p className="tecnology-name">{item.label}</p>
-              </div>
-            ))}
+      <div className="technologies-section">
+        <div className="section2">
+          <div className="section2-text">
+            <h2>Technologies & Tools</h2>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae aperiam architecto
+              eius quo eaque blanditiis voluptatibus optio ab deserunt, assumenda ullam placeat
+              exercitationem tempore officia tempora animi quos a est enim maxime error? Laborum
+              magnam optio cupiditate voluptate deleniti harum.
+            </p>
+          </div>
+          <div className="icons">
+            <div className="technologies-row">
+              {techTools.map((item, index) => (
+                <div className="tecnology-item" key={index}>
+                  <i className={`${item.iconClass} tecnology-icon`}></i>
+                  <p className="tecnology-name">{item.label}</p>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-      </section>
+      </div>
 
-      <section className="project-section section3">
-        <div className="container text-center">
-          <h2>Project Organization - MER</h2>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto fuga id recusandae cum
-            beatae voluptates vero, maxime enim exercitationem voluptatibus consectetur nostrum
-            animi odio doloremque deleniti perspiciatis quibusdam. Porro, quidem.
-          </p>
+      <div className="project-section">
+        <div className="section3">
+          <div className="section3-text">
+            <h2>Project Organization - MER</h2>
+            <p>
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto fuga id recusandae cum
+              beatae voluptates vero, maxime enim exercitationem voluptatibus consectetur nostrum
+              animi odio doloremque deleniti perspiciatis quibusdam. Porro, quidem.
+            </p>
+          </div>
+          <div className="image">
+            <img
+              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTa78nY-4h33SCQ3VZyrD0ut1wS0ndvq9PqFA&s"
+              alt="Admin Image"
+              className="admin-image"
+            />
+          </div>
         </div>
-      </section>
+      </div>
 
-      <section className="dashboard-section section4">
-        <div className="container text-center">
+      <div className="dashboard-section">
+        <div className="section4 text-center">
           <h2>Admin Dashboard</h2>
-
+          <p>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi neque optio temporibus
+            omnis.
+          </p>
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTa78nY-4h33SCQ3VZyrD0ut1wS0ndvq9PqFA&s"
+            alt="Admin Image"
+            className="admin-image"
+          />
           <div className="content-wrapper">
             <div className="left-column">
-              <p>To test our Admin dashboard, you can follow these steps:</p>
+              <p>To test our Admin dashboard, follow these steps:</p>
               <ol className="text-left">
                 <li>
                   Visit our{" "}
@@ -130,7 +150,7 @@ const About = () => {
                   </Link>
                 </li>
                 <li>
-                  Use the email address <strong>"admin@admin.com"</strong> as your username.
+                  Use the email address <strong>"admin@admin.com"</strong> as username.
                 </li>
                 <li>
                   Input <strong>"123"</strong> as the password.
@@ -149,7 +169,7 @@ const About = () => {
                   </Link>
                 </li>
                 <li>
-                  Use the email address <strong>"admin@admin.com"</strong> as your username.
+                  Use the email address <strong>"admin@admin.com"</strong> as username.
                 </li>
                 <li>
                   Input <strong>"123"</strong> as the password.
@@ -164,14 +184,14 @@ const About = () => {
             data. Enjoy the testing!
           </p>
         </div>
-      </section>
+      </div>
 
-      <section className="members-section section5">
-        <div className="container text-center">
+      <div className="members-section">
+        <div className="section5 text-center">
           <h2>Our Team</h2>
           <div className="row justify-content-center">
             {teamMembers.map((member) => (
-              <div className="col-md-2" key={member.id}>
+              <div className="col-md-auto" key={member.id}>
                 <div className="team-member">
                   <img src={member.image} alt={member.name} className="team-photo" />
                   <h3>{member.name}</h3>
@@ -189,7 +209,7 @@ const About = () => {
             ))}
           </div>
         </div>
-      </section>
+      </div>
     </div>
   );
 };
