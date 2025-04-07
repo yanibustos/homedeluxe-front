@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 
+import ChevronIcon from "../Chevron/ChevronIcon";
+
 import "./CustomSelect.css";
 
 function CustomSelect() {
@@ -36,7 +38,7 @@ function CustomSelect() {
     <div className="custom-select-container" ref={selectRef} onClick={handleToggle}>
       <div className="custom-select">
         <span>Order by: {selected}</span>
-        <span className={`chevron ${open ? "rotated" : ""}`}></span>
+        <ChevronIcon isOpen={open} />
       </div>
       {open && (
         <div className="custom-select-options" onClick={handleSelect}>
