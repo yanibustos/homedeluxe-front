@@ -16,7 +16,6 @@ function CustomSelect() {
     if (value) {
       setSelected(e.target.textContent);
       setOpen(false);
-      console.log("Seleccionado:", value);
     }
   };
 
