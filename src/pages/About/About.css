@@ -55,7 +55,6 @@
     line-height: 1.6;
   }
 
-  /* Sección 2: Tecnologías & Herramientas */
   .technologies-section {
     display: flex;
     justify-content: space-between;
@@ -73,7 +72,7 @@
   .icons {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px; /* Espacio entre los iconos */
+    gap: 20px;
     justify-content: center;
   }
 
@@ -93,31 +92,29 @@
     color: #333;
   }
 
-  /* Media Query para pantallas más pequeñas (menos de 767px) */
   @media (max-width: 767px) {
     .technologies-section {
       flex-direction: column;
-      padding-left: 30px; /* Menos padding en pantallas pequeñas */
+      padding-left: 30px;
       padding-right: 30px;
     }
 
     .section2-text {
-      width: 100%; /* El texto ocupa todo el ancho */
-      text-align: center; /* Centramos el texto */
+      width: 100%;
+      text-align: center;
       margin-bottom: 20px;
     }
 
     .icons {
-      width: 100%; /* Los iconos también ocupan todo el ancho */
+      width: 100%;
       justify-content: center;
     }
 
     .tecnology-item {
-      flex-basis: 48%; /* Reducir el tamaño de los iconos para pantallas pequeñas */
+      flex-basis: 48%;
     }
   }
 
-  /* Sección 3: Imagen y Texto */
   .section3 {
     background-color: black;
     color: white;
@@ -155,7 +152,6 @@
     font-size: 1.1rem;
   }
 
-  /* Media Query para pantallas más pequeñas (menos de 767px) */
   @media (max-width: 767px) {
     .section3 {
       padding-left: 30px;
