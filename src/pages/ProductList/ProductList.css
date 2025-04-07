@@ -312,19 +312,4 @@
       line-height: 20px;
     }
   }
-
-  .chevron {
-    display: inline-block;
-    width: 18px;
-    height: 18px;
-    background: url("/img/chevron-right.svg") no-repeat center center;
-    background-size: contain;
-    transform: rotate(90deg);
-    transition: transform 0.3s ease;
-    margin-right: 3px;
-  }
-
-  .chevron.rotated {
-    transform: rotate(-90deg);
-  }
 }

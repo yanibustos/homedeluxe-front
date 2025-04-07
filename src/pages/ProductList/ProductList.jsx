@@ -9,6 +9,7 @@ import ProductCartQty from "../../components/commons/ProductCartQty/ProductCartQ
 import CustomSelect from "../../components/commons/CustomSelect/CustomSelect";
 import BlackButton from "../../components/commons/BlackButton/BlackButton";
 import Loading from "../../components/Loading/Loading";
+import ChevronIcon from "../../components/commons/Chevron/ChevronIcon";
 
 import "./ProductList.css";
 
@@ -159,7 +160,7 @@ function ProductList() {
                   <div className="categories" onClick={() => setShowCategories(!showCategories)}>
                     <div className="d-flex justify-content-between align-items-center">
                       <p className="filter-heading mb-0">Categories</p>
-                      <span className={`chevron ${showCategories ? "rotated" : ""}`}></span>
+                      <ChevronIcon isOpen={showCategories} />
                     </div>
                     {showCategories && (
                       <div className={`pt-3 filter-by-category ${showCategories ? "show" : ""}`}>
@@ -172,7 +173,7 @@ function ProductList() {
                   <div className="price mb-3" onClick={() => setShowPrice(!showPrice)}>
                     <div className="d-flex justify-content-between align-items-center">
                       <p className="filter-heading mb-0">Price (USD)</p>
-                      <span className={`chevron ${showPrice ? "rotated" : ""}`}></span>
+                      <ChevronIcon isOpen={showPrice} />
                     </div>
                     {showPrice && (
                       <form className={`filter-by-price-wrapper pt-3 ${showPrice ? "show" : ""}`}>
