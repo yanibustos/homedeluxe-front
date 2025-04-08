@@ -29,7 +29,7 @@ const About = () => {
       role: "Junior Full Stack Developer",
       github: "https://github.com/yanibustos",
       linkedin: "https://www.linkedin.com/in/yanina-bustos",
-      image: "/img/avatar.png",
+      image: "/img/yanina.png",
     },
     {
       id: 2,
@@ -53,7 +53,7 @@ const About = () => {
       role: "Junior Full Stack Developer",
       github: "https://github.com/member4",
       linkedin: "https://linkedin.com/in/member4",
-      image: "/img/avatar.png",
+      image: "/img/federico.png",
     },
     {
       id: 5,
@@ -61,7 +61,7 @@ const About = () => {
       role: "Junior Full Stack Developer",
       github: "https://github.com/member5",
       linkedin: "https://linkedin.com/in/member5",
-      image: "/img/avatar.png",
+      image: "/img/ayhesa.png",
     },
   ];
 
