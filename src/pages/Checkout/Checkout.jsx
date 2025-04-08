@@ -1,4 +1,8 @@
 import React, { useState, useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
+import { clearCart } from "../../redux/shoppingCartSlice";
+import { addToCart } from "../../redux/shoppingCartSlice";
+
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
@@ -13,6 +17,7 @@ import ProductCartQty from "../../components/Modals/ModalCart/ProductCartQty/Pro
 import RemoveModal from "../../components/Modals/RemoveModal/RemoveModal";
 
 import "./Checkout.css";
+import { useDispatch } from "react-redux";
 
 const validationSchema = Yup.object({
   firstName: Yup.string().required("First name is required"),
@@ -38,8 +43,11 @@ const validationSchema = Yup.object({
 });
 
 const Checkout = () => {
+  const dispatch = useDispatch();
+
   const navigate = useNavigate();
   const [paymentMethod, setPaymentMethod] = useState("creditCard");
+  const [orderNumber, setOrderNumber] = useState(null);
   const [orderSummary, setOrderSummary] = useState({
     items: [
       {
@@ -63,6 +71,31 @@ const Checkout = () => {
     shipping: 10.0,
     total: 85.0,
   });
+
+  const initialCart = [
+    {
+      id: 1,
+      name: "Travel Foam Mattress 1 Plaza",
+      sku: "SKU001",
+      price: 590,
+      quantity: 1,
+      category: "Mattresses and Box Springs",
+      image:
+        "https://f.fcdn.app/imgs/13dd1a/www.viasono.com.uy/viasuy/d923/webp/catalogo/B206010316_206010092_1/460x460/silla-lester-gris.jpg",
+      slug: "travel-foam-mattress-1-plaza",
+    },
+    {
+      id: 2,
+      name: "Chill Spring Mattress 2 Plazas",
+      sku: "SKU002",
+      price: 890,
+      quantity: 1,
+      category: "Mattresses and Box Springs",
+      image:
+        "https://f.fcdn.app/imgs/13dd1a/www.viasono.com.uy/viasuy/d923/webp/catalogo/B206010316_206010092_1/460x460/silla-lester-gris.jpg",
+      slug: "chill-spring-mattress-2-plazas",
+    },
+  ];
 
   const [showModal, setShowModal] = useState(false);
   const [itemToRemove, setItemToRemove] = useState(null);
@@ -89,7 +122,7 @@ const Checkout = () => {
       const valid = await validationSchema.isValid(formData);
       setIsFormValid(valid);
     };
-    
+
     checkFormValidity();
   }, [formData]);
 
@@ -177,9 +210,9 @@ const Checkout = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log("Order confirmed with data:", formData);
-
-    toast.success("Your order has been confirmed!");
+    const numero = uuidv4();
+    setOrderNumber(numero);
+    dispatch(clearCart());
   };
 
   const handleBackToHome = () => {
@@ -212,6 +245,13 @@ const Checkout = () => {
       };
     });
   };
+  useEffect(() => {
+    if (orderNumber) {
+      setTimeout(() => {
+        navigate("/");
+      }, 4000);
+    }
+  }, [orderNumber, navigate]);
 
   const handleDecrement = (itemId) => {
     setOrderSummary((prevState) => {
@@ -436,10 +476,43 @@ const Checkout = () => {
                 handleOnClick={handleSubmit}
               /> */}
 
-              <button type="button" className="btn btn-primary w-100 mt-4" onClick={handleSubmit}>
+              <button type="submit" className="btn btn-primary w-100 mt-4">
                 Confirm Order
               </button>
             </form>
+            {orderNumber && (
+              <div className="modal show modal-container d-block">
+                <div className="modal-dialog">
+                  <div className="modal-content">
+                    <div className="modal-header">
+                      <h5 className="modal-title">Thank you for your purchase!</h5>
+                      <button
+                        type="button"
+                        className="btn-close"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                        onClick={() => navigate("/")}
+                      ></button>
+                    </div>
+                    <div className="modal-body text-center d-flex flex-column">
+                      <p>
+                        Your order number is: <strong>{orderNumber}</strong>
+                      </p>
+                      <p>Redirecting to Home...</p>
+                      <button
+                        type="button"
+                        className="btn btn-order-close text-white"
+                        data-bs-dismiss="modal"
+                        aria-label="Close"
+                        onClick={() => navigate("/")}
+                      >
+                        Close
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
           <div className="col-md-6">
             <div className="order-summary">

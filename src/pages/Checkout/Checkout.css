@@ -9,6 +9,14 @@
     margin: auto;
   }
 
+  .modal-container {
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+  .btn-order-close {
+    background: #000;
+    width: 80px;
+    margin-left: auto;
+  }
   .order-summary {
     padding: 0px;
     border-radius: 5px;
@@ -84,7 +92,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 5px; 
+    gap: 5px;
   }
 
   .product-cart-qty input {
