@@ -6,6 +6,8 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 
+import fetchApi from "../../api/fetchApi";
+
 import BlackButton from "../../components/commons/BlackButton/BlackButton";
 import Input from "../../components/commons/Input/Input";
 import SideImage from "../../components/SideImage/SideImage";
@@ -45,16 +47,15 @@ function SignUp() {
   const onSubmit = async (data) => {
     try {
       setLoading(true);
-      //TODO: Uncomment when Api is available
-      // const user = await fetchApi({
-      //   method: "post",
-      //   url: "/users",
-      //   data: data,
-      // });
-      // dispatch(addUser(user));
+      // TODO: Uncomment when Api is available
+      const user = await fetchApi({
+        method: "post",
+        url: "/users",
+        data: data,
+      });
 
-      const user = { id: 1, ...data }; //Created to try toast and redirection, delete when call is available or when checking errors
-
+      // const user = { id: 1, ...data }; //Created to try toast and redirection, delete when call is available or when checking errors
+      console.log(user);
       if (user) {
         toast.success("Account created successfully, redirecting to Login...");
         setTimeout(() => {
@@ -65,7 +66,7 @@ function SignUp() {
       }
     } catch (error) {
       setLoading(false);
-      toast.error(error.message, {
+      toast.error(error.message || "An error occurred", {
         position: "top-right",
         autoClose: 4000,
         hideProgressBar: true,

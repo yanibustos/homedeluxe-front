@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import Input from "../../components/commons/Input/Input";
 
 import { useForm } from "react-hook-form";
@@ -8,18 +8,26 @@ import * as yup from "yup";
 import InputCheckbox from "../../components/commons/InputCheckbox/InputCheckbox";
 import BlackButton from "../../components/commons/BlackButton/BlackButton";
 import fetchApi from "../../api/fetchApi";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import "./Profile.css";
+import { login, setUser } from "../../redux/userSlice";
 
 const schema = yup
   .object({
     firstname: yup.string().required("Firstname is required"),
     lastname: yup.string().required("Lastname is required"),
     email: yup.string().email("Invalid email format").required("Email is required"),
-    ci: yup.string(),
-    phone: yup.string(),
-    address: yup.string(),
+    phone: yup.string().nullable().optional(),
+    address: yup.string().nullable().optional(),
+    country: yup.string().nullable().optional(),
+    city: yup.string().nullable().optional(),
+    state: yup.string().nullable().optional(),
+    zip: yup.string().nullable().optional(),
+    avatar: yup.mixed().test("fileType", "Unsupported file format", (value) => {
+      if (!value) return true;
+      return ["image/jpeg", "image/png", "image/webp"].includes(value.type);
+    }),
     changePassword: yup.boolean(),
 
     //Validates password if the checkbox is checked
@@ -45,40 +53,78 @@ const schema = yup
           .oneOf([yup.ref("newPassword")], "Passwords must match"),
       otherwise: (schema) => schema.notRequired(),
     }),
-    avatar: yup.mixed().test("fileType", "Only images are allowed", (value) => {
-      // If value is a string (URL), skip the validation
-      if (typeof value === "string" && value.startsWith("http")) {
-        return true;
-      }
-
-      // If no file selected, skip validation
-      if (!value || value.length === 0) return true;
-
-      // Validate file type if a file is selected
-      return ["image/jpeg", "image/png"].includes(value[0].type);
-    }),
   })
   .required();
+
+const profileFields = [
+  { name: "firstname", label: "Firstname", type: "text" },
+  { name: "lastname", label: "Lastname", type: "text" },
+  { name: "email", label: "Email", type: "email" },
+  { name: "phone", label: "Phone", type: "text" },
+  { name: "address", label: "Address", type: "text" },
+  { name: "country", label: "Country", type: "text" },
+  { name: "state", label: "State", type: "text" },
+  { name: "city", label: "City", type: "text" },
+  { name: "zip", label: "Zip Code", type: "text" },
+];
+
+const passwordFields = [
+  { name: "currentPassword", label: "Current Password" },
+  { name: "newPassword", label: "New Password" },
+  { name: "repeatPassword", label: "Repeat New Password" },
+];
+
+const getAvatarSrc = (preview) => {
+  if (!preview) return "/img/avatar.png";
+  if (preview.startsWith("http") || preview.startsWith("blob:")) return preview;
+  if (preview.startsWith("/img")) return preview;
+  return `${import.meta.env.VITE_IMAGE_DB_URL}${preview}`;
+};
 
 function Profile() {
   const user = useSelector((state) => state.user);
   const [preview, setPreview] = useState(user.avatar || null);
   const [isEditing, setIsEditing] = useState(false);
+  const dispatch = useDispatch();
 
   const {
     register,
     handleSubmit,
     watch,
     reset,
+    getValues,
     setValue,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
     mode: "onSubmit",
-    defaultValues: user,
+    defaultValues: {
+      firstname: user.firstname || "",
+      lastname: user.lastname || "",
+      email: user.email || "",
+      phone: user.phone || "",
+      address: user.address || "",
+      country: user.country || "",
+      city: user.city || "",
+      state: user.state || "",
+      zip: user.zip || "",
+      avatar: user.avatar || null,
+      changePassword: false,
+    },
   });
 
+  const initialValuesRef = useRef(user);
+
   const isChangingPassword = watch("changePassword");
+
+  const isFormModified = () => {
+    const currentValues = getValues();
+    return Object.keys(currentValues).some(
+      (key) => currentValues[key] !== initialValuesRef.current[key],
+    );
+  };
+
+  const isSaveDisabled = !isFormModified();
 
   const handleCancel = () => {
     reset(user);
@@ -90,7 +136,7 @@ function Profile() {
     const file = event.target.files[0];
     if (file) {
       setPreview(URL.createObjectURL(file));
-      setValue("avatar", event.target.files);
+      setValue("avatar", file);
     }
   };
 
@@ -103,27 +149,28 @@ function Profile() {
       }
 
       const formData = new FormData();
+
       Object.keys(data).forEach((key) => {
-        if (data[key] !== undefined && data[key] !== null) {
-          if (key === "avatar" && data[key].length > 0) {
-            formData.append(key, data[key][0]);
-          } else {
-            formData.append(key, data[key]);
-          }
+        if (key === "avatar" && data.avatar instanceof File) {
+          formData.append("avatar", data.avatar);
+        } else if (data[key] !== undefined && data[key] !== null && data[key] !== "") {
+          formData.append(key, data[key]);
         }
       });
 
       const response = await fetchApi({
         method: "patch",
-        url: "/users",
+        url: `/users/${user.id}`,
         data: formData,
         headers: { "Content-Type": "multipart/form-data" },
       });
 
-      console.log("Profile updated:", response.data);
-      reset(response.data);
-      setPreview(response.data.avatar || null);
-      setIsEditing(false);
+      if (response) {
+        dispatch(setUser(response));
+        reset(response);
+        setPreview(response.avatar || null);
+        setIsEditing(false);
+      }
     } catch (error) {
       console.error("Error updating profile:", error.response?.data || error.message);
     }
@@ -133,7 +180,7 @@ function Profile() {
     user && (
       <div className="profile-container">
         <div className="d-flex justify-content-between align-items-center profile-header mb-3">
-          <div className="profile-title fw-semibold">Profile</div>
+          <div className="profile-title fw-semibold">My Profile</div>
           {!isEditing && (
             <BlackButton
               type="submit"
@@ -151,12 +198,12 @@ function Profile() {
 
         <div className="row mb-3">
           <div className="col-12 d-flex align-items-center gap-3">
-            <label htmlFor="avatar-input" className="col-1 fw-semibold profile-avatar-label">
+            <label htmlFor="avatar" className="col-1 fw-semibold profile-avatar-label">
               Avatar
             </label>
             <div className="flex-grow-1 d-flex align-items-center gap-3">
               <img
-                src={preview || "/img/avatar.png"}
+                src={getAvatarSrc(preview)}
                 alt="Profile"
                 className="rounded-circle border border-2 profile-avatar bg-dark"
               />
@@ -165,12 +212,12 @@ function Profile() {
                   <BlackButton
                     type="button"
                     classNameContainer="btn btn-secondary profile-avatar-button"
-                    handleOnClick={() => document.getElementById("avatar-input").click()}
+                    handleOnClick={() => document.getElementById("avatar").click()}
                     name="Update"
                   />
                   <input
                     type="file"
-                    id="avatar-input"
+                    id="avatar"
                     accept="image/*"
                     className="d-none"
                     {...register("avatar")}
@@ -189,93 +236,22 @@ function Profile() {
         </div>
 
         <form onSubmit={handleSubmit(handleProfileUpdate)}>
-          <div className="row">
-            <Input
-              type="text"
-              name="firstname"
-              id="firstname"
-              label="Firstname"
-              classNameContainer="col-12 d-flex gap-3 mb-3"
-              classNameInput={`flex-grow-1 `}
-              classNameLabel="col-1 fw-semibold profile-input-label"
-              register={{ ...register("firstname") }}
-              errors={errors}
-              disabled={!isEditing}
-            />
-          </div>
-          <div className="row">
-            <Input
-              type="text"
-              name="lastname"
-              id="lastname"
-              label="Lastname"
-              classNameContainer="col-12 d-flex gap-3 mb-3"
-              classNameInput={`flex-grow-1 `}
-              classNameLabel="col-1 fw-semibold profile-input-label"
-              register={{ ...register("lastname") }}
-              errors={errors}
-              disabled={!isEditing}
-            />
-          </div>
-          <div className="row">
-            <Input
-              type="text"
-              name="ci"
-              id="ci"
-              label="CI"
-              classNameContainer="col-12 d-flex gap-3 mb-3"
-              classNameInput={`flex-grow-1 `}
-              classNameLabel="col-1 fw-semibold profile-input-label"
-              register={{ ...register("ci") }}
-              errors={errors}
-              disabled={!isEditing}
-            />
-          </div>
-
-          <div className="row">
-            <Input
-              type="email"
-              name="email"
-              id="email"
-              label="Email"
-              classNameContainer="col-12 d-flex gap-3 mb-3"
-              classNameInput={`flex-grow-1 `}
-              classNameLabel="col-1 fw-semibold profile-input-label"
-              register={{ ...register("email") }}
-              errors={errors}
-              disabled={!isEditing}
-            />
-          </div>
-
-          <div className="row">
-            <Input
-              type="text"
-              name="phone"
-              id="phone"
-              label="Phone"
-              classNameContainer="col-12 d-flex gap-3 mb-3"
-              classNameInput={`flex-grow-1 `}
-              classNameLabel="col-1 fw-semibold profile-input-label"
-              register={{ ...register("phone") }}
-              errors={errors}
-              disabled={!isEditing}
-            />
-          </div>
-          <div className="row">
-            <Input
-              type="text"
-              name="address"
-              id="address"
-              label="Address"
-              classNameContainer="col-12 d-flex gap-3 mb-3"
-              classNameInput={`flex-grow-1 `}
-              classNameLabel="col-1 fw-semibold profile-input-label"
-              register={{ ...register("address") }}
-              errors={errors}
-              disabled={!isEditing}
-            />
-          </div>
-
+          {profileFields.map(({ name, label, type }) => (
+            <div className="row" key={name}>
+              <Input
+                type={type}
+                name={name}
+                id={name}
+                label={label}
+                classNameContainer="col-12 d-flex gap-3 mb-3"
+                classNameInput="flex-grow-1"
+                classNameLabel="col-1 fw-semibold profile-input-label"
+                register={{ ...register(name) }}
+                errors={errors}
+                disabled={!isEditing}
+              />
+            </div>
+          ))}
           {isEditing && (
             <div className="row">
               <div className="col-12 d-flex align-items-center gap-3">
@@ -297,45 +273,23 @@ function Profile() {
               </div>
             </div>
           )}
-
           {isChangingPassword && isEditing && (
             <div className="mt-3">
-              <Input
-                type="password"
-                name="currentPassword"
-                id="currentPassword"
-                label="Current Password"
-                classNameContainer="col-12 d-flex gap-3 mb-3"
-                classNameInput={`flex-grow-1 `}
-                classNameLabel="col-1 fw-semibold profile-input-label pt-0"
-                register={{ ...register("currentPassword") }}
-                errors={errors}
-                disabled={!isEditing}
-              />
-              <Input
-                type="password"
-                name="newPassword"
-                id="newPassword"
-                label="New Password"
-                classNameContainer="col-12 d-flex gap-3 mb-3"
-                classNameInput={`flex-grow-1 `}
-                classNameLabel="col-1 fw-semibold profile-input-label pt-0"
-                register={{ ...register("newPassword") }}
-                errors={errors}
-                disabled={!isEditing}
-              />
-              <Input
-                type="password"
-                name="repeatPassword"
-                id="repeatPassword"
-                label="Repeat New Password"
-                classNameContainer="col-12 d-flex gap-3 mb-3"
-                classNameInput={`flex-grow-1 `}
-                classNameLabel="col-1 fw-semibold profile-input-label pt-0"
-                register={{ ...register("repeatPassword") }}
-                errors={errors}
-                disabled={!isEditing}
-              />
+              {passwordFields.map(({ name, label }) => (
+                <Input
+                  key={name}
+                  type="password"
+                  name={name}
+                  id={name}
+                  label={label}
+                  classNameContainer="col-12 d-flex gap-3 mb-3"
+                  classNameInput="flex-grow-1"
+                  classNameLabel="col-1 fw-semibold profile-input-label pt-0"
+                  register={{ ...register(name) }}
+                  errors={errors}
+                  disabled={!isEditing}
+                />
+              ))}
             </div>
           )}
 
@@ -344,10 +298,10 @@ function Profile() {
               <BlackButton
                 type="button"
                 name=" Cancel"
-                className="px-3"
+                className="px-3 profile-cancel-edit"
                 handleOnClick={() => handleCancel()}
               />
-              <BlackButton type="submit" name=" Save" className="px-3" />
+              <BlackButton type="submit" name=" Save" className="px-3" disabled={isSaveDisabled} />
             </div>
           )}
         </form>

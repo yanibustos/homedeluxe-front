@@ -16,6 +16,7 @@ import ProductFeatured from "./src/pages/ProductFeatured/ProductFeatured";
 import Logout from "./src/pages/Logout/Logout";
 import AccountLayout from "./src/components/AccountLayout/AccountLayout";
 import Wishlist from "./src/pages/Wishlist/Wishlist";
+import ResetPassword from "./src/pages/ResetPassword/ResetPassword";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,7 @@ const router = createBrowserRouter([
       { path: "register", element: <SignUp /> },
       { path: "login", element: <Login /> },
       { path: "logout", element: <Logout /> },
+      { path: "reset-password/:token", element: <ResetPassword /> },
 
       {
         path: "account",

@@ -21,6 +21,7 @@ function Navbar() {
   const dispatch = useDispatch();
   const { pathname } = useLocation();
   const isHomePath = pathname === "/";
+  const isAboutPath = pathname === "/about";
   const navRef = useRef(null);
   const isMobile = useMediaQuery("(max-width: 992px)");
   const navigate = useNavigate();
@@ -36,7 +37,7 @@ function Navbar() {
   useEffect(() => {
     const handleScroll = () => {
       if (navRef.current) {
-        if (isHomePath) {
+        if (isHomePath || isAboutPath) {
           navRef.current.classList.toggle("nav-transparent", window.scrollY <= 59);
           navRef.current.classList.toggle("nav-dark", window.scrollY > 59);
         } else {
@@ -48,7 +49,7 @@ function Navbar() {
       }
     };
 
-    if (isHomePath) {
+    if (isHomePath || isAboutPath) {
       navRef.current.classList.remove("nav-dark");
       navRef.current.classList.remove("sticky-top");
       navRef.current.classList.add("nav-transparent");
@@ -59,7 +60,7 @@ function Navbar() {
     handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [isHomePath]);
+  }, [isHomePath, isAboutPath]);
 
   return (
     <nav ref={navRef} className="navbar navbar-expand-lg sticky-top w-100 nav-dark">
@@ -111,17 +112,17 @@ function Navbar() {
                 <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <li>
                     <Link className="dropdown-item" to="/account/profile">
-                      Profile
+                      My Profile
                     </Link>
                   </li>
                   <li>
                     <Link className="dropdown-item" to="account/orders">
-                      Orders
+                      My Orders
                     </Link>
                   </li>
                   <li>
                     <Link className="dropdown-item" to="account/wishlist">
-                      Wishlist
+                      My Wishlist
                     </Link>
                   </li>
                   <li>
