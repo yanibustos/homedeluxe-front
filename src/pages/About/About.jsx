@@ -43,8 +43,8 @@ const About = () => {
       id: 3,
       name: "Darlen Hornia",
       role: "Junior Full Stack Developer",
-      github: "https://github.com/member3",
-      linkedin: "https://linkedin.com/in/member3",
+      github: "https://github.com/dhornia",
+      linkedin: "https://www.linkedin.com/in/darlen-hornia-webdev",
       image: "/img/avatar.png",
     },
     {
