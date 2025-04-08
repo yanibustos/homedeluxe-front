@@ -148,6 +148,16 @@
     }
   }
 
+  @media (max-width: 650px) {
+    .tecnology-item {
+      flex-basis: 45%;
+    }
+
+    .icons {
+      gap: 10px;
+    }
+  }
+
   .project-section {
     display: flex;
     justify-content: space-between;
