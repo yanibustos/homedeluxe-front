@@ -1,0 +1,8 @@
+.trash-icon-container {
+  display: flex;
+  height: fit-content;
+
+  svg {
+    cursor: pointer;
+  }
+}

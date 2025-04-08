@@ -88,6 +88,9 @@ const MobileNavbar = () => {
                       <Link to="/account/orders" className="nav-link" onClick={toggleSidebar}>
                         My Orders
                       </Link>
+                      <Link to="/account/wishlist" className="nav-link" onClick={toggleSidebar}>
+                        My Wishlist
+                      </Link>
                       <Link
                         className="nav-link"
                         to="/"
