@@ -250,6 +250,10 @@
     text-align: center;
   }
 
+  .section4 p {
+    font-size: 1rem;
+  }
+
   .section4 img.admin-image {
     width: 100%;
     max-width: 600px;
@@ -290,6 +294,15 @@
   .section4 ol {
     list-style-position: inside;
     padding-left: 0;
+  }
+
+  .login-link {
+    color: #a3c7f7;
+    text-decoration: underline;
+  }
+
+  .login-link:hover {
+    color: #1a73e8;
   }
 
   @media (max-width: 768px) {

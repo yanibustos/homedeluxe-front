@@ -140,8 +140,10 @@ const About = () => {
         <div className="section4 text-center">
           <h2>Admin Dashboard</h2>
           <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Eligendi neque optio temporibus
-            omnis.
+            This e-commerce platform features an intuitive admin dashboard that allows users to
+            manage products, categories, and customers by adding, editing, or deleting items.
+            Additionally, administrators can track order statuses and make any necessary updates or
+            adjustments.
           </p>
           <img
             src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTa78nY-4h33SCQ3VZyrD0ut1wS0ndvq9PqFA&s"
