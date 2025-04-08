@@ -112,17 +112,17 @@ function Navbar() {
                 <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                   <li>
                     <Link className="dropdown-item" to="/account/profile">
-                      Profile
+                      My Profile
                     </Link>
                   </li>
                   <li>
                     <Link className="dropdown-item" to="account/orders">
-                      Orders
+                      My Orders
                     </Link>
                   </li>
                   <li>
                     <Link className="dropdown-item" to="account/wishlist">
-                      Wishlist
+                      My Wishlist
                     </Link>
                   </li>
                   <li>

@@ -56,6 +56,25 @@ const orders = [
   },
 ];
 
+const statusStyles = {
+  Processing: {
+    colorClass: "text-warning",
+    icon: <i className="bi bi-hourglass-split me-1"></i>,
+  },
+  Shipped: {
+    colorClass: "text-info",
+    icon: <i className="bi bi-truck me-1"></i>,
+  },
+  Delivered: {
+    colorClass: "text-success",
+    icon: <i className="bi bi-check-circle me-1"></i>,
+  },
+  Cancelled: {
+    colorClass: "text-danger",
+    icon: <i className="bi bi-x-circle me-1"></i>,
+  },
+};
+
 function Orders() {
   const [expandedOrders, setExpandedOrders] = useState({});
 
@@ -72,7 +91,7 @@ function Orders() {
 
   return (
     <div className="orders-container">
-      <div className="orders-title fw-semibold mb-3">Orders</div>
+      <div className="orders-title fw-semibold mb-3">My Orders</div>
       {orders.map((order) => (
         <div key={order.id} className="order-wrapper mb-4">
           <div className="order-container flex-column flex-md-row d-flex justify-content-between p-4 shadow-sm border rounded">
@@ -96,19 +115,20 @@ function Orders() {
                 handleOnClick={() => handleViewOrder(order.id)}
                 className="px-3 text-white"
               >
+                Details
                 {expandedOrders[order.id] ? (
                   <>
-                    Hide Order <i className="bi bi-chevron-compact-up text-white ms-1"></i>
+                    <i className="bi bi-chevron-compact-up text-white ms-1"></i>
                   </>
                 ) : (
                   <>
-                    View Order <i className="bi bi-chevron-compact-down ms-1"></i>
+                    <i className="bi bi-chevron-compact-down ms-1"></i>
                   </>
                 )}
               </BlackButton>
               <BlackButton
                 type="button"
-                name="View Invoice"
+                name="Invoice"
                 handleOnClick={handleViewInvoice}
                 className="px-3"
               />
@@ -127,11 +147,18 @@ function Orders() {
 
                       <div className="col-md-5 col-6">
                         <div className="fw-semibold">{item.name}</div>
-                        <div className="text-muted">Status: {item.status}</div>
+                        <span
+                          className={`badge ${
+                            statusStyles[item.status]?.colorClass || "bg-secondary"
+                          }`}
+                        >
+                          {statusStyles[item.status]?.icon}
+                          {item.status}
+                        </span>
                       </div>
 
                       <div className="col-md-2 col-3 text-center">
-                        Qty: <span className="fw-semibold">{item.quantity}</span>
+                        Quantity: <span className="fw-semibold">{item.quantity}</span>
                       </div>
 
                       <div className="col-md-3 col-6 text-end fw-semibold">{item.price}</div>
