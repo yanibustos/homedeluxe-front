@@ -36,18 +36,16 @@ const router = createBrowserRouter([
 
       {
         path: "account",
-        element: <ProtectedRoute />,
+        element: (
+          <ProtectedRoute>
+            <AccountLayout />
+          </ProtectedRoute>
+        ),
         children: [
-          {
-            path: "",
-            element: <AccountLayout />,
-            children: [
-              { path: "", element: <Profile /> },
-              { path: "profile", element: <Profile /> },
-              { path: "orders", element: <Orders /> },
-              { path: "wishlist", element: <Wishlist /> },
-            ],
-          },
+          { path: "", element: <Profile /> },
+          { path: "profile", element: <Profile /> },
+          { path: "orders", element: <Orders /> },
+          { path: "wishlist", element: <Wishlist /> },
         ],
       },
     ],

@@ -1,137 +1,483 @@
 .about-container {
-  .about-text {
-    width: 100%;
-    min-height: 700px;
-    background: url("https://www.aquaclean.com/assets/grocery_crud/texteditor/tinymce_4/responsive_filemanager/uploads/2014/decoracionsofas.jpg")
-      center/cover no-repeat;
-    position: relative;
-    display: flex;
-    flex-direction: column;
+  .section1,
+  .section2,
+  .section3,
+  .section4,
+  .section5 {
+    min-height: 100vh;
     justify-content: center;
     align-items: center;
+    padding: 50px 0;
+    position: relative;
     text-align: center;
+  }
+
+  .section1,
+  .section2,
+  .section3 {
+    display: flex;
+  }
+
+  .section1 p,
+  .section2 p,
+  .section3 p,
+  .section4 p,
+  .section5 p {
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.8;
+    font-size: 1.1rem;
+  }
+
+  .section1 {
+    background-image: url("../../../public/img/About\ background.jpg");
+    background-size: cover;
+    background-position: center;
+    color: white;
+    z-index: 0;
+    padding: 50px 0;
+  }
+
+  .section1::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+  }
+
+  .section1 p {
+    max-width: 70%;
+    margin: 40px auto;
+    line-height: 1.6;
+  }
+
+  .technologies-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-left: 10%;
+    padding-right: 5%;
+    background-color: rgb(141, 141, 141);
     color: white;
   }
 
-  .about-text::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.65);
-    z-index: 0;
-  }
-
-  .about-text h1,
-  .about-text p {
-    z-index: 1;
-  }
-
-  .about-text h1 {
-    font-size: 2.9rem;
-    font-weight: bold;
-    margin-bottom: 1.25rem;
-  }
-
-  .about-text p {
-    font-size: 1.1rem;
-    max-width: 85%;
-  }
-
-  .card {
-    border: none;
-    border-radius: 10px;
-    min-height: 250px;
-    background-color: white;
-  }
-
-  .card-columns {
+  .section2 {
     display: flex;
     justify-content: center;
+    align-items: center;
+    position: relative;
+    gap: 60px;
+  }
+
+  .section2-text {
+    text-align: left;
+    padding-right: 20px;
+  }
+
+  .icons {
+    display: flex;
     flex-wrap: wrap;
-    gap: 20px;
-    padding-top: 15px;
-    width: 100%;
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-
-  .icon-container {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: rgb(210, 234, 242);
-    padding: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 50px;
-    height: 50px;
-    display: flex;
     justify-content: center;
-    align-items: center;
-    border-radius: 9px;
+    padding-top: 5px;
   }
 
-  .icon {
-    font-size: 24px;
-  }
-
-  .team-section {
-    background-color: #ececec;
-    padding-top: 75px;
-    padding-bottom: 70px;
-  }
-
-  .team-member {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  .tecnology-item {
+    flex-basis: 22%;
     text-align: center;
-    margin-bottom: 1rem;
   }
 
-  .team-member h5 {
-    margin-bottom: 0.625rem;
+  .tecnology-icon {
+    font-size: 3rem;
+    width: 3rem;
+    height: 3rem;
+    color: rgb(233, 233, 233);
   }
 
-  .team-member p {
-    margin-bottom: 0.625rem;
+  .tecnology-name {
+    margin-top: 20px;
+    font-size: 1rem;
+    color: rgb(233, 233, 233);
   }
 
-  .team-card {
-    width: 100%;
-    max-width: 30rem;
-    height: 22rem;
-    margin: 0 auto;
-  }
-
-  .info-cards {
-    margin-top: -60px;
-  }
-
-  .centered-text {
-    text-align: center;
-    margin: 0 auto;
-    max-width: 75%;
-  }
-
-  @media (max-width: 768px) {
-    .card-columns {
-      flex-direction: row;
-      justify-content: space-around;
-      align-items: flex-start;
+  @media (max-width: 900px) {
+    .section2 .icons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
     }
 
-    .team-card {
-      max-width: 18rem;
-      height: auto;
+    .section2 .tecnology-item {
+      flex-basis: 23%;
     }
 
-    .info-cards .col-md-4 {
+    .section2 .tecnology-icon {
+      font-size: 2rem;
+    }
+
+    .section2 .tecnology-name {
+      font-size: 0.9rem;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .technologies-section {
+      flex-direction: column;
+      padding-left: 30px;
+      padding-right: 30px;
+    }
+
+    .section2-text {
+      width: 100%;
+      text-align: center;
       margin-bottom: 20px;
     }
 
-    .info-cards {
-      margin-top: 20px;
+    .icons {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .tecnology-item {
+      flex-basis: 48%;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    .section2 {
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .section2-text {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .icons {
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .tecnology-item {
+      flex-basis: auto;
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .section2 .icons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .section2 .tecnology-item {
+      flex-basis: 30%;
+    }
+
+    .section2 .tecnology-icon {
+      font-size: 1.8rem;
+      width: 1.8rem;
+      height: 1.8rem;
+    }
+
+    .section2 .tecnology-name {
+      font-size: 0.8rem;
+    }
+  }
+
+  @media (max-width: 700px) {
+    .tecnology-item img {
+      width: 1.8rem;
+      height: 1.8rem;
+    }
+  }
+
+  .project-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-left: 10%;
+    padding-right: 5%;
+    padding-top: 5px;
+    background-color: rgba(24, 23, 24, 255);
+    color: white;
+  }
+
+  .section3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    gap: 60px;
+  }
+
+  .section3-text {
+    text-align: left;
+    padding-right: 20px;
+    max-width: 50%;
+  }
+
+  .section3 .image {
+    flex: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .section3 .image img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+    max-width: 100%;
+  }
+
+  @media (max-width: 1200px) {
+    .section3 .image img {
+      max-width: 90%;
+    }
+
+    .section3-text {
+      max-width: 80%;
+    }
+  }
+
+  @media (max-width: 1000px) {
+    .section3 {
+      flex-direction: column;
+      padding: 30px 20px;
+    }
+
+    .section3 .image,
+    .section3-text {
+      max-width: 100%;
+      flex: none;
+    }
+
+    .section3 .image img {
+      max-width: 90%;
+    }
+
+    .section3-text {
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .section3 {
+      padding: 20px 10px;
+    }
+
+    .section3 .image img {
+      max-width: 100%;
+    }
+
+    .section3-text {
+      max-width: 90%;
+    }
+  }
+
+  .section4 {
+    background-color: #f1f1f1cc;
+    color: black;
+    padding: 50px 0;
+    text-align: center;
+  }
+
+  .section4 p {
+    font-size: 1rem;
+  }
+
+  .section4 img.admin-image {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 8px;
+    margin: 20px auto 30px;
+  }
+
+  .content-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 50px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+  }
+
+  .left-column,
+  .right-column {
+    max-width: 650px;
+    text-align: center;
+    padding: 10px;
+  }
+
+  .left-column ol li,
+  .right-column ol li {
+    padding-left: 25px;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    text-align: left;
+  }
+
+  .left-column p,
+  .right-column p {
+    text-align: left;
+    font-size: 1rem;
+  }
+
+  .section4 ol {
+    list-style-position: inside;
+    padding-left: 0;
+  }
+
+  .login-link {
+    color: gray;
+    text-decoration: underline;
+  }
+
+  .login-link:hover {
+    color: rgb(69, 69, 69);
+  }
+
+  @media (max-width: 768px) {
+    .content-wrapper {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+
+  .section5 {
+    background-color: rgb(141, 141, 141);
+    color: white;
+    padding: 50px 0;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .section5 .section-title {
+    font-size: 2rem;
+    margin-bottom: 50px;
+  }
+
+  .section5 .team-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 40px;
+  }
+
+  .section5 .team-member {
+    text-align: center;
+    margin-top: 80px;
+    transition: transform 0.3s ease-in-out;
+    margin-bottom: 40px;
+  }
+
+  .section5 .team-photo {
+    width: 175px;
+    height: 175px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 35px;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease;
+  }
+
+  .section5 .team-photo:hover {
+    transform: scale(1.2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  }
+
+  .section5 h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+  }
+
+  .section5 p {
+    font-size: 1rem;
+    color: #ddd;
+    line-height: 1.6;
+  }
+
+  .section5 .team-member a {
+    margin: 0 10px;
+    color: #fff;
+  }
+
+  .section5 .team-member a i {
+    font-size: 1.7rem;
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+
+  .section5 .team-member a:hover i {
+    color: lightblue;
+    transform: scale(1.3);
+  }
+
+  .team-photo {
+    filter: brightness(0.9);
+    transition: filter 0.2s ease;
+  }
+
+  .team-photo:hover {
+    filter: brightness(1);
+  }
+
+  @media (max-width: 768px) {
+    .section5 .team-member {
+      margin-bottom: 30px;
+    }
+
+    .section5 .team-photo {
+      width: 150px;
+      height: 150px;
+    }
+
+    .section5 h3 {
+      font-size: 1.1rem;
+    }
+
+    .section5 p {
+      font-size: 0.9rem;
+    }
+
+    .section5 .team-member a i {
+      font-size: 1.3rem;
+    }
+  }
+
+  @media (max-width: 576px) {
+    .section5 .team-member {
+      margin-bottom: 20px;
+    }
+
+    .section5 .team-photo {
+      width: 120px;
+      height: 120px;
+    }
+
+    .section5 h3 {
+      font-size: 1rem;
+    }
+
+    .section5 p {
+      font-size: 0.8rem;
+    }
+
+    .section5 .team-member a i {
+      font-size: 1.1rem;
     }
   }
 }
