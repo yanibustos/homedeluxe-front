@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { v4 as uuidv4 } from "uuid";
-import { clearCart } from "../../redux/shoppingCartSlice";
-import { addToCart } from "../../redux/shoppingCartSlice";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
+import { v4 as uuidv4 } from "uuid";
 import { ToastContainer, toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
 
+import { clearCart } from "../../redux/shoppingCartSlice";
 import ProductCartQty from "../../components/commons/ProductCartQty/ProductCartQty";
 import BlackButton from "../../components/commons/BlackButton/BlackButton";
 import ShippingForm from "../../components/ShippingForm/ShippingForm";
 import RemoveModal from "../../components/Modals/RemoveModal/RemoveModal";
+import RemoveFromCart from "../../components/commons/RemoveFromCart/RemoveFromCart";
 
 import "./Checkout.css";
-import { useDispatch } from "react-redux";
 
 const validationSchema = Yup.object({
   firstName: Yup.string().required("First name is required"),
@@ -43,6 +43,7 @@ const Checkout = () => {
   const navigate = useNavigate();
   const [paymentMethod, setPaymentMethod] = useState("creditCard");
   const [orderNumber, setOrderNumber] = useState(null);
+  const shoppingCart = useSelector((state) => state.shoppingCart);
   const [orderSummary, setOrderSummary] = useState({
     items: [
       {
@@ -292,37 +293,31 @@ const Checkout = () => {
 
   return (
     <div className="checkout-container">
+      <div className="fake-navbar d-flex align-items-center p-3">
+        <button onClick={handleBackToHome} className="btn btn-link back-home-btn d-none d-md-block">
+          &larr; Back to home
+        </button>
+
+        <button onClick={handleBackToHome} className="btn btn-link back-home-btn d-block d-md-none">
+          &larr;
+        </button>
+
+        <h2 className="title text-center">CHECKOUT</h2>
+      </div>
+
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
       <div className="container">
-        <div className="fake-navbar d-flex align-items-center p-3">
-          <button
-            onClick={handleBackToHome}
-            className="btn btn-link back-home-btn d-none d-md-block"
-          >
-            &larr; Back to home
-          </button>
-
-          <button
-            onClick={handleBackToHome}
-            className="btn btn-link back-home-btn d-block d-md-none"
-          >
-            &larr;
-          </button>
-
-          <h2 className="title text-center">CHECKOUT</h2>
-        </div>
-
-        <ToastContainer
-          position="top-right"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-        />
-        <div className="row">
+        <div className="row pt-5">
           <div className="col-md-6">
             <form className="checkout-form" onSubmit={handleSubmit}>
               <ShippingForm
@@ -526,38 +521,34 @@ const Checkout = () => {
             <div className="order-summary">
               <h4 className="order-summary-title mb-4">Order Summary</h4>
               <ul className="list-group">
-                {orderSummary.items.map((item) => (
+                {shoppingCart.map((item) => (
                   <li
                     key={item.id}
-                    className="list-group-item d-flex flex-wrap justify-content-between align-items-center p-3 position-relative"
+                    className="container list-group-item d-flex flex-wrap justify-content-between align-items-center p-3 position-relative"
                   >
-                    <div className="d-flex align-items-center w-100">
-                      <div className="col-auto mb-3 mb-sm-0">
+                    <div className="row">
+                      <div className="col-2 mb-3 mb-sm-0">
                         <img
-                          src={item.image}
+                          src={item.image[0]}
                           alt={item.name}
                           className="img-thumbnail"
                           style={{ objectFit: "cover" }}
                         />
                       </div>
-                      <div className="col-6 col-md-5 p-2">
+                      <div className="col-4 p-2">
                         <span className="product-name">{item.name}</span>
                       </div>
-                      <div className="col-3 col-md-2 text-center p-2">
-                        <span className="d-block">Quantity</span>
-                        <ProductCartQty
-                          product={item}
-                          handleIncrement={handleIncrement}
-                          handleDecrement={handleDecrement}
-                        />
+                      <div className="col-3 text-center p-2">
+                        <span>Quantity</span>
+                        <ProductCartQty product={item} />
                       </div>
-                      <div className="col-3 col-md-2 text-center p-2">
+                      <div className="col-3 co text-center p-2">
                         <span className="d-block">USD</span>
                         <span>{(item.price * item.quantity).toFixed(2)}</span>
+                        <RemoveFromCart productId={item.id} />
                       </div>
                     </div>
-
-                    <button
+                    {/*   <button
                       className="btn btn-sm position-absolute top-50 end-0 translate-middle-y"
                       onClick={() => handleRemoveItemClick(item.id)}
                       style={{
@@ -566,7 +557,7 @@ const Checkout = () => {
                       }}
                     >
                       <i className="bi bi-trash"></i>
-                    </button>
+                    </button> */}
                   </li>
                 ))}
               </ul>
@@ -590,14 +581,14 @@ const Checkout = () => {
             </div>
           </div>
         </div>
-
-        <RemoveModal
-          showModal={showModal}
-          itemToRemove={itemToRemove}
-          handleCancelRemove={handleCancelRemove}
-          handleConfirmRemove={handleConfirmRemove}
-        />
       </div>
+
+      <RemoveModal
+        showModal={showModal}
+        itemToRemove={itemToRemove}
+        handleCancelRemove={handleCancelRemove}
+        handleConfirmRemove={handleConfirmRemove}
+      />
     </div>
   );
 };
