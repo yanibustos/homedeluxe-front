@@ -60,11 +60,16 @@ const shoppingCartSlice = createSlice({
       const selectedProduct = state.find((item) => item.id === action.payload.id);
       selectedProduct.quantity = action.payload.qty;
     },
+
+    clearCart(state, action) {
+      console.log("Clear cart");
+      return [];
+    },
   },
 });
 
 const { reducer, actions } = shoppingCartSlice;
 
-export const { addToCart, setQty, removeFromcart, incrementQty, decrementQty } = actions;
+export const { addToCart, setQty, removeFromcart, incrementQty, decrementQty, clearCart } = actions;
 
 export default reducer;
