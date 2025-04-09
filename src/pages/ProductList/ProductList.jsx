@@ -215,7 +215,8 @@ function ProductList() {
                     <div className="card position-relative">
                       <div className="position-absolute rounded-circle d-flex justify-content-center align-items-center flex-wrap gap-1 price-container">
                         <small>{product.currency}</small>
-                        <span>{currencyFormatter(product.price)}</span>
+                        {/* TODO: Check currencyFormatter and how affects price style */}
+                        <span>{product.price}</span>
                       </div>
                       {product?.image?.length > 0 && (
                         <img src={product.image[0]} className="card-img-top" alt={product.name} />
