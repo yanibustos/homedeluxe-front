@@ -32,41 +32,44 @@ function ProductDetails() {
     toast.warning("Not available yet");
   };
 
+  const limitedImages = products
+    .filter((product) => product?.image?.length > 0)
+    .map((product) => ({ image: product.image[0], name: product.name, id: product.id }))
+    .slice(0, 4);
+
   return (
     <div className="productDetails-container me-2 overflow-hidden">
       <div className="product-content container position-relative">
         <div className="image-section d-flex">
           <div className="image-thumbnails d-lg-flex flex-column d-none">
-            {products.map((product) => (
+            {limitedImages.map((product) => (
               <div key={product.id} className="img-styles ms-5 mt-4">
-                {product?.image?.length > 0 && (
-                  <img
-                    src={product.image[0]}
-                    alt={product.name}
-                    className={`img-styles thumbnail  ${
-                      selectedImage === product.image[0] ? "selected" : ""
-                    }`}
-                    onClick={() => setSelectedImage(product.image[0])}
-                  />
-                )}
+                <img
+                  src={product.image}
+                  alt={product.name}
+                  className={`img-styles thumbnail ${
+                    selectedImage === product.image ? "selected" : ""
+                  }`}
+                  onClick={() => setSelectedImage(product.image)}
+                />
               </div>
             ))}
           </div>
 
           <Carousel
-            activeIndex={products.findIndex((product) => product.image[0] === selectedImage)}
-            onSelect={(selectedIndex) => setSelectedImage(products[selectedIndex]?.image[0])}
+            activeIndex={limitedImages.findIndex((product) => product.image === selectedImage)}
+            onSelect={(selectedIndex) => setSelectedImage(limitedImages[selectedIndex]?.image)}
             controls={false}
             indicators={false}
             interval={null}
             slide={false}
             className="main-carousel"
           >
-            {products.map((product) => (
+            {limitedImages.map((product) => (
               <Carousel.Item key={product.id}>
                 <div className="d-flex">
                   <img
-                    src={product.image[0]}
+                    src={product.image}
                     alt={product.name}
                     className="main-image ms-5 mt-3 pt-1 d-lg-flex d-none"
                   />
@@ -76,26 +79,26 @@ function ProductDetails() {
           </Carousel>
 
           <div className="carousel-container carousel-img mt-4">
-            <div className="custom-carousel-controls d-lg-none  d-flex justify-content-center">
+            <div className="custom-carousel-controls d-lg-none d-flex justify-content-center">
               <Carousel
-                activeIndex={products.findIndex((product) => product.image[0] === selectedImage)}
-                onSelect={(selectedIndex) => setSelectedImage(products[selectedIndex]?.image[0])}
+                activeIndex={limitedImages.findIndex((product) => product.image === selectedImage)}
+                onSelect={(selectedIndex) => setSelectedImage(limitedImages[selectedIndex]?.image)}
                 controls={false}
                 indicators={false}
                 interval={null}
                 slide={false}
               >
-                {products.map((product) => (
+                {limitedImages.map((product) => (
                   <Carousel.Item key={product.id}>
-                    <img src={product.image[0]} alt={product.name} className="carousel-img ms-3 " />
-                    <div className="custom-carousel-controls  ms-3 d-flex justify-content-center">
-                      {products.map((product) => (
+                    <img src={product.image} alt={product.name} className="carousel-img ms-3 " />
+                    <div className="custom-carousel-controls ms-3 d-flex justify-content-center">
+                      {limitedImages.map((productBtn) => (
                         <button
-                          key={product.id}
+                          key={productBtn.id}
                           className={`carousel-btn d-lg-none me-3 mt-3 ${
-                            selectedImage === product.image[0] ? "selected" : ""
+                            selectedImage === productBtn.image ? "selected" : ""
                           }`}
-                          onClick={() => setSelectedImage(product.image[0])}
+                          onClick={() => setSelectedImage(productBtn.image)}
                         ></button>
                       ))}
                     </div>
@@ -103,6 +106,7 @@ function ProductDetails() {
                 ))}
               </Carousel>
             </div>
+
             <div className="details-section ms-4 ">
               <h3>TRAVEL FOAM MATTRESS 1 PLACE</h3>
               <span className="usd-span fw-bold">
