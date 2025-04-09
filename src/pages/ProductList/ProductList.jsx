@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
-import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 import fetchApi from "../../api/fetchApi";
 import currencyFormatter from "../../helpers/formatPrice";
 import { addToCart } from "../../redux/shoppingCartSlice";
+import ProductCartQty from "../../components/commons/ProductCartQty/ProductCartQty";
+import CustomSelect from "../../components/commons/CustomSelect/CustomSelect";
+import BlackButton from "../../components/commons/BlackButton/BlackButton";
+import Loading from "../../components/Loading/Loading";
+import ChevronIcon from "../../components/commons/Chevron/ChevronIcon";
 
 import "./ProductList.css";
 
@@ -92,13 +97,12 @@ import "./ProductList.css";
 
 function ProductList() {
   const [products, setProducts] = useState([]);
+  const shoppingCart = useSelector((state) => state.shoppingCart);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    getProducts();
-  }, []);
+  const [showCategories, setShowCategories] = useState(false);
+  const [showPrice, setShowPrice] = useState(false);
 
   const getProducts = async () => {
     try {
@@ -106,11 +110,15 @@ function ProductList() {
       setProducts(data);
     } catch (err) {
       setError(err.message);
-      toast.error("Failed to load products.");
+      /*  toast.error("Failed to load products."); */
     } finally {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    getProducts();
+  }, []);
 
   const handleFilter = () => {
     toast.warning("Not available yet");
@@ -120,73 +128,136 @@ function ProductList() {
     dispatch(addToCart(product));
   };
 
+  const isProductIncart = (productId) => {
+    return shoppingCart.some((item) => item.id === productId);
+  };
+
   return (
     <div className="productList-container overflow-hidden">
       <div className="container header-container d-md-flex justify-content-between align-items-center mt-4">
         <div className="text-center div-text-category">
-          {products.length > 0 && (
-            <h5 className="fw-bold main-text text-uppercase">{products[0].category}</h5>
-          )}
+          {products.length > 0 && <h5 className="fw-bold main-text text-uppercase">Products</h5>}
         </div>
-        <div className="text-center d-flex align-items-center justify-content-center div-search-products">
-          <span className="pe-3 d-md-inline-block d-none">{products.length} items</span>
-          <button
-            className="filter-btn "
-            onClick={() => {
-              handleFilter();
-            }}
-          >
-            <i className="bi bi-funnel-fill"></i> <span className="filter-text">Filter</span>
-          </button>
-          <select
-            name="order"
-            className="ms-3 p-1 select-option"
-            onChange={() => {
-              handleFilter();
-            }}
-          >
-            <option value="recommended">Recommended</option>
-            <option value="recent">Recent</option>
-            <option value="category">Category</option>
-            <option value="lowerPrice">Lower Price</option>
-            <option value="higherPrice">Higher Price</option>
-          </select>
+        <div className="div-search-products">
+          <div className="filter-wrapper d-flex">
+            <span className="text-secondary items">{products.length} items</span>
+
+            <span
+              className="filter-btn btn-standard"
+              data-bs-toggle="offcanvas"
+              data-bs-target="#offcanvasFilter"
+            >
+              <i className="bi bi-funnel-fill"></i> <span className="filter-text">Filter</span>
+            </span>
+            <div
+              className="offcanvas offcanvas-start"
+              tabIndex="-1"
+              id="offcanvasFilter"
+              aria-labelledby="offcanvasFilterLabel"
+            >
+              <div className="offcanvas-body">
+                <div className="filter-options">
+                  <div className="categories" onClick={() => setShowCategories(!showCategories)}>
+                    <div className="d-flex justify-content-between align-items-center">
+                      <p className="filter-heading mb-0">Categories</p>
+                      <ChevronIcon isOpen={showCategories} />
+                    </div>
+                    {showCategories && (
+                      <div className={`pt-3 filter-by-category ${showCategories ? "show" : ""}`}>
+                        <p className="mb-1">Armchairs (20)</p>
+                        <p>Sofas (12)</p>
+                      </div>
+                    )}
+                  </div>
+                  <hr />
+                  <div className="price mb-3" onClick={() => setShowPrice(!showPrice)}>
+                    <div className="d-flex justify-content-between align-items-center">
+                      <p className="filter-heading mb-0">Price (USD)</p>
+                      <ChevronIcon isOpen={showPrice} />
+                    </div>
+                    {showPrice && (
+                      <form className={`filter-by-price-wrapper pt-3 ${showPrice ? "show" : ""}`}>
+                        <div className="d-flex gap-2">
+                          <label htmlFor="minPrice" className="form-label" hidden>
+                            Min Price
+                          </label>
+                          <input type="number" id="minPrice" placeholder=" Min Price" />
+                          <span className="align-self-center">-</span>
+                          <label htmlFor="maxPrice" className="form-label" hidden>
+                            Max Price
+                          </label>
+                          <input type="number" id="maxPrice" placeholder=" Max Price" />
+                        </div>
+                        <BlackButton className="btn-price-filter mt-3">OK</BlackButton>
+                      </form>
+                    )}
+                  </div>
+                  <hr />
+                </div>
+                <button className="btn01 btn-standard border-0" data-bs-dismiss="offcanvas">
+                  View Products
+                </button>
+              </div>
+            </div>
+          </div>
+          <CustomSelect />
         </div>
       </div>
       <hr />
 
-      <div className="container">
-        <div className="container-fluid">
-          <div className="d-flex flex-wrap my-4 justify-content-center text-center all-cards">
-            {products.map((product) => (
-              <div key={product.id} className="p-0 mx-4 my-4 card-container mb-4">
-                <div className="card position-relative">
-                  <div className="position-absolute rounded-circle d-flex justify-content-center align-items-center flex-wrap flex-column gap-1 price-container">
-                    <small>{product.currency}</small>
-                    <span>{currencyFormatter(product.price)}</span>
+      <div className="container content-container">
+        {!loading ? (
+          products.length > 0 ? (
+            <div className="d-flex flex-wrap my-4 justify-content-center text-center all-cards">
+              {products.map((product) => (
+                <Link key={product.id} to={`/products/${product.slug}`}>
+                  <div className="p-0 mx-4 my-4 card-container mb-4">
+                    <div className="card position-relative">
+                      <div className="position-absolute rounded-circle d-flex justify-content-center align-items-center flex-wrap gap-1 price-container">
+                        <small>{product.currency}</small>
+                        <span>{currencyFormatter(product.price)}</span>
+                      </div>
+                      {product?.image?.length > 0 && (
+                        <img src={product.image[0]} className="card-img-top" alt={product.name} />
+                      )}
+                    </div>
+                    <div className="p-4">
+                      <p className="accesories-text fw-bold">{product.category}</p>
+                      <h2 className="fw-bold main-text-card">{product.name}</h2>
+                      <div className="div-border my-4"></div>
+                      <div className="text-description mb-4">
+                        <p>{product.description}</p>
+                      </div>
+                      {!isProductIncart(product.id) ? (
+                        <button
+                          className="card-text-btn rounded-pill"
+                          onClick={() => handleAddToCart(product)}
+                          disabled={product.stock === 0}
+                        >
+                          <span>{product.stock !== 0 ? "Add to cart" : "Out of stock"}</span>
+                        </button>
+                      ) : (
+                        <div className="btn-update-cart rounded-pill btn-outline">
+                          <ProductCartQty
+                            product={shoppingCart.find((item) => item.id === product.id)}
+                            inCard
+                          />
+                        </div>
+                      )}
+                    </div>
                   </div>
-                  {product?.image?.length > 0 && (
-                    <img src={product.image[0]} className="card-img-top" alt={product.name} />
-                  )}
-                </div>
-                <div className="p-4">
-                  <p className="accesories-text fw-bold">{product.category}</p>
-                  <h2 className="fw-bold main-text-card">{product.name}</h2>
-                  <div className="div-border my-4"></div>
-                  <div className="text-description mb-4">
-                    <p>{product.description}</p>
-                  </div>
-                  <button
-                    className="card-text-btn rounded-pill"
-                    onClick={() => handleAddToCart(product)}
-                  >
-                    <span>Add to cart</span>
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-5">
+              <h3 className="fw-bold text-secondary">No products available</h3>
+              <p className="text-secondary">Try adjusting your filters or check back later.</p>
+            </div>
+          )
+        ) : (
+          <Loading />
+        )}
       </div>
     </div>
   );
