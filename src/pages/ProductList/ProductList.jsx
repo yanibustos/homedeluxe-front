@@ -215,7 +215,8 @@ function ProductList() {
                     <div className="card position-relative">
                       <div className="position-absolute rounded-circle d-flex justify-content-center align-items-center flex-wrap gap-1 price-container">
                         <small>{product.currency}</small>
-                        <span>{currencyFormatter(product.price)}</span>
+                        {/* TODO: Check currencyFormatter and how affects price style */}
+                        <span>{product.price}</span>
                       </div>
                       {product?.image?.length > 0 && (
                         <img src={product.image[0]} className="card-img-top" alt={product.name} />
@@ -231,13 +232,21 @@ function ProductList() {
                       {!isProductIncart(product.id) ? (
                         <button
                           className="card-text-btn rounded-pill"
-                          onClick={() => handleAddToCart(product)}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleAddToCart(product);
+                          }}
                           disabled={product.stock === 0}
                         >
                           <span>{product.stock !== 0 ? "Add to cart" : "Out of stock"}</span>
                         </button>
                       ) : (
-                        <div className="btn-update-cart rounded-pill btn-outline">
+                        <div
+                          className="btn-update-cart rounded-pill btn-outline"
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
+                        >
                           <ProductCartQty
                             product={shoppingCart.find((item) => item.id === product.id)}
                             inCard

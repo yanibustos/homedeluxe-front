@@ -30,10 +30,6 @@ function Navbar() {
     setShow(true);
   };
 
-  const signOut = () => {
-    dispatch(logout());
-  };
-
   useEffect(() => {
     const handleScroll = () => {
       if (navRef.current) {
@@ -126,7 +122,7 @@ function Navbar() {
                     </Link>
                   </li>
                   <li>
-                    <Link className="dropdown-item" to="/" onClick={signOut}>
+                    <Link className="dropdown-item" to="/logout">
                       Logout
                     </Link>
                   </li>

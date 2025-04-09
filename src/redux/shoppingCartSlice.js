@@ -60,7 +60,8 @@ const shoppingCartSlice = createSlice({
       const selectedProduct = state.find((item) => item.id === action.payload.id);
       selectedProduct.quantity = action.payload.qty;
     },
-    clearCart(state) {
+
+    clearCart(state, action) {
       return [];
     },
   },
