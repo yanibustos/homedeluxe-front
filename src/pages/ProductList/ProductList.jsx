@@ -231,13 +231,21 @@ function ProductList() {
                       {!isProductIncart(product.id) ? (
                         <button
                           className="card-text-btn rounded-pill"
-                          onClick={() => handleAddToCart(product)}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleAddToCart(product);
+                          }}
                           disabled={product.stock === 0}
                         >
                           <span>{product.stock !== 0 ? "Add to cart" : "Out of stock"}</span>
                         </button>
                       ) : (
-                        <div className="btn-update-cart rounded-pill btn-outline">
+                        <div
+                          className="btn-update-cart rounded-pill btn-outline"
+                          onClick={(e) => {
+                            e.preventDefault();
+                          }}
+                        >
                           <ProductCartQty
                             product={shoppingCart.find((item) => item.id === product.id)}
                             inCard
