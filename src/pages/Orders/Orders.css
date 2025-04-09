@@ -47,4 +47,9 @@
     object-fit: cover;
     border-radius: 6px;
   }
+
+  .order-buttons {
+    height: fit-content;
+    text-wrap: nowrap;
+  }
 }
