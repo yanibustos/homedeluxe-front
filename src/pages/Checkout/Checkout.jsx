@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
-
+import { v4 as uuidv4 } from "uuid";
 import { clearCart } from "../../redux/shoppingCartSlice";
 import { addToCart } from "../../redux/shoppingCartSlice";
-
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
-import ProductCartQty from "../../components/commons/ProductCartQty/ProductCartQty";
 
+import ProductCartQty from "../../components/commons/ProductCartQty/ProductCartQty";
 import BlackButton from "../../components/commons/BlackButton/BlackButton";
 import ShippingForm from "../../components/ShippingForm/ShippingForm";
 import RemoveModal from "../../components/Modals/RemoveModal/RemoveModal";
@@ -223,9 +222,9 @@ const Checkout = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log("Order confirmed with data:", formData);
-
-    toast.success("Your order has been confirmed!");
+    const code = uuidv4();
+    setOrderNumber(code);
+    dispatch(clearCart());
   };
 
   const handleBackToHome = () => {
