@@ -10,10 +10,10 @@ import * as Yup from "yup";
 import { Modal, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
+import ProductCartQty from "../../components/commons/ProductCartQty/ProductCartQty";
 
 import BlackButton from "../../components/commons/BlackButton/BlackButton";
 import ShippingForm from "../../components/ShippingForm/ShippingForm";
-import ProductCartQty from "../../components/Modals/ModalCart/ProductCartQty/ProductCartQty";
 import RemoveModal from "../../components/Modals/RemoveModal/RemoveModal";
 
 import "./Checkout.css";
