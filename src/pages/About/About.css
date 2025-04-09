@@ -30,7 +30,7 @@
   }
 
   .section1 {
-    background-image: url("../../../public/img/pexels-fotoaibe-1571460.jpg");
+    background-image: url("../../../public/img/About\ background.jpg");
     background-size: cover;
     background-position: center;
     color: white;
@@ -165,7 +165,7 @@
     padding-left: 10%;
     padding-right: 5%;
     padding-top: 5px;
-    background-color: black;
+    background-color: rgba(24,23,24,255);
     color: white;
   }
 
