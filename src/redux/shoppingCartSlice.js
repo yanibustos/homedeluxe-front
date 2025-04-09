@@ -62,7 +62,6 @@ const shoppingCartSlice = createSlice({
     },
 
     clearCart(state, action) {
-      console.log("Clear cart");
       return [];
     },
   },
