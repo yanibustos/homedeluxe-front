@@ -36,7 +36,7 @@ const About = () => {
       name: "Cristofer Fernandez",
       role: "Junior Full Stack Developer",
       github: "https://github.com/member2",
-      linkedin: "https://linkedin.com/in/member2",
+      linkedin: "https://www.linkedin.com/in/cristofer-fernandez-72a838243/",
       image: "/img/avatar.png",
     },
     {
@@ -51,8 +51,8 @@ const About = () => {
       id: 4,
       name: "Federico Vargas",
       role: "Junior Full Stack Developer",
-      github: "https://github.com/member4",
-      linkedin: "https://linkedin.com/in/member4",
+      github: "https://github.com/FedeVargas21",
+      linkedin: "https://www.linkedin.com/in/federico-vargas-b60b28261/",
       image: "/img/federico.png",
     },
     {
@@ -119,16 +119,20 @@ const About = () => {
       <div className="project-section">
         <div className="section3">
           <div className="section3-text">
-            <h2>Project Organization - MER</h2>
+            <h2>Project Organization - ERD</h2>
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Iusto fuga id recusandae cum
-              beatae voluptates vero, maxime enim exercitationem voluptatibus consectetur nostrum
-              animi odio doloremque deleniti perspiciatis quibusdam. Porro, quidem.
+              Before diving into the implementation phase, we focused on defining the backend
+              structure of our application. As a team, we identified the key functionalities and
+              laid the groundwork by designing an Entity-Relationship Diagram (ERD). This diagram
+              helped us visualize and organize the relationships between our core data models:
+              Users, Products, Orders, Styles, and Admins. This initial planning stage allowed us to
+              better understand how the different components of our database would interact,
+              ensuring a more efficient and coherent development process.
             </p>
           </div>
           <div className="image">
             <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTa78nY-4h33SCQ3VZyrD0ut1wS0ndvq9PqFA&s"
+              src="/img/MER Image.png"
               alt="Admin Image"
               className="admin-image"
             />
