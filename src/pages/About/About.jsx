@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+import SupabaseIcon from "../../components/commons/SupabaseIcon/SupabaseIcon";
+
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -13,7 +15,7 @@ const About = () => {
     { iconClass: "fab fa-figma", label: "Figma" },
     { iconClass: "fab fa-github", label: "GitHub" },
     { iconClass: "fab fa-js-square", label: "JavaScript" },
-    { iconClass: "fab fa-supabase", label: "Supabase" },
+    { iconClass: null, label: "Supabase", isCustomIcon: true },
     { iconClass: "fab fa-node-js", label: "NodeJS" },
     { iconClass: "fab fa-react", label: "React" },
     { iconClass: "fab fa-reddit", label: "Redux" },
@@ -29,7 +31,7 @@ const About = () => {
       role: "Junior Full Stack Developer",
       github: "https://github.com/yanibustos",
       linkedin: "https://www.linkedin.com/in/yanina-bustos",
-      image: "/img/yanina.png",
+      image: "/img/YaninaProfile.png",
     },
     {
       id: 2,
@@ -37,7 +39,7 @@ const About = () => {
       role: "Junior Full Stack Developer",
       github: "https://github.com/CristoferFO",
       linkedin: "https://www.linkedin.com/in/cristofer-fernandez-72a838243/",
-      image: "/img/avatar.png",
+      image: "/img/CristoferProfile.png",
     },
     {
       id: 3,
@@ -45,7 +47,7 @@ const About = () => {
       role: "Junior Full Stack Developer",
       github: "https://github.com/dhornia",
       linkedin: "https://www.linkedin.com/in/darlen-hornia-webdev",
-      image: "/img/avatar.png",
+      image: "/img/DarlenProfile.png",
     },
     {
       id: 4,
@@ -53,15 +55,15 @@ const About = () => {
       role: "Junior Full Stack Developer",
       github: "https://github.com/FedeVargas21",
       linkedin: "https://www.linkedin.com/in/federico-vargas-b60b28261/",
-      image: "/img/federico.png",
+      image: "/img/FedericoProfile.png",
     },
     {
       id: 5,
       name: "Ayhesa Hinds",
       role: "Junior Full Stack Developer",
-      github: "https://github.com/member5",
-      linkedin: "https://linkedin.com/in/member5",
-      image: "/img/ayhesa.png",
+      github: "https://github.com/ayhesahinds",
+      linkedin: "https://www.linkedin.com/in/ayhesa-clementine-hinds-shappiro-05771b97/",
+      image: "/img/AyhesaProfile.png",
     },
   ];
 
@@ -106,7 +108,11 @@ const About = () => {
             <div className="technologies-row d-flex flex-wrap">
               {techTools.map((item, index) => (
                 <div className="tecnology-item col-3 text-center py-4" key={index}>
-                  <i className={`${item.iconClass} tecnology-icon`}></i>
+                  {item.isCustomIcon ? (
+                    <SupabaseIcon className="tecnology-icon" />
+                  ) : (
+                    <i className={`${item.iconClass} tecnology-icon`}></i>
+                  )}
                   <p className="tecnology-name">{item.label}</p>
                 </div>
               ))}
