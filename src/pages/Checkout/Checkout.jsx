@@ -1,14 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { v4 as uuidv4 } from "uuid";
+
 import { clearCart } from "../../redux/shoppingCartSlice";
 import { addToCart } from "../../redux/shoppingCartSlice";
 
-import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
-import { Modal, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import ProductCartQty from "../../components/commons/ProductCartQty/ProductCartQty";
 
@@ -169,6 +165,41 @@ const Checkout = () => {
     }
   };
 
+  const formatCardNumber = (value) => {
+    const numericValue = value.replace(/\D/g, "");
+    const limitedValue = numericValue.substring(0, 16);
+
+    return numericValue.replace(/(\d{4})(?=\d)/g, "$1-");
+  };
+
+  const handleCardNumberChange = (e) => {
+    const formattedValue = formatCardNumber(e.target.value);
+    setFormData((prevState) => ({
+      ...prevState,
+      cardNumber: formattedValue,
+    }));
+  };
+
+  const formatExpiryDate = (value) => {
+    const numericValue = value.replace(/\D/g, "");
+
+    const limitedValue = numericValue.substring(0, 4);
+
+    if (limitedValue.length > 2) {
+      return `${limitedValue.substring(0, 2)}/${limitedValue.substring(2, 4)}`;
+    }
+
+    return limitedValue;
+  };
+
+  const handleExpiryChange = (e) => {
+    const formattedValue = formatExpiryDate(e.target.value);
+    setFormData((prevState) => ({
+      ...prevState,
+      expiry: formattedValue,
+    }));
+  };
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setFormData((prevState) => {
@@ -189,30 +220,12 @@ const Checkout = () => {
     }));
   };
 
-  /*   const handleSubmit = async (e) => {
-    e.preventDefault();
-
-    const isValid = await validationSchema.isValid(formData);
-
-    if (!isValid) {
-      toast.error("Please fill out all fields correctly.");
-      return;
-    }
-
-    setIsProcessing(true);
-    setTimeout(() => {
-      console.log("Checkout data:", formData);
-      setIsProcessing(false);
-      alert("Order confirmed!");
-    }, 2000);
-  }; */
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const numero = uuidv4();
-    setOrderNumber(numero);
-    dispatch(clearCart());
+    console.log("Order confirmed with data:", formData);
+
+    toast.success("Your order has been confirmed!");
   };
 
   const handleBackToHome = () => {
@@ -399,7 +412,8 @@ const Checkout = () => {
                         id="cardNumber"
                         name="cardNumber"
                         value={formData.cardNumber}
-                        onChange={handleInputChange}
+                        onChange={handleCardNumberChange}
+                        maxLength="19"
                         required
                       />
                     </div>
@@ -415,7 +429,8 @@ const Checkout = () => {
                           id="expiry"
                           name="expiry"
                           value={formData.expiry}
-                          onChange={handleNumberInput}
+                          onChange={handleExpiryChange}
+                          maxLength="5"
                           required
                         />
                       </div>
@@ -468,17 +483,11 @@ const Checkout = () => {
                 )}
               </div>
 
-              {/*      <BlackButton
+              <BlackButton
                 name={isProcessing ? "Processing..." : "Confirm Order"}
                 className="w-100 mt-4"
-                loading={isProcessing}
-                        disabled={isProcessing || !isFormValid}
                 handleOnClick={handleSubmit}
-              /> */}
-
-              <button type="submit" className="btn btn-primary w-100 mt-4">
-                Confirm Order
-              </button>
+              />
             </form>
             {orderNumber && (
               <div className="modal show modal-container d-block">
