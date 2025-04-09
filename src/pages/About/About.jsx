@@ -35,7 +35,7 @@ const About = () => {
       id: 2,
       name: "Cristofer Fernandez",
       role: "Junior Full Stack Developer",
-      github: "https://github.com/member2",
+      github: "https://github.com/CristoferFO",
       linkedin: "https://www.linkedin.com/in/cristofer-fernandez-72a838243/",
       image: "/img/avatar.png",
     },
@@ -88,19 +88,18 @@ const About = () => {
           <div className="section2-text w-50">
             <h2>Technologies & Tools</h2>
             <p>
-              During the coding bootcamp, we explored a variety of technologies across both backend
-              and frontend development. Additionally, we gained practical experience working with
-              databases and used various tools to streamline our workflow. To manage tasks
-              effectively within our team, we adopted Trello as our project management tool.
+              Throughout the bootcamp, we explored various backend and frontend technologies while
+              gaining practical experience with databases and development tools.
             </p>
             <br></br>
             <p>
-              The project was broken down into three sprints, and we used Github as our main
-              platform for collaboration. Discord was essential in maintaining smooth communication
-              throughout the development process.
+              To ensure an organized and efficient workflow, we used Trello for task management and
+              GitHub for collaboration across three defined sprints. Discord served as our main
+              communication channel, helping us coordinate effectively as a team.
             </p>
             <p>
-              For this project, we selected the following set of tools to enhance our productivity.
+              These tools played a key role in enhancing our productivity and maintaining a
+              structured development process.
             </p>
           </div>
           <div className="icons w-50">
@@ -119,23 +118,17 @@ const About = () => {
       <div className="project-section">
         <div className="section3">
           <div className="section3-text">
-            <h2>Project Organization - ERD</h2>
+            <h2>Project Organization - MER</h2>
             <p>
-              Before diving into the implementation phase, we focused on defining the backend
-              structure of our application. As a team, we identified the key functionalities and
-              laid the groundwork by designing an Entity-Relationship Diagram (ERD). This diagram
-              helped us visualize and organize the relationships between our core data models:
-              Users, Products, Orders, Styles, and Admins. This initial planning stage allowed us to
-              better understand how the different components of our database would interact,
-              ensuring a more efficient and coherent development process.
+              Before beginning development, we focused on structuring the backend of the
+              application. We identified the main features and created a Model Entity Relationship
+              (MER) diagram to visualize the connections between key entities: Users, Products,
+              Orders, Styles, and Admins. This planning step helped us ensure a more organized and
+              efficient development process.
             </p>
           </div>
           <div className="image">
-            <img
-              src="/img/MER Image.png"
-              alt="Admin Image"
-              className="admin-image"
-            />
+            <img src="/img/MER Image.png" alt="Admin Image" className="admin-image" />
           </div>
         </div>
       </div>
@@ -165,10 +158,10 @@ const About = () => {
                   </Link>
                 </li>
                 <li>
-                  Use the email address <strong>"admin@admin.com"</strong> as username.
+                  Use the email address <strong>"admin@homedeluxe.com"</strong> as username.
                 </li>
                 <li>
-                  Input <strong>"123"</strong> as the password.
+                  Input <strong>"password123"</strong> as the password.
                 </li>
                 <li>Click on the login button or submit the form.</li>
               </ol>
@@ -184,10 +177,10 @@ const About = () => {
                   </Link>
                 </li>
                 <li>
-                  Use the email address <strong>"admin@admin.com"</strong> as username.
+                  Use the email address <strong>"edit@homedeluxe.com"</strong> as username.
                 </li>
                 <li>
-                  Input <strong>"123"</strong> as the password.
+                  Input <strong>"password123"</strong> as the password.
                 </li>
                 <li>Click on the login button or submit the form.</li>
               </ol>
