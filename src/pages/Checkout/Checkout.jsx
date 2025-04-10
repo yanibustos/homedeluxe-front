@@ -20,11 +20,12 @@ const Checkout = () => {
 
   const [paymentType, setPaymentType] = useState("creditCard");
   const [orderNumber, setOrderNumber] = useState(null);
+  const [shippingAddress, setShippingAddress] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState("hola");
+  const [paymentOptions, setPaymentOptions] = useState("");
+  const [loading, setLoading] = useState(true);
   const shoppingCart = useSelector((state) => state.shoppingCart);
   const user = useSelector((state) => state.user);
-  const [shippingAddress, setShippingAddress] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState("");
-  console.log(shippingAddress);
 
   const [orderSummary, setOrderSummary] = useState({
     subtotal: 0,
@@ -57,10 +58,7 @@ const Checkout = () => {
       await fetchApi({
         method: "post",
         url: "/orders",
-        data: { userId: user.Id },
-        products: shoppingCart,
-        shippingAddress,
-        paymentMethod,
+        data: { userId: user.Id, items: shoppingCart, shippingAddress, paymentMethod },
       });
     } catch (err) {
       setError(err.message);
