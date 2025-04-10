@@ -61,15 +61,6 @@
     text-align: center;
   }
 
-  /*   .row {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 20px;
-    padding-top: 35px;
-    margin-top: 80px;
-  } */
-
   .row .col-md-6 {
     flex: 1;
     min-width: 250px;
@@ -85,13 +76,6 @@
   .product-name {
     margin-left: 15px;
   }
-
-  /*  .product-cart-qty {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 5px;
-  } */
 
   .product-cart-qty input {
     width: 40px;
@@ -178,12 +162,6 @@
       padding: 1rem;
       justify-content: center;
     }
-
-    /*  .row {
-      flex-direction: column;
-      gap: 10px;
-      justify-content: flex-start;
-    } */
 
     .row .col-md-6 {
       width: 100%;
