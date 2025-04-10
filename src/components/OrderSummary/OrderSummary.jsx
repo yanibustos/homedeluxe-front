@@ -1,7 +1,10 @@
 import React from "react";
 import ProductCartQty from "../commons/ProductCartQty/ProductCartQty";
 
+import "./OrderSummary.css";
+
 const OrderSummary = ({ shoppingCart, orderSummary, handleRemoveItemClick }) => {
+
   return (
     <div className="order-summary">
       <h4 className="order-summary-title mb-4 text-center">Order Summary</h4>
