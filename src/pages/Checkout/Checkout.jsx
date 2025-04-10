@@ -20,10 +20,12 @@ const Checkout = () => {
   const [paymentMethod, setPaymentMethod] = useState("creditCard");
   const [orderNumber, setOrderNumber] = useState(null);
   const shoppingCart = useSelector((state) => state.shoppingCart);
+
   const [orderSummary, setOrderSummary] = useState({
-    subtotal: 75.0,
-    shipping: 10.0,
-    total: 85.0,
+    subtotal: 0,
+    shipping: 20,
+    taxes: 0,
+    total: 0,
   });
 
   const [showModal, setShowModal] = useState(false);
@@ -55,21 +57,8 @@ const Checkout = () => {
   };
 
   const handleConfirmRemove = () => {
-    setOrderSummary((prevState) => {
-      const updatedItems = prevState.items.filter((item) => item.id !== itemToRemove);
-      const newSubtotal = updatedItems.reduce(
-        (total, item) => total + item.price * item.quantity,
-        0,
-      );
-      const newTotal = newSubtotal + prevState.shipping;
-
-      return {
-        ...prevState,
-        items: updatedItems,
-        subtotal: newSubtotal,
-        total: newTotal,
-      };
-    });
+    const updatedCart = shoppingCart.filter((item) => item.id !== itemToRemove);
+    dispatch({ type: "shoppingCart/setCart", payload: updatedCart });
     setShowModal(false);
   };
 
@@ -94,6 +83,14 @@ const Checkout = () => {
       ...prevState,
       cardNumber: formattedValue,
     }));
+  };
+
+  const formatExpiryDate = (value) => {
+    const numericValue = value.replace(/\D/g, "").substring(0, 4);
+    if (numericValue.length >= 3) {
+      return `${numericValue.slice(0, 2)}/${numericValue.slice(2, 4)}`;
+    }
+    return numericValue;
   };
 
   const handleExpiryChange = (e) => {
@@ -156,6 +153,20 @@ const Checkout = () => {
 
     validateForm();
   }, [formData]);
+
+  useEffect(() => {
+    const subtotal = shoppingCart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+    const shipping = 20;
+    const taxes = +(subtotal * 0.08).toFixed(2);
+    const total = +(subtotal + shipping + taxes).toFixed(2);
+
+    setOrderSummary({
+      subtotal,
+      shipping,
+      taxes,
+      total,
+    });
+  }, [shoppingCart]);
 
   return (
     <div className="checkout-container">
