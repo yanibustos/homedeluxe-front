@@ -18,10 +18,9 @@ const Checkout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [paymentType, setPaymentType] = useState("creditCard");
   const [orderNumber, setOrderNumber] = useState(null);
   const [shippingAddress, setShippingAddress] = useState("");
-  const [paymentMethod, setPaymentMethod] = useState("hola");
+  const [paymentMethod, setPaymentMethod] = useState("Credit Card");
   const [paymentOptions, setPaymentOptions] = useState("");
   const [loading, setLoading] = useState(true);
   const shoppingCart = useSelector((state) => state.shoppingCart);
@@ -58,17 +57,13 @@ const Checkout = () => {
       await fetchApi({
         method: "post",
         url: "/orders",
-        data: { userId: user.Id, items: shoppingCart, shippingAddress, paymentMethod },
+        data: { userId: user.id, items: shoppingCart, shippingAddress, paymentMethod },
       });
     } catch (err) {
       setError(err.message);
     } finally {
       setLoading(false);
     }
-  };
-
-  const handlePaymentMethodChange = (method) => {
-    setPaymentMethod(method);
   };
 
   const handleRemoveItemClick = (itemId) => {
@@ -118,14 +113,6 @@ const Checkout = () => {
     setFormData((prevState) => ({
       ...prevState,
       expiry: formattedValue,
-    }));
-  };
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
     }));
   };
 
@@ -210,24 +197,20 @@ const Checkout = () => {
                 shippingAddress={shippingAddress}
                 setShippingAddress={setShippingAddress}
                 formData={formData}
-                handleChange={handleInputChange}
                 handleNumberInput={handleNumberInput}
-                paymentType={paymentType}
-                setPaymentType={setPaymentType}
                 paymentMethod={paymentMethod}
                 setPaymentMethod={setPaymentMethod}
-                handlePaymentMethodChange={handlePaymentMethodChange}
                 handleCardNumberChange={handleCardNumberChange}
                 handleExpiryChange={handleExpiryChange}
               />
 
-              {paymentType === "paypal" && (
+              {paymentMethod === "Pay Pal" && (
                 <div className="mt-4">
                   <BlackButton
                     name="Pay with PayPal"
                     loading={isProcessing}
                     disabled={isProcessing}
-                    handleOnClick={() => handleRedirectPayment(paymentType)}
+                    handleOnClick={() => handleRedirectPayment(paymentMethod)}
                     className="w-100"
                   >
                     <span>Pay with PayPal</span>
@@ -236,13 +219,13 @@ const Checkout = () => {
                 </div>
               )}
 
-              {paymentType === "mercadopago" && (
+              {paymentMethod === "Mercado Pago" && (
                 <div className="mt-4">
                   <BlackButton
                     name="Pay with Mercado Pago"
                     loading={isProcessing}
                     disabled={isProcessing}
-                    handleOnClick={() => handleRedirectPayment(paymentType)}
+                    handleOnClick={() => handleRedirectPayment(paymentMethod)}
                     className="w-100"
                   >
                     <span>Pay with MercadoPago</span>

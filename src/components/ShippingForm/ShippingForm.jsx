@@ -30,16 +30,7 @@ const validationSchema = Yup.object().shape({
   cvv: Yup.string().required("CVV is required"),
 });
 
-const ShippingForm = ({
-  handleChange,
-  handlePaymentMethodChange,
-  paymentType,
-  setPaymentType,
-  shippingAddress,
-  setShippingAddress,
-  paymentMethod,
-  setPaymentMethod,
-}) => {
+const ShippingForm = ({ shippingAddress, setShippingAddress, paymentMethod, setPaymentMethod }) => {
   const user = useSelector((state) => state.user);
 
   const [formData, setFormData] = useState({
@@ -55,6 +46,7 @@ const ShippingForm = ({
     cardNumber: "",
     expiry: "",
     cvv: "",
+    paymentMethod: "",
   });
 
   const [errors, setErrors] = useState({});
@@ -104,8 +96,14 @@ const ShippingForm = ({
       [name]: value,
     }));
 
-    setShippingAddress(value);
-    setPaymentMethod(value);
+    // Solo actualiza shippingAddress cuando el campo modificado sea 'address'
+    if (name === "address") {
+      setShippingAddress(value);
+    }
+
+    if (name === "paymentMethod") {
+      setPaymentMethod(value);
+    }
   };
 
   const handleBlur = async (e) => {
@@ -353,26 +351,23 @@ const ShippingForm = ({
         <hr className="my-4" />
 
         <div className="mb-4">
-          <label htmlFor="paymentType" className="form-label">
+          <label htmlFor="paymentMethod" className="form-label">
             Payment Method
           </label>
           <select
             className="form-select"
-            id="paymentType"
-            name="paymentType"
-            value={paymentType}
-            onChange={(e) => {
-              handlePaymentMethodChange(e.target.value);
-              setPaymentType(e.target.value);
-            }}
+            id="paymentMethod"
+            name="paymentMethod"
+            value={formData.paymentMethod}
+            onChange={handleInputChange}
           >
-            <option value="creditCard">Credit Card</option>
-            <option value="paypal">PayPal</option>
-            <option value="mercadopago">Mercado Pago</option>
+            <option value="Credit Card">Credit Card</option>
+            <option value="PayPal">PayPal</option>
+            <option value="Mercado Pago">Mercado Pago</option>
           </select>
         </div>
 
-        {paymentType === "creditCard" && (
+        {paymentMethod === "Credit Card" && (
           <>
             <div className="mb-3">
               <label htmlFor="nameOnCard" className="form-label">
