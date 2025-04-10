@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { clearCart } from "../../redux/shoppingCartSlice";
 import { validationSchema } from "../../components/ShippingForm/ShippingForm";
+import fetchApi from "../../api/fetchApi";
 import BlackButton from "../../components/commons/BlackButton/BlackButton";
 import ShippingForm from "../../components/ShippingForm/ShippingForm";
 import RemoveModal from "../../components/Modals/RemoveModal/RemoveModal";
@@ -17,9 +18,13 @@ const Checkout = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const [paymentMethod, setPaymentMethod] = useState("creditCard");
+  const [paymentType, setPaymentType] = useState("creditCard");
   const [orderNumber, setOrderNumber] = useState(null);
   const shoppingCart = useSelector((state) => state.shoppingCart);
+  const user = useSelector((state) => state.user);
+  const [shippingAddress, setShippingAddress] = useState("");
+  const [paymentMethod, setPaymentMethod] = useState("");
+  console.log(shippingAddress);
 
   const [orderSummary, setOrderSummary] = useState({
     subtotal: 0,
@@ -46,6 +51,23 @@ const Checkout = () => {
     expiry: "",
     cvv: "",
   });
+
+  const handleConfirmOrder = async () => {
+    try {
+      await fetchApi({
+        method: "post",
+        url: "/orders",
+        data: { userId: user.Id },
+        products: shoppingCart,
+        shippingAddress,
+        paymentMethod,
+      });
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handlePaymentMethodChange = (method) => {
     setPaymentMethod(method);
@@ -187,22 +209,27 @@ const Checkout = () => {
           <div className="col-md-6">
             <form className="checkout-form" onSubmit={handleSubmit}>
               <ShippingForm
+                shippingAddress={shippingAddress}
+                setShippingAddress={setShippingAddress}
                 formData={formData}
                 handleChange={handleInputChange}
                 handleNumberInput={handleNumberInput}
+                paymentType={paymentType}
+                setPaymentType={setPaymentType}
                 paymentMethod={paymentMethod}
+                setPaymentMethod={setPaymentMethod}
                 handlePaymentMethodChange={handlePaymentMethodChange}
                 handleCardNumberChange={handleCardNumberChange}
                 handleExpiryChange={handleExpiryChange}
               />
 
-              {paymentMethod === "paypal" && (
+              {paymentType === "paypal" && (
                 <div className="mt-4">
                   <BlackButton
                     name="Pay with PayPal"
                     loading={isProcessing}
                     disabled={isProcessing}
-                    handleOnClick={() => handleRedirectPayment(paymentMethod)}
+                    handleOnClick={() => handleRedirectPayment(paymentType)}
                     className="w-100"
                   >
                     <span>Pay with PayPal</span>
@@ -211,13 +238,13 @@ const Checkout = () => {
                 </div>
               )}
 
-              {paymentMethod === "mercadopago" && (
+              {paymentType === "mercadopago" && (
                 <div className="mt-4">
                   <BlackButton
                     name="Pay with Mercado Pago"
                     loading={isProcessing}
                     disabled={isProcessing}
-                    handleOnClick={() => handleRedirectPayment(paymentMethod)}
+                    handleOnClick={() => handleRedirectPayment(paymentType)}
                     className="w-100"
                   >
                     <span>Pay with MercadoPago</span>
@@ -226,12 +253,20 @@ const Checkout = () => {
                 </div>
               )}
 
-              <BlackButton
+              {/* <BlackButton
                 name={isProcessing ? "Processing..." : "Confirm Order"}
                 className="w-100 mt-4"
                 handleOnClick={handleSubmit}
                 disabled={!isFormValid || isProcessing}
-              />
+              /> */}
+
+              <button
+                type="submit"
+                className="btn btn-primary w-100 mt-4"
+                onClick={handleConfirmOrder}
+              >
+                Confirm Order
+              </button>
             </form>
 
             {orderNumber && (
