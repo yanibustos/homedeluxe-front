@@ -6,6 +6,8 @@ import * as Yup from "yup";
 import Select from "react-select";
 import ReactSelectCountryList from "react-select-country-list";
 
+import "./ShippingForm.css";
+
 const lettersOnlyRegex = /^[A-Za-z\s]+$/;
 
 const validationSchema = Yup.object().shape({
@@ -28,7 +30,16 @@ const validationSchema = Yup.object().shape({
   cvv: Yup.string().required("CVV is required"),
 });
 
-const ShippingForm = ({ handleChange, handlePaymentMethodChange, paymentMethod }) => {
+const ShippingForm = ({
+  handleChange,
+  handlePaymentMethodChange,
+  paymentType,
+  setPaymentType,
+  shippingAddress,
+  setShippingAddress,
+  paymentMethod,
+  setPaymentMethod,
+}) => {
   const user = useSelector((state) => state.user);
 
   const [formData, setFormData] = useState({
@@ -92,6 +103,9 @@ const ShippingForm = ({ handleChange, handlePaymentMethodChange, paymentMethod }
       ...prevState,
       [name]: value,
     }));
+
+    setShippingAddress(value);
+    setPaymentMethod(value);
   };
 
   const handleBlur = async (e) => {
@@ -201,12 +215,12 @@ const ShippingForm = ({ handleChange, handlePaymentMethodChange, paymentMethod }
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="container">
       <h4 className="mb-4 mt-3">Shipping Information</h4>
       <hr className="my-4" />
 
-      <div className="d-flex flex-wrap gap-3">
-        <div className="col-md-6">
+      <div className="row">
+        <div className="col-12 col-md-6 mb-3">
           <label htmlFor="firstName" className="form-label">
             Firstname
           </label>
@@ -220,7 +234,7 @@ const ShippingForm = ({ handleChange, handlePaymentMethodChange, paymentMethod }
             onFocus={() => toast.info("This field is not editable.")}
           />
         </div>
-        <div className="col-12 col-md-6">
+        <div className="col-12 col-md-6 mb-3">
           <label htmlFor="lastName" className="form-label">
             Lastname
           </label>
@@ -251,7 +265,7 @@ const ShippingForm = ({ handleChange, handlePaymentMethodChange, paymentMethod }
         />
       </div>
 
-      <div className="d-flex flex-wrap gap-3">
+      <div className="row">
         <div className="col-12 col-md-6 mb-3">
           <label htmlFor="country" className="form-label">
             Country
@@ -262,7 +276,6 @@ const ShippingForm = ({ handleChange, handlePaymentMethodChange, paymentMethod }
             onChange={handleCountryChange}
             onBlur={handleCountryBlur}
           />
-
           {errors.country && <div className="text-danger mt-1">{errors.country}</div>}
         </div>
 
@@ -283,7 +296,7 @@ const ShippingForm = ({ handleChange, handlePaymentMethodChange, paymentMethod }
         </div>
       </div>
 
-      <div className="d-flex flex-wrap gap-3">
+      <div className="row">
         <div className="col-12 col-md-6 mb-3">
           <label htmlFor="phone" className="form-label">
             Phone
@@ -297,10 +310,10 @@ const ShippingForm = ({ handleChange, handlePaymentMethodChange, paymentMethod }
             onChange={handleNumberInput}
             onBlur={handleBlur}
           />
-
           {errors.phone && <div className="invalid-feedback">{errors.phone}</div>}
         </div>
-        <div className="col-md-6">
+
+        <div className="col-12 col-md-6 mb-3">
           <label htmlFor="zip" className="form-label">
             Zip Code
           </label>
@@ -313,7 +326,6 @@ const ShippingForm = ({ handleChange, handlePaymentMethodChange, paymentMethod }
             onChange={handleNumberInput}
             onBlur={handleBlur}
           />
-
           {errors.zip && <div className="invalid-feedback">{errors.zip}</div>}
         </div>
       </div>
@@ -331,7 +343,6 @@ const ShippingForm = ({ handleChange, handlePaymentMethodChange, paymentMethod }
           onChange={handleInputChange}
           onBlur={handleBlur}
         />
-
         {errors.address && <div className="invalid-feedback">{errors.address}</div>}
       </div>
 
@@ -342,15 +353,18 @@ const ShippingForm = ({ handleChange, handlePaymentMethodChange, paymentMethod }
         <hr className="my-4" />
 
         <div className="mb-4">
-          <label htmlFor="paymentMethod" className="form-label">
+          <label htmlFor="paymentType" className="form-label">
             Payment Method
           </label>
           <select
             className="form-select"
-            id="paymentMethod"
-            name="paymentMethod"
-            value={paymentMethod}
-            onChange={(e) => handlePaymentMethodChange(e.target.value)}
+            id="paymentType"
+            name="paymentType"
+            value={paymentType}
+            onChange={(e) => {
+              handlePaymentMethodChange(e.target.value);
+              setPaymentType(e.target.value);
+            }}
           >
             <option value="creditCard">Credit Card</option>
             <option value="paypal">PayPal</option>
@@ -358,9 +372,9 @@ const ShippingForm = ({ handleChange, handlePaymentMethodChange, paymentMethod }
           </select>
         </div>
 
-        {paymentMethod === "creditCard" && (
+        {paymentType === "creditCard" && (
           <>
-            <div className="form-group">
+            <div className="mb-3">
               <label htmlFor="nameOnCard" className="form-label">
                 Card Holder
               </label>
@@ -376,7 +390,7 @@ const ShippingForm = ({ handleChange, handlePaymentMethodChange, paymentMethod }
               {errors.nameOnCard && <div className="invalid-feedback">{errors.nameOnCard}</div>}
             </div>
 
-            <div className="form-group mt-3">
+            <div className="mb-3">
               <label htmlFor="cardNumber" className="form-label">
                 Card Number
               </label>
@@ -393,7 +407,7 @@ const ShippingForm = ({ handleChange, handlePaymentMethodChange, paymentMethod }
               {errors.cardNumber && <div className="invalid-feedback">{errors.cardNumber}</div>}
             </div>
 
-            <div className="d-flex flex-wrap gap-3 mt-3">
+            <div className="row">
               <div className="col-12 col-md-6 mb-3">
                 <label htmlFor="expiry" className="form-label">
                   Expiry Date
@@ -410,7 +424,8 @@ const ShippingForm = ({ handleChange, handlePaymentMethodChange, paymentMethod }
                 />
                 {errors.expiry && <div className="invalid-feedback">{errors.expiry}</div>}
               </div>
-              <div className="col-md-6">
+
+              <div className="col-12 col-md-6 mb-3">
                 <label htmlFor="cvv" className="form-label">
                   CVV
                 </label>
