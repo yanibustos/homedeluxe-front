@@ -22,16 +22,16 @@ const ShippingForm = ({ handleChange, handleNumberInput }) => {
 
   useEffect(() => {
     if (user) {
-      setFormData({
-        firstName: user.firstName || "",
-        lastName: user.lastName || "",
-        email: user.email || "",
-        phone: user.phone || "",
-        country: user.country || "",
-        address: user.address || "",
-        city: user.city || "",
-        zip: user.zip || "",
-      });
+      setFormData((prevData) => ({
+        firstName: prevData.firstname || user.firstname || "",
+        lastName: prevData.lastname || user.lastname || "",
+        email: prevData.email || user.email || "",
+        phone: prevData.phone || user.phone || "",
+        country: prevData.country || user.country || "",
+        address: prevData.address || user.address || "",
+        city: prevData.city || user.city || "",
+        zip: prevData.zip || user.zip || "",
+      }));
     }
   }, [user]);
 
