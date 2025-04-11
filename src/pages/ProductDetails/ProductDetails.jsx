@@ -45,7 +45,11 @@ function ProductDetails() {
             {limitedImages.map((product) => (
               <div key={product.id} className="img-styles ms-5 mt-4">
                 <img
-                  src={product.image}
+                  src={
+                    product.image.includes("http")
+                      ? product.image
+                      : `${import.meta.env.VITE_IMAGE_DB_URL}/${product.image}`
+                  }
                   alt={product.name}
                   className={`img-styles thumbnail ${
                     selectedImage === product.image ? "selected" : ""
@@ -69,7 +73,11 @@ function ProductDetails() {
               <Carousel.Item key={product.id}>
                 <div className="d-flex">
                   <img
-                    src={product.image}
+                    src={
+                      product.image.includes("http")
+                        ? product.image
+                        : `${import.meta.env.VITE_IMAGE_DB_URL}/${product.image}`
+                    }
                     alt={product.name}
                     className="main-image ms-5 mt-3 pt-1 d-lg-flex d-none"
                   />
@@ -90,7 +98,15 @@ function ProductDetails() {
               >
                 {limitedImages.map((product) => (
                   <Carousel.Item key={product.id}>
-                    <img src={product.image} alt={product.name} className="carousel-img ms-3 " />
+                    <img
+                      src={
+                        product.image.includes("http")
+                          ? product.image
+                          : `${import.meta.env.VITE_IMAGE_DB_URL}/${product.image}`
+                      }
+                      alt={product.name}
+                      className="carousel-img ms-3 "
+                    />
                     <div className="custom-carousel-controls ms-3 d-flex justify-content-center">
                       {limitedImages.map((productBtn) => (
                         <button
