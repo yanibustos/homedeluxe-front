@@ -4,9 +4,11 @@ import "./ProductDetails.css";
 import { toast } from "react-toastify";
 import FeaturedCarousel from "../../components/FeaturedCarousel/FeaturedCarousel";
 import { addToCart } from "../../redux/shoppingCartSlice";
+import Loading from "../../components/Loading/Loading";
+import NotFound from "../../components/Error/NotFound/NotFound";
 
 import fetchApi from "../../api/fetchApi";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 function ProductDetails() {
@@ -43,12 +45,32 @@ function ProductDetails() {
   };
 
   const handleWishlist = () => {
-    toast.warning("Not available yet");
+    toast.warning("Sorry this feature is not available yet");
   };
 
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
   };
+
+  if (loading) {
+    return (
+      <div className="vh-100">
+        <Loading />
+      </div>
+    );
+  }
+
+  if (error) {
+    return <NotFound />;
+  }
+
+  if (!product) {
+    return (
+      <div className="text-center">
+        <span>Product not found.</span>
+      </div>
+    );
+  }
 
   return (
     <div className="productDetails-container me-2 overflow-hidden">
