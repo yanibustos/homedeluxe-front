@@ -88,20 +88,13 @@ const ShippingForm = ({ shippingAddress, setShippingAddress, paymentMethod, setP
   const handleInputChange = (e) => {
     const { name, value } = e.target;
 
-    const onlyLettersFields = ["city", "address", "nameOnCard"];
-    const lettersOnlyRegex = /^[A-Za-z\s]*$/;
-
-    if (onlyLettersFields.includes(name) && !lettersOnlyRegex.test(value)) {
-      toast.error("Only letters are allowed in this field.");
-      return;
-    }
-
     setFormData((prevState) => ({
       ...prevState,
       [name]: value,
     }));
 
     if (name === "address") {
+      console.log(value, "address");
       setShippingAddress(value);
     }
 
