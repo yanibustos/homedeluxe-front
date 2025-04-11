@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 import fetchApi from "../../api/fetchApi";
 import currencyFormatter from "../../helpers/formatPrice";
@@ -22,6 +23,8 @@ function ProductList() {
   const [showCategories, setShowCategories] = useState(false);
   const [showPrice, setShowPrice] = useState(false);
 
+  const categories = ["Armchairs", "Sofas"];
+
   const getProducts = async () => {
     try {
       const data = await fetchApi({ method: "get", url: "/products" });
@@ -38,16 +41,16 @@ function ProductList() {
     getProducts();
   }, []);
 
-  const handleFilter = () => {
-    toast.warning("Not available yet");
-  };
-
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
   };
 
   const isProductIncart = (productId) => {
     return shoppingCart.some((item) => item.id === productId);
+  };
+
+  const handleCategoryFilter = (e) => {
+    toast.warning("Sorry, this feature is still under development");
   };
 
   return (
@@ -75,26 +78,41 @@ function ProductList() {
             >
               <div className="offcanvas-body">
                 <div className="filter-options">
-                  <div className="categories" onClick={() => setShowCategories(!showCategories)}>
-                    <div className="d-flex justify-content-between align-items-center">
+                  <div className="categories">
+                    <div
+                      className="d-flex justify-content-between align-items-center"
+                      onClick={() => setShowCategories(!showCategories)}
+                    >
                       <p className="filter-heading mb-0">Categories</p>
                       <ChevronIcon isOpen={showCategories} />
                     </div>
                     {showCategories && (
-                      <div className={`pt-3 filter-by-category ${showCategories ? "show" : ""}`}>
-                        <p className="mb-1">Armchairs (20)</p>
-                        <p>Sofas (12)</p>
+                      <div className={`pt-2 filter-by-category ${showCategories ? "show" : ""}`}>
+                        <ul className="list-unstyled d-flex flex-column gap-1">
+                          {categories.map((category, index) => (
+                            <li key={index} onClick={handleCategoryFilter}>
+                              {category}
+                            </li>
+                          ))}
+                        </ul>
                       </div>
                     )}
                   </div>
                   <hr />
-                  <div className="price mb-3" onClick={() => setShowPrice(!showPrice)}>
-                    <div className="d-flex justify-content-between align-items-center">
+                  <div className="price mb-3">
+                    <div
+                      className="d-flex justify-content-between align-items-center"
+                      onClick={() => setShowPrice(!showPrice)}
+                    >
                       <p className="filter-heading mb-0">Price (USD)</p>
                       <ChevronIcon isOpen={showPrice} />
                     </div>
                     {showPrice && (
-                      <form className={`filter-by-price-wrapper pt-3 ${showPrice ? "show" : ""}`}>
+                      <form
+                        className={`filter-by-price-wrapper pt-3 ps-0 pe-0 ${
+                          showPrice ? "show" : ""
+                        }`}
+                      >
                         <div className="d-flex gap-2">
                           <label htmlFor="minPrice" className="form-label" hidden>
                             Min Price
@@ -106,7 +124,9 @@ function ProductList() {
                           </label>
                           <input type="number" id="maxPrice" placeholder=" Max Price" />
                         </div>
-                        <BlackButton className="btn-price-filter mt-3">OK</BlackButton>
+                        <BlackButton className="btn-price-filter mt-3" disabled>
+                          OK
+                        </BlackButton>
                       </form>
                     )}
                   </div>
