@@ -58,10 +58,16 @@ function ProductDetails() {
             {product?.image?.map((image, index) => (
               <div key={index} className="img-styles ms-5 mt-4">
                 <img
-                  src={`${import.meta.VITE_SUPABASE_URL}/${product.image}`}
-                  alt={product?.name}
-                  className={`img-styles thumbnail ${selectedImage === image ? "selected" : ""}`}
-                  onClick={() => setSelectedImage(image)}
+                  src={
+                    product.image.includes("http")
+                      ? product.image
+                      : `${import.meta.env.VITE_IMAGE_DB_URL}/${product.image}`
+                  }
+                  alt={product.name}
+                  className={`img-styles thumbnail ${
+                    selectedImage === product.image ? "selected" : ""
+                  }`}
+                  onClick={() => setSelectedImage(product.image)}
                 />
               </div>
             ))}
@@ -80,8 +86,12 @@ function ProductDetails() {
               <Carousel.Item key={index}>
                 <div className="d-flex">
                   <img
-                    src={`${import.meta.VITE_SUPABASE_URL}/${product.image}`}
-                    alt={product?.name}
+                    src={
+                      product.image.includes("http")
+                        ? product.image
+                        : `${import.meta.env.VITE_IMAGE_DB_URL}/${product.image}`
+                    }
+                    alt={product.name}
                     className="main-image ms-5 mt-3 pt-1 d-lg-flex d-none"
                   />
                 </div>
@@ -98,14 +108,17 @@ function ProductDetails() {
                 indicators={false}
                 interval={null}
                 slide={false}
-                className="carousel-img"
               >
-                {product?.image?.map((image, index) => (
-                  <Carousel.Item key={index}>
+                {limitedImages.map((product) => (
+                  <Carousel.Item key={product.id}>
                     <img
-                      src={`${import.meta.VITE_SUPABASE_URL}/${product.image}`}
-                      alt={product?.name}
-                      className="carousel-img ms-3"
+                      src={
+                        product.image.includes("http")
+                          ? product.image
+                          : `${import.meta.env.VITE_IMAGE_DB_URL}/${product.image}`
+                      }
+                      alt={product.name}
+                      className="carousel-img ms-3 "
                     />
                   </Carousel.Item>
                 ))}
