@@ -13,88 +13,6 @@ import ChevronIcon from "../../components/commons/Chevron/ChevronIcon";
 
 import "./ProductList.css";
 
-//Uncomment when not using DB
-// const products = [
-//   {
-//     id: "d5XJf9QzL3Kv7yW8A1mN",
-//     name: "SOFA SENSE White 2-Seater",
-//     sku: "SKU001",
-//     price: 890,
-//     description:
-//       "Two-Seater Sofa, upholstered in soft off-white fabric, ideal for creating an elegant and cozy atmosphere in your home.",
-//     quantity: 15,
-//     category: "Sofas and Armchairs",
-//     image:
-//       "https://f.fcdn.app/imgs/24194d/www.viasono.com.uy/viasuy/18b0/webp/catalogo/B204051941_204050283_1/460x460/sofa-sense-blanco-2-cuerpos.jpg",
-//     slug: "sofa-sense-white-2-seater",
-//   },
-//   {
-//     id: "B2aZ7YpXq9Jv5rT6C0Lj",
-//     name: "Captivating Brown Circular Coffee Table",
-//     sku: "SKU002",
-//     price: 990,
-//     description:
-//       "Captivating brown circular coffee table, perfect for enhancing any living room décor.",
-//     quantity: 23,
-//     category: "Coffee Tables",
-//     image:
-//       "https://f.fcdn.app/imgs/5a0333/www.viasono.com.uy/viasuy/91bf/webp/catalogo/B205041844_205040167_1/460x460/mesa-de-centro-cautiva-marron-circular.jpg",
-//     slug: "coffee-table-cautiva-brown-circular",
-//   },
-//   {
-//     id: "B2aZ7YpXq9Jv5rT6C0Lh",
-//     name: "URBAN BEIGE Right Modular Sofa",
-//     sku: "SKU003",
-//     price: 4610,
-//     description:
-//       "Four-seater modular sofa with right chaise, upholstered in beige fabric, perfect for creating a modern and cozy atmosphere.",
-//     quantity: 12,
-//     category: "Modular Sofas",
-//     image:
-//       "https://f.fcdn.app/imgs/8cadb0/www.viasono.com.uy/viasuy/00e4/webp/catalogo/B204071264_204070080_1/460x460/sofa-modular-urban-beige-derecho.jpg",
-//     slug: "four-seater-modular-sofa-right-chaise-beige",
-//   },
-//   {
-//     id: "d5XJf9QzL3Kv7yW8A1ma",
-//     name: "SOFA SENSE White 2-Seater",
-//     sku: "SKU001",
-//     price: 890,
-//     description:
-//       "Two-Seater Sofa, upholstered in soft off-white fabric, ideal for creating an elegant and cozy atmosphere in your home.",
-//     quantity: 15,
-//     category: "Sofas and Armchairs",
-//     image:
-//       "https://f.fcdn.app/imgs/24194d/www.viasono.com.uy/viasuy/18b0/webp/catalogo/B204051941_204050283_1/460x460/sofa-sense-blanco-2-cuerpos.jpg",
-//     slug: "sofa-sense-white-2-seater",
-//   },
-//   {
-//     id: "B2aZ7YpXq9Jv5rT6C0Lr",
-//     name: "Captivating Brown Circular Coffee Table",
-//     sku: "SKU002",
-//     price: 990,
-//     description:
-//       "Captivating brown circular coffee table, perfect for enhancing any living room décor.",
-//     quantity: 23,
-//     category: "Coffee Tables",
-//     image:
-//       "https://f.fcdn.app/imgs/5a0333/www.viasono.com.uy/viasuy/91bf/webp/catalogo/B205041844_205040167_1/460x460/mesa-de-centro-cautiva-marron-circular.jpg",
-//     slug: "coffee-table-cautiva-brown-circular",
-//   },
-//   {
-//     id: "B2aZ7YpXq9Jv5rT6C0Lq",
-//     name: "URBAN BEIGE Right Modular Sofa",
-//     sku: "SKU003",
-//     price: 4610,
-//     description:
-//       "Four-seater modular sofa with right chaise, upholstered in beige fabric, perfect for creating a modern and cozy atmosphere.",
-//     quantity: 12,
-//     category: "Modular Sofas",
-//     image:
-//       "https://f.fcdn.app/imgs/8cadb0/www.viasono.com.uy/viasuy/00e4/webp/catalogo/B204071264_204070080_1/460x460/sofa-modular-urban-beige-derecho.jpg",
-//     slug: "four-seater-modular-sofa-right-chaise-beige",
-//   },
-// ];
-
 function ProductList() {
   const [products, setProducts] = useState([]);
   const shoppingCart = useSelector((state) => state.shoppingCart);
@@ -219,7 +137,15 @@ function ProductList() {
                         <span>{product.price}</span>
                       </div>
                       {product?.image?.length > 0 && (
-                        <img src={product.image[0]} className="card-img-top" alt={product.name} />
+                        <img
+                          src={
+                            product.image[0].includes("http")
+                              ? product.image[0]
+                              : `${import.meta.env.VITE_IMAGE_DB_URL}/${product.image[0]}`
+                          }
+                          className="card-img-top"
+                          alt={product.name}
+                        />
                       )}
                     </div>
                     <div className="p-4">
