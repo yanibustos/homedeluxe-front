@@ -20,7 +20,7 @@ function ProductDetails() {
 
   useEffect(() => {
     getProduct();
-  }, []);
+  }, [params.slug]);
 
   const getProduct = async () => {
     try {
