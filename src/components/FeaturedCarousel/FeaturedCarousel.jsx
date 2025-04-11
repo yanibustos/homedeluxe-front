@@ -154,7 +154,7 @@ function FeaturedCarousel() {
                       src={
                         product.image[0].includes("http")
                           ? product.image[0]
-                          : `${import.meta.env.VITE_SUPABASE_URL}/${product.image[0]}`
+                          : `${import.meta.env.VITE_IMAGE_DB_URL}/${product.image[0]}`
                       }
                       alt={product.name}
                       className="default"
@@ -163,7 +163,7 @@ function FeaturedCarousel() {
                       src={
                         product.image[1].includes("http")
                           ? product.image[1]
-                          : `${import.meta.env.VITE_SUPABASE_URL}/${product.image[1]}`
+                          : `${import.meta.env.VITE_IMAGE_DB_URL}/${product.image[1]}`
                       }
                       alt={`${product.name} hover`}
                       className="hover"

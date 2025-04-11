@@ -42,7 +42,7 @@ function ModalCart({ show, setShow }) {
                           src={
                             item.image[0].includes("http")
                               ? item.image[0]
-                              : `${import.meta.env.VITE_SUPABASE_URL}/${item.image[0]}`
+                              : `${import.meta.env.VITE_IMAGE_DB_URL}/${item.image[0]}`
                           }
                           alt={item.name}
                           className="me-2"
