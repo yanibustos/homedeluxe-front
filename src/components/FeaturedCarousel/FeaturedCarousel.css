@@ -69,4 +69,25 @@
   .currency {
     font-size: 80%;
   }
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    color: #666666;
+    background-color: #e9e9e9;
+    opacity: 0.8;
+    font-weight: bold;
+  }
+
+  .swiper-button-next {
+    right: 12px;
+  }
+
+  .swiper-button-prev {
+    left: 12px;
+  }
+
+  .swiper-button-prev::after,
+  .swiper-button-next::after {
+    font-size: 20px;
+  }
 }
