@@ -15,16 +15,16 @@ import OrderSummary from "../../components/OrderSummary/OrderSummary";
 import "./Checkout.css";
 
 const Checkout = () => {
+  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [orderNumber, setOrderNumber] = useState(null);
-  const [shippingAddress, setShippingAddress] = useState("");
+  const [shippingAddress, setShippingAddress] = useState(user.address);
   const [paymentMethod, setPaymentMethod] = useState("Credit Card");
   const [paymentOptions, setPaymentOptions] = useState("");
   const [loading, setLoading] = useState(true);
   const shoppingCart = useSelector((state) => state.shoppingCart);
-  const user = useSelector((state) => state.user);
 
   const [orderSummary, setOrderSummary] = useState({
     subtotal: 0,
