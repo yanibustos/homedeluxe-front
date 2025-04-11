@@ -4,7 +4,6 @@ import ProductCartQty from "../commons/ProductCartQty/ProductCartQty";
 import "./OrderSummary.css";
 
 const OrderSummary = ({ shoppingCart, orderSummary, handleRemoveItemClick }) => {
-
   return (
     <div className="order-summary">
       <h4 className="order-summary-title mb-4 text-center">Order Summary</h4>
@@ -28,12 +27,12 @@ const OrderSummary = ({ shoppingCart, orderSummary, handleRemoveItemClick }) => 
               </div>
 
               <div className="text-center">
-                <span className="text-muted small mb-1 d-block">Quantity</span>
+                <span className="small mb-1 d-block">Quantity</span>
                 <ProductCartQty product={item} />
               </div>
 
               <div className="text-center">
-                <span className="text-muted small d-block">USD</span>
+                <span className="small d-block">USD</span>
                 <span>{(Number(item.price) * item.quantity).toFixed(2)}</span>
               </div>
 
