@@ -38,7 +38,15 @@ function ModalCart({ show, setShow }) {
                   <div className="row product d-flex" key={item.id}>
                     <div className="col-7 ps-0">
                       <Link to={`products/${item.slug}`} className="text-decoration-none d-flex">
-                        <img src={item.image[0]} alt={item.name} className="me-2" />
+                        <img
+                          src={
+                            item.image[0].includes("http")
+                              ? item.image[0]
+                              : `${import.meta.env.VITE_SUPABASE_URL}/${item.image[0]}`
+                          }
+                          alt={item.name}
+                          className="me-2"
+                        />
                         <div>
                           <p className="mb-0 fw-bold">{item.name}</p>
                           <p className="sku text-uppercase">sku00</p>
