@@ -211,7 +211,7 @@ const ShippingForm = ({ shippingAddress, setShippingAddress, paymentMethod, setP
 
   return (
     <div onSubmit={handleSubmit} className="container">
-      <h4 className="mb-4 mt-3">Shipping Information</h4>
+      <h4 className="mb-4 mt-3 text-center">Shipping Information</h4>
       <hr className="my-4" />
 
       <div className="row">
