@@ -59,15 +59,11 @@ function ProductDetails() {
               <div key={index} className="img-styles ms-5 mt-4">
                 <img
                   src={
-                    product.image.includes("http")
-                      ? product.image
-                      : `${import.meta.env.VITE_IMAGE_DB_URL}/${product.image}`
+                    image.includes("http") ? image : `${import.meta.env.VITE_IMAGE_DB_URL}/${image}`
                   }
                   alt={product.name}
-                  className={`img-styles thumbnail ${
-                    selectedImage === product.image ? "selected" : ""
-                  }`}
-                  onClick={() => setSelectedImage(product.image)}
+                  className={`img-styles thumbnail ${selectedImage === image ? "selected" : ""}`}
+                  onClick={() => setSelectedImage(image)}
                 />
               </div>
             ))}
@@ -87,9 +83,9 @@ function ProductDetails() {
                 <div className="d-flex">
                   <img
                     src={
-                      product.image.includes("http")
-                        ? product.image
-                        : `${import.meta.env.VITE_IMAGE_DB_URL}/${product.image}`
+                      image.includes("http")
+                        ? image
+                        : `${import.meta.env.VITE_IMAGE_DB_URL}/${image}`
                     }
                     alt={product.name}
                     className="main-image ms-5 mt-3 pt-1 d-lg-flex d-none"
@@ -109,13 +105,13 @@ function ProductDetails() {
                 interval={null}
                 slide={false}
               >
-                {limitedImages.map((product) => (
-                  <Carousel.Item key={product.id}>
+                {product?.image?.map((item, i) => (
+                  <Carousel.Item key={i}>
                     <img
                       src={
-                        product.image.includes("http")
-                          ? product.image
-                          : `${import.meta.env.VITE_IMAGE_DB_URL}/${product.image}`
+                        item.includes("http")
+                          ? item
+                          : `${import.meta.env.VITE_IMAGE_DB_URL}/${item}`
                       }
                       alt={product.name}
                       className="carousel-img ms-3 "
