@@ -159,7 +159,7 @@ const About = () => {
               <ol className="text-left">
                 <li>
                   Visit our{" "}
-                  <Link to="/login" className="login-link">
+                  <Link to="http://localhost:5174/admin/login" className="login-link">
                     admin login page
                   </Link>
                 </li>
@@ -183,7 +183,7 @@ const About = () => {
                   </Link>
                 </li>
                 <li>
-                  Use the email address <strong>"edit@homedeluxe.com"</strong> as username.
+                  Use the email address <strong>"userprueba@gmail.com"</strong> as username.
                 </li>
                 <li>
                   Input <strong>"password123"</strong> as the password.
