@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 import { ToastContainer, toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 
-import { clearCart } from "../../redux/shoppingCartSlice";
+import { clearCart, removeFromcart } from "../../redux/shoppingCartSlice";
 import { validationSchema } from "../../components/ShippingForm/ShippingForm";
 import fetchApi from "../../api/fetchApi";
 import BlackButton from "../../components/commons/BlackButton/BlackButton";
@@ -72,10 +72,10 @@ const Checkout = () => {
   };
 
   const handleConfirmRemove = () => {
-    const updatedCart = shoppingCart.filter((item) => item.id !== itemToRemove);
-    dispatch({ type: "shoppingCart/setCart", payload: updatedCart });
+    dispatch(removeFromcart(itemToRemove));
     setShowModal(false);
   };
+  
 
   const handleCancelRemove = () => {
     setShowModal(false);
@@ -204,7 +204,7 @@ const Checkout = () => {
                 handleExpiryChange={handleExpiryChange}
               />
 
-              {paymentMethod === "Pay Pal" && (
+              {paymentMethod === "PayPal" && (
                 <div className="mt-4">
                   <BlackButton
                     name="Pay with PayPal"
@@ -234,20 +234,14 @@ const Checkout = () => {
                 </div>
               )}
 
-              {/* <BlackButton
+              <BlackButton
                 name={isProcessing ? "Processing..." : "Confirm Order"}
                 className="w-100 mt-4"
-                handleOnClick={handleSubmit}
-                disabled={!isFormValid || isProcessing}
-              /> */}
-
-              <button
-                type="submit"
-                className="btn btn-primary w-100 mt-4"
-                onClick={handleConfirmOrder}
-              >
-                Confirm Order
-              </button>
+                handleOnClick={handleConfirmOrder}
+                disabled={
+                  isProcessing || paymentMethod === "PayPal" || paymentMethod === "Mercado Pago"
+                }
+              />
             </form>
 
             {orderNumber && (
