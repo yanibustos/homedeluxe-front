@@ -75,7 +75,6 @@ const Checkout = () => {
     dispatch(removeFromcart(itemToRemove));
     setShowModal(false);
   };
-  
 
   const handleCancelRemove = () => {
     setShowModal(false);
@@ -190,8 +189,8 @@ const Checkout = () => {
       <ToastContainer position="top-right" autoClose={5000} />
 
       <div className="container">
-        <div className="row pt-5">
-          <div className="col-md-6">
+        <div className="d-flex flex-wrap gap-4 justify-content-center pt-5">
+          <div className="checkout-form-container">
             <form className="checkout-form" onSubmit={handleSubmit}>
               <ShippingForm
                 shippingAddress={shippingAddress}
@@ -275,7 +274,7 @@ const Checkout = () => {
             )}
           </div>
 
-          <div className="col-md-6">
+          <div className="order-summary-wrapper">
             <OrderSummary
               shoppingCart={shoppingCart}
               orderSummary={orderSummary}
