@@ -1,0 +1,27 @@
+@media (max-width: 767.98px) {
+  form {
+    padding: 0 1rem;
+  }
+
+  form h4 {
+    font-size: 1.25rem;
+  }
+
+  label.form-label {
+    font-size: 0.9rem;
+  }
+
+  input.form-control,
+  select.form-select {
+    font-size: 0.95rem;
+    padding: 0.5rem;
+  }
+
+  .payment-method {
+    padding-top: 2rem;
+  }
+
+  .Toastify__toast {
+    font-size: 0.85rem;
+  }
+}

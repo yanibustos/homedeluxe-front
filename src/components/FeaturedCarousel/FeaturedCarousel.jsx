@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Autoplay } from "swiper/modules";
 import { Link } from "react-router-dom";
@@ -6,9 +6,11 @@ import { Link } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/navigation";
 
+import fetchApi from "../../api/fetchApi.js";
+
 import "./FeaturedCarousel.css";
 
-const slides = [
+/* const slides = [
   {
     name: "BESTPLUMA M Fiber Pillow",
     price: 100,
@@ -99,12 +101,34 @@ const slides = [
       "https://f.fcdn.app/imgs/035170/www.viasono.com.uy/viasuy/075b/webp/catalogo/B304071675_304070052_2/460x460/cubrecama-bamboo-muslin-blanco-1-plaza.jpg",
     url: "/products",
   },
-];
+]; */
 
 function FeaturedCarousel() {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+  const [products, setProducts] = useState([]);
+
+  const getFeaturedProducts = async () => {
+    try {
+      const response = await fetchApi({
+        method: "get",
+        url: "/products/featured",
+      });
+      setProducts(response.products);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getFeaturedProducts();
+  }, []);
+
   return (
     <div className="featuredCarousel-container">
-      <div className="container">
+      <div className="container position-relative">
         <h3 className="text-center heading">Our Customer Favorites</h3>
         <div className="pt-3">
           <Swiper
@@ -116,26 +140,49 @@ function FeaturedCarousel() {
               768: { slidesPerView: 3 },
               480: { slidesPerView: 2 },
             }}
+            navigation={{
+              nextEl: ".swiper-button-next",
+              prevEl: ".swiper-button-prev",
+            }}
             className="featured-swipper"
           >
-            {slides.map((slide, index) => (
-              <SwiperSlide key={index}>
+            {products.map((product) => (
+              <SwiperSlide key={product.id}>
                 <div className="image-hover">
-                  <Link to={slide.url}>
-                    <img src={slide.default} alt={`Product ${index}`} className="default" />
-                    <img src={slide.hover} alt={`Product ${index} hover`} className="hover" />
+                  <Link to={`/products/${product.slug}`}>
+                    <img
+                      src={
+                        product.image[0].includes("http")
+                          ? product.image[0]
+                          : `${import.meta.env.VITE_IMAGE_DB_URL}/${product.image[0]}`
+                      }
+                      alt={product.name}
+                      className="default"
+                    />
+                    <img
+                      src={
+                        product.image[1].includes("http")
+                          ? product.image[1]
+                          : `${import.meta.env.VITE_IMAGE_DB_URL}/${product.image[1]}`
+                      }
+                      alt={`${product.name} hover`}
+                      className="hover"
+                    />
                   </Link>
                 </div>
-                <Link to={slide.url} className="product-info">
-                  {slide.name}
+                <Link to={`/products/${product.slug}`} className="product-info">
+                  {product.name}
                   <div>
                     <span className="currency">usd </span>
-                    <span className="price">{slide.price}</span>
+                    <span className="price">{product.price}</span>
                   </div>
+                  <p className="fw-normal pt-2 small">12 payments, 0% interest </p>
                 </Link>
               </SwiperSlide>
             ))}
           </Swiper>
+          <div className="swiper-button-prev" />
+          <div className="swiper-button-next" />
         </div>
       </div>
     </div>
