@@ -31,7 +31,7 @@
   }
 
   .section1 {
-    background-image: url("../../../public/img/AboutBackground/AboutBackground.png");
+    background-image: url("/img/AboutBackground/AboutBackground.png");
     background-size: cover;
     background-position: center;
     color: white;

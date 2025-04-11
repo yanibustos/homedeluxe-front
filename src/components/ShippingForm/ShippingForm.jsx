@@ -21,13 +21,13 @@ const validationSchema = Yup.object().shape({
 
   address: Yup.string().required("Address is required"),
 
-  nameOnCard: Yup.string().required("Card holder name is required"),
+  nameOnCard: Yup.string(), //.required("Card holder name is required")
 
-  cardNumber: Yup.string().required("Card number is required"),
+  cardNumber: Yup.string(), //.required("Card number is required")
 
-  expiry: Yup.string().required("Expiry date is required"),
+  expiry: Yup.string(), //.required("Expiry date is required")
 
-  cvv: Yup.string().required("CVV is required"),
+  cvv: Yup.string(), //.required("CVV is required")
 });
 
 const ShippingForm = ({ shippingAddress, setShippingAddress, paymentMethod, setPaymentMethod }) => {
@@ -87,14 +87,6 @@ const ShippingForm = ({ shippingAddress, setShippingAddress, paymentMethod, setP
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-
-    const onlyLettersFields = ["city", "address", "nameOnCard"];
-    const lettersOnlyRegex = /^[A-Za-z\s]*$/;
-
-    if (onlyLettersFields.includes(name) && !lettersOnlyRegex.test(value)) {
-      toast.error("Only letters are allowed in this field.");
-      return;
-    }
 
     setFormData((prevState) => ({
       ...prevState,
