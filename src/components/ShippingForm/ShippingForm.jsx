@@ -70,7 +70,12 @@ const ShippingForm = ({ shippingAddress, setShippingAddress, paymentMethod, setP
 
   useEffect(() => {
     const countriesList = ReactSelectCountryList().getData();
-    setCountries(countriesList);
+    //TODO: This was formatted to be able to change this fast for demo, we have to look into it later
+    const countriesListFormatted = countriesList.map((country) => ({
+      value: country.label,
+      label: country.label,
+    }));
+    setCountries(countriesListFormatted);
   }, []);
 
   const handleCountryChange = (selectedOption) => {
