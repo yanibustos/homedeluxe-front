@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { toast } from "react-toastify";
 
 import ChevronIcon from "../Chevron/ChevronIcon";
 
@@ -18,6 +19,7 @@ function CustomSelect() {
     if (value) {
       setSelected(e.target.textContent);
       setOpen(false);
+      toast.warning("Sorry, this feature is still under development");
     }
   };
 
