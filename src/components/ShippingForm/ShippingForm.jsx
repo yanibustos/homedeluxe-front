@@ -96,7 +96,6 @@ const ShippingForm = ({ shippingAddress, setShippingAddress, paymentMethod, setP
       [name]: value,
     }));
 
-    // Solo actualiza shippingAddress cuando el campo modificado sea 'address'
     if (name === "address") {
       setShippingAddress(value);
     }
@@ -130,7 +129,6 @@ const ShippingForm = ({ shippingAddress, setShippingAddress, paymentMethod, setP
     const numericValue = value.replace(/\D/g, "");
 
     if (name === "phone") {
-      // Formato tipo +1 (123) 456-7890
       let formattedValue = numericValue;
 
       if (numericValue.length > 0) {
@@ -177,7 +175,6 @@ const ShippingForm = ({ shippingAddress, setShippingAddress, paymentMethod, setP
     const numericValue = value.replace(/\D/g, "");
 
     if (/\D/.test(value)) {
-      toast.error("Please enter numeric values in this field.");
     }
 
     let formattedValue = numericValue;
@@ -213,7 +210,7 @@ const ShippingForm = ({ shippingAddress, setShippingAddress, paymentMethod, setP
   }
 
   return (
-    <form onSubmit={handleSubmit} className="container">
+    <div onSubmit={handleSubmit} className="container">
       <h4 className="mb-4 mt-3">Shipping Information</h4>
       <hr className="my-4" />
 
@@ -440,7 +437,7 @@ const ShippingForm = ({ shippingAddress, setShippingAddress, paymentMethod, setP
           </>
         )}
       </div>
-    </form>
+    </div>
   );
 };
 
