@@ -48,6 +48,8 @@ function Login() {
     resolver: yupResolver(schema),
     mode: "onSubmit",
     defaultValues: {
+      email: "userprueba@gmail.com",
+      password: "password123",
       rememberMe: false,
     },
   });
