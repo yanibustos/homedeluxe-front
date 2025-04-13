@@ -111,7 +111,7 @@
     margin: 0;
     font-size: 2rem;
     text-align: center;
-    flex-grow: 1;
+    position: absolute;
   }
 
   .fake-navbar .back-home-btn:hover {
@@ -125,6 +125,7 @@
     color: rgb(255, 255, 255);
     font-size: 1.5rem;
     cursor: pointer;
+    position: absolute;
     padding: 5px;
   }
 
