@@ -169,7 +169,7 @@ function ProductList() {
                       )}
                     </div>
                     <div className="p-4">
-                      <p className="accesories-text fw-bold">{product.category}</p>
+                      <p className="accesories-text fw-bold">{product.category.name}</p>
                       <h2 className="fw-bold main-text-card">{product.name}</h2>
                       <div className="div-border my-4"></div>
                       <div className="text-description mb-4">
