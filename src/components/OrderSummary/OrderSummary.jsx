@@ -23,7 +23,12 @@ const OrderSummary = ({ shoppingCart, orderSummary, handleRemoveItemClick }) => 
 
               <div className="text-center text-md-start">
                 <h6 className="mb-1">{item.name}</h6>
-                <span className="text-muted small">USD {Number(item.price).toFixed(2)} each</span>
+                <span className="text-muted small">
+                  USD{" "}
+                  {(Number(item.price) * item.quantity).toLocaleString("en-US", {
+                    minimumFractionDigits: 2,
+                  })}
+                </span>
               </div>
 
               <div className="text-center">
@@ -33,7 +38,12 @@ const OrderSummary = ({ shoppingCart, orderSummary, handleRemoveItemClick }) => 
 
               <div className="text-center">
                 <span className="small d-block">USD</span>
-                <span>{(Number(item.price) * item.quantity).toFixed(2)}</span>
+                <span>
+                  {" "}
+                  {(Number(item.price) * item.quantity).toLocaleString("en-US", {
+                    minimumFractionDigits: 2,
+                  })}
+                </span>
               </div>
 
               <div className="d-none d-md-block position-absolute top-0 end-0 m-2">
@@ -75,20 +85,28 @@ const OrderSummary = ({ shoppingCart, orderSummary, handleRemoveItemClick }) => 
       <div className="p-3 border rounded shadow-sm bg-light">
         <div className="d-flex justify-content-between mb-2">
           <span>Subtotal</span>
-          <span>USD {orderSummary.subtotal.toFixed(2)}</span>
+          <span>
+            USD {orderSummary.subtotal.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+          </span>
         </div>
         <div className="d-flex justify-content-between mb-2">
           <span>Shipping</span>
-          <span>USD {orderSummary.shipping.toFixed(2)}</span>
+          <span>
+            USD {orderSummary.shipping.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+          </span>
         </div>
         <div className="d-flex justify-content-between mb-2">
           <span>Taxes</span>
-          <span>USD {orderSummary.taxes.toFixed(2)}</span>
+          <span>
+            USD {orderSummary.taxes.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+          </span>
         </div>
         <hr />
         <div className="d-flex justify-content-between fw-bold fs-5">
           <span>Total</span>
-          <span>USD {orderSummary.total.toFixed(2)}</span>
+          <span>
+            USD {orderSummary.total.toLocaleString("en-US", { minimumFractionDigits: 2 })}
+          </span>
         </div>
       </div>
     </div>
