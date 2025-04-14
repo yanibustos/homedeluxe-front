@@ -31,6 +31,7 @@ function ProductList() {
     orderBy: "createdAt",
     order: "desc",
   });
+  const [priceRange, setPriceRange] = useState({ min: "", max: "" });
 
   const [showOffcanvas, setShowOffcanvas] = useState(false);
 
@@ -54,7 +55,10 @@ function ProductList() {
         if (filters.categoryId) queryParams.push(`categoryId=${filters.categoryId}`);
         if (filters.orderBy) queryParams.push(`orderBy=${filters.orderBy}`);
         if (filters.order) queryParams.push(`order=${filters.order}`);
+        if (filters.minPrice) queryParams.push(`minPrice=${filters.minPrice}`);
+        if (filters.maxPrice) queryParams.push(`maxPrice=${filters.maxPrice}`);
         const queryString = queryParams.length ? `?${queryParams.join("&")}` : "";
+
         const data = await fetchApi({ method: "get", url: `/products${queryString}` });
         setProducts(data.products);
       } catch (err) {
@@ -94,6 +98,23 @@ function ProductList() {
     setSelectedOrder(orderValue);
   };
 
+  const handlePriceFilter = () => {
+    setFilters((prev) => ({
+      ...prev,
+      minPrice: priceRange.min ? parseFloat(priceRange.min) : null,
+      maxPrice: priceRange.max ? parseFloat(priceRange.max) : null,
+    }));
+  };
+
+  const resetFilters = () => {
+    setFilters({
+      categoryId: null,
+      orderBy: "createdAt",
+      order: "desc",
+    });
+    setPriceRange({ min: "", max: "" });
+  };
+
   return (
     <div className="productList-container overflow-hidden">
       <div className="container header-container d-md-flex justify-content-between align-items-center mt-4">
@@ -120,7 +141,7 @@ function ProductList() {
                 </Offcanvas.Header>
                 <Offcanvas.Body>
                   <div className="filter-options">
-                    <div className="categories">
+                    <div className="categories-item">
                       <div
                         className="d-flex justify-content-between align-items-center"
                         onClick={() => setShowCategories(!showCategories)}
@@ -160,11 +181,29 @@ function ProductList() {
                       {showPrice && (
                         <Form className="filter-by-price-wrapper pt-3 ps-0 pe-0">
                           <div className="d-flex gap-2">
-                            <Form.Control type="number" placeholder="Min Price" />
+                            <Form.Control
+                              type="number"
+                              placeholder="Min Price"
+                              value={priceRange.min}
+                              onChange={(e) =>
+                                setPriceRange({ ...priceRange, min: e.target.value })
+                              }
+                            />
                             <span className="align-self-center">-</span>
-                            <Form.Control type="number" placeholder="Max Price" />
+                            <Form.Control
+                              type="number"
+                              placeholder="Max Price"
+                              value={priceRange.max}
+                              onChange={(e) =>
+                                setPriceRange({ ...priceRange, max: e.target.value })
+                              }
+                            />
                           </div>
-                          <BlackButton className="btn-price-filter mt-3" disabled>
+                          <BlackButton
+                            type="button"
+                            className="btn-price-filter mt-3"
+                            onClick={handlePriceFilter}
+                          >
                             OK
                           </BlackButton>
                         </Form>
@@ -172,6 +211,12 @@ function ProductList() {
                     </div>
 
                     <hr />
+                    <Button
+                      className="btn-reset-filters btn01s btn-standard border-0 mt-3"
+                      onClick={resetFilters}
+                    >
+                      Reset Filters
+                    </Button>
                   </div>
 
                   <Button className="btn01 btn-standard border-0" onClick={handleClose}>
