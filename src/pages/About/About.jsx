@@ -14,12 +14,12 @@ const About = () => {
     { iconClass: "fab fa-css3-alt", label: "CSS3" },
     { iconClass: "fab fa-figma", label: "Figma" },
     { iconClass: "fab fa-github", label: "GitHub" },
-    { iconClass: "fab fa-js-square", label: "JavaScript" },
     { iconClass: null, label: "Supabase", isCustomIcon: true },
-    { iconClass: "fab fa-node-js", label: "NodeJS" },
-    { iconClass: "fab fa-react", label: "React" },
-    { iconClass: "fab fa-reddit", label: "Redux" },
     { iconClass: "fas fa-database", label: "SQL" },
+    { iconClass: "fab fa-react", label: "React" },
+    { iconClass: "fab fa-node-js", label: "NodeJS" },
+    { iconClass: "fab fa-reddit", label: "Redux" },
+    { iconClass: "fab fa-js-square", label: "JavaScript" },
     { iconClass: "fab fa-trello", label: "Trello" },
     { iconClass: "fab fa-discord", label: "Discord" },
   ];
@@ -28,7 +28,7 @@ const About = () => {
     {
       id: 1,
       name: "Yanina Bustos",
-      role: "Junior Full Stack Developer",
+      role: " Full Stack Developer Jr.",
       github: "https://github.com/yanibustos",
       linkedin: "https://www.linkedin.com/in/yanina-bustos",
       image: "/img/YaninaProfile.png",
@@ -36,7 +36,7 @@ const About = () => {
     {
       id: 2,
       name: "Cristofer Fernandez",
-      role: "Junior Full Stack Developer",
+      role: " Full Stack Developer Jr.",
       github: "https://github.com/CristoferFO",
       linkedin: "https://www.linkedin.com/in/cristofer-fernandez-72a838243/",
       image: "/img/CristoferProfile.png",
@@ -44,7 +44,7 @@ const About = () => {
     {
       id: 3,
       name: "Darlen Hornia",
-      role: "Junior Full Stack Developer",
+      role: " Full Stack Developer Jr.",
       github: "https://github.com/dhornia",
       linkedin: "https://www.linkedin.com/in/darlen-hornia-webdev",
       image: "/img/DarlenProfile.png",
@@ -52,7 +52,7 @@ const About = () => {
     {
       id: 4,
       name: "Federico Vargas",
-      role: "Junior Full Stack Developer",
+      role: " Full Stack Developer Jr.",
       github: "https://github.com/FedeVargas21",
       linkedin: "https://www.linkedin.com/in/federico-vargas-b60b28261/",
       image: "/img/FedericoProfile.png",
@@ -60,7 +60,7 @@ const About = () => {
     {
       id: 5,
       name: "Ayhesa Hinds",
-      role: "Junior Full Stack Developer",
+      role: " Full Stack Developer Jr.",
       github: "https://github.com/ayhesahinds",
       linkedin: "https://www.linkedin.com/in/ayhesa-clementine-hinds-shappiro-05771b97/",
       image: "/img/AyhesaProfile.png",
