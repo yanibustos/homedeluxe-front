@@ -27,10 +27,10 @@ function Footer() {
         </div>
       </div>
 
-      <Container className="footer-content">
+      <div className="footer-content">
         <div className="footer-column">
           <h3 className="fw-bold">Company</h3>
-          <Link to="/about-us">
+          <Link to="/about">
             <p>About us</p>
           </Link>
           <Link to="/terms-conditions">
@@ -83,7 +83,7 @@ function Footer() {
             </button>
           </form>
         </div>
-      </Container>
+      </div>
 
       <div className="footer-bottom">
         <hr />
