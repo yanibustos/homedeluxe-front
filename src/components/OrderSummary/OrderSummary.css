@@ -1,3 +1,45 @@
+.card {
+  border: none;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+}
+.order-summary {
+  background-color: #f9f9f9;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: none;
+  border: none;
+}
+
+.order-summary .card {
+  background-color: transparent;
+  border: none;
+  box-shadow: none;
+  margin-bottom: 15px;
+}
+
+.order-summary .card + .card {
+  border-top: 1px solid #f9f9f9;
+}
+
+.order-summary .summary-totals {
+  background-color: transparent;
+  padding: 20px 0;
+  border: none;
+  box-shadow: none;
+}
+
+.order-summary .border {
+  border: none !important;
+}
+
+/* Responsive para tablets */
+@media (max-width: 991px) and (min-width: 768px) {
+  .order-summary .card {
+    min-height: 180px;
+  }
+}
+
 @media (max-width: 991px) and (min-width: 768px) {
   .order-summary .card {
     min-height: 180px;
