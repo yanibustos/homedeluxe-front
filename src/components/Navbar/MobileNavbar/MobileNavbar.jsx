@@ -6,6 +6,7 @@ import CartIcon from "../../commons/CartIcon/CartIcon";
 import totalQty from "../../../helpers/totalQty";
 import ModalCart from "../../Modals/ModalCart/ModalCart";
 import { logout } from "../../../redux/userSlice";
+import ChevronIcon from "../../../components/commons/Chevron/ChevronIcon";
 
 import "./MobileNavbar.css";
 
@@ -66,18 +67,23 @@ const MobileNavbar = () => {
               <div className="nav-link my-account d-flex flex-column p-0">
                 <button
                   type="button"
-                  className="btn btn-link nav-link my-account d-flex"
+                  className="btn btn-link nav-link my-account d-flex align-items-center"
                   onClick={() => {
                     !user.accessToken ? navigate("/account/profile") : toggleAccount();
                   }}
                 >
-                  <span className="user-icon-wrapper me-2">
+                  <span className="user-icon-wrapper me-2 d-flex">
                     <i className="bi bi-person-fill fs-5"></i>
                   </span>
-                  {user.accessToken ? `${user.firstname} ${user.lastname}` : "My Account"}
-                  {user.accessToken && (
-                    <div className="btnItem" data-show={showAccount ? "on" : ""}></div>
-                  )}
+                  <span className="mt-auto">
+                    {user.accessToken ? `${user.firstname} ${user.lastname}` : "My Account"}
+                    {user.accessToken && (
+                      <div className="btnItem" data-show={showAccount ? "on" : ""}></div>
+                    )}
+                  </span>
+                  <div className="ms-auto">
+                    <ChevronIcon isOpen={showAccount} />
+                  </div>
                 </button>
                 {user.accessToken && showAccount && (
                   <div id="collapseOne" className="collapse show" aria-labelledby="headingOne">
@@ -127,7 +133,7 @@ const MobileNavbar = () => {
       </div>
 
       <div className="cart-icon" onClick={handleShowModal}>
-        <CartIcon />
+        <CartIcon size={20} />
         {shoppingCart.length !== 0 && <span className="cart-qty">{totalQty(shoppingCart)}</span>}
       </div>
       <ModalCart show={show} setShow={setShow} />
