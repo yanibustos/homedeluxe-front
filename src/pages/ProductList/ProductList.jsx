@@ -13,10 +13,12 @@ import Loading from "../../components/Loading/Loading";
 import ChevronIcon from "../../components/commons/Chevron/ChevronIcon";
 
 import "./ProductList.css";
+import { Button, Form, Offcanvas } from "react-bootstrap";
 
 function ProductList() {
   const [products, setProducts] = useState([]);
   const shoppingCart = useSelector((state) => state.shoppingCart);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
@@ -29,6 +31,12 @@ function ProductList() {
     orderBy: "createdAt",
     order: "desc",
   });
+  const [priceRange, setPriceRange] = useState({ min: "", max: "" });
+
+  const [showOffcanvas, setShowOffcanvas] = useState(false);
+
+  const handleClose = () => setShowOffcanvas(false);
+  const handleShow = () => setShowOffcanvas(true);
 
   const getCategories = async () => {
     try {
@@ -47,7 +55,10 @@ function ProductList() {
         if (filters.categoryId) queryParams.push(`categoryId=${filters.categoryId}`);
         if (filters.orderBy) queryParams.push(`orderBy=${filters.orderBy}`);
         if (filters.order) queryParams.push(`order=${filters.order}`);
+        if (filters.minPrice) queryParams.push(`minPrice=${filters.minPrice}`);
+        if (filters.maxPrice) queryParams.push(`maxPrice=${filters.maxPrice}`);
         const queryString = queryParams.length ? `?${queryParams.join("&")}` : "";
+
         const data = await fetchApi({ method: "get", url: `/products${queryString}` });
         setProducts(data.products);
       } catch (err) {
@@ -87,6 +98,23 @@ function ProductList() {
     setSelectedOrder(orderValue);
   };
 
+  const handlePriceFilter = () => {
+    setFilters((prev) => ({
+      ...prev,
+      minPrice: priceRange.min ? parseFloat(priceRange.min) : null,
+      maxPrice: priceRange.max ? parseFloat(priceRange.max) : null,
+    }));
+  };
+
+  const resetFilters = () => {
+    setFilters({
+      categoryId: null,
+      orderBy: "createdAt",
+      order: "desc",
+    });
+    setPriceRange({ min: "", max: "" });
+  };
+
   return (
     <div className="productList-container overflow-hidden">
       <div className="container header-container d-md-flex justify-content-between align-items-center mt-4">
@@ -97,85 +125,106 @@ function ProductList() {
           <div className="filter-wrapper d-flex">
             <span className="text-secondary items">{products.length} items</span>
 
-            <span
-              className="filter-btn btn-standard"
-              data-bs-toggle="offcanvas"
-              data-bs-target="#offcanvasFilter"
-            >
+            <span className="filter-btn btn-standard" onClick={handleShow}>
               <i className="bi bi-funnel-fill"></i> <span className="filter-text">Filter</span>
             </span>
-            <div
-              className="offcanvas offcanvas-start"
-              tabIndex="-1"
-              id="offcanvasFilter"
-              aria-labelledby="offcanvasFilterLabel"
+
+            <Offcanvas
+              show={showOffcanvas}
+              onHide={handleClose}
+              placement="start"
+              className="offcanvas"
             >
               <div className="offcanvas-body">
-                <div className="filter-options">
-                  <div className="categories">
-                    <div
-                      className="d-flex justify-content-between align-items-center"
-                      onClick={() => setShowCategories(!showCategories)}
-                    >
-                      <p className="filter-heading mb-0">Categories</p>
-                      <ChevronIcon isOpen={showCategories} />
-                    </div>
-                    {showCategories && (
-                      <div className={`pt-2 filter-by-category ${showCategories ? "show" : ""}`}>
-                        <ul className="list-unstyled d-flex flex-column gap-1">
-                          {categories
-                            .filter((category) => category.productCount > 0)
-                            .map((category) => (
-                              <li
-                                key={category.id}
-                                onClick={() => handleCategoryFilter(category.id)}
-                              >
-                                {category.name} ({category.productCount})
-                              </li>
-                            ))}
-                        </ul>
-                      </div>
-                    )}
-                  </div>
-                  <hr />
-                  <div className="price mb-3">
-                    <div
-                      className="d-flex justify-content-between align-items-center"
-                      onClick={() => setShowPrice(!showPrice)}
-                    >
-                      <p className="filter-heading mb-0">Price (USD)</p>
-                      <ChevronIcon isOpen={showPrice} />
-                    </div>
-                    {showPrice && (
-                      <form
-                        className={`filter-by-price-wrapper pt-3 ps-0 pe-0 ${
-                          showPrice ? "show" : ""
-                        }`}
+                <Offcanvas.Header closeButton>
+                  <Offcanvas.Title>Filter Products</Offcanvas.Title>
+                </Offcanvas.Header>
+                <Offcanvas.Body>
+                  <div className="filter-options">
+                    <div className="categories-item">
+                      <div
+                        className="d-flex justify-content-between align-items-center"
+                        onClick={() => setShowCategories(!showCategories)}
                       >
-                        <div className="d-flex gap-2">
-                          <label htmlFor="minPrice" className="form-label" hidden>
-                            Min Price
-                          </label>
-                          <input type="number" id="minPrice" placeholder=" Min Price" />
-                          <span className="align-self-center">-</span>
-                          <label htmlFor="maxPrice" className="form-label" hidden>
-                            Max Price
-                          </label>
-                          <input type="number" id="maxPrice" placeholder=" Max Price" />
+                        <p className="filter-heading mb-0">Categories</p>
+                        <ChevronIcon isOpen={showCategories} />
+                      </div>
+                      {showCategories && (
+                        <div className="pt-2 filter-by-category">
+                          <ul className="list-unstyled d-flex flex-column gap-1">
+                            {categories
+                              .filter((category) => category.productCount > 0)
+                              .map((category) => (
+                                <li
+                                  key={category.id}
+                                  onClick={() => handleCategoryFilter(category.id)}
+                                >
+                                  {category.name} ({category.productCount})
+                                </li>
+                              ))}
+                          </ul>
                         </div>
-                        <BlackButton className="btn-price-filter mt-3" disabled>
-                          OK
-                        </BlackButton>
-                      </form>
-                    )}
+                      )}
+                    </div>
+
+                    <hr />
+
+                    <div className="price mb-3">
+                      <div
+                        className="d-flex justify-content-between align-items-center"
+                        onClick={() => setShowPrice(!showPrice)}
+                      >
+                        <p className="filter-heading mb-0">Price (USD)</p>
+                        <ChevronIcon isOpen={showPrice} />
+                      </div>
+
+                      {showPrice && (
+                        <Form className="filter-by-price-wrapper pt-3 ps-0 pe-0">
+                          <div className="d-flex gap-2">
+                            <Form.Control
+                              type="number"
+                              placeholder="Min Price"
+                              value={priceRange.min}
+                              onChange={(e) =>
+                                setPriceRange({ ...priceRange, min: e.target.value })
+                              }
+                            />
+                            <span className="align-self-center">-</span>
+                            <Form.Control
+                              type="number"
+                              placeholder="Max Price"
+                              value={priceRange.max}
+                              onChange={(e) =>
+                                setPriceRange({ ...priceRange, max: e.target.value })
+                              }
+                            />
+                          </div>
+                          <BlackButton
+                            type="button"
+                            className="btn-price-filter mt-3"
+                            onClick={handlePriceFilter}
+                          >
+                            OK
+                          </BlackButton>
+                        </Form>
+                      )}
+                    </div>
+
+                    <hr />
+                    <Button
+                      className="btn-reset-filters btn01s btn-standard border-0 mt-3"
+                      onClick={resetFilters}
+                    >
+                      Reset Filters
+                    </Button>
                   </div>
-                  <hr />
-                </div>
-                <button className="btn01 btn-standard border-0" data-bs-dismiss="offcanvas">
-                  View Products
-                </button>
+
+                  <Button className="btn01 btn-standard border-0" onClick={handleClose}>
+                    View Products
+                  </Button>
+                </Offcanvas.Body>
               </div>
-            </div>
+            </Offcanvas>
           </div>
           <CustomSelect selectedValue={selectedOrder} onSelect={handleOrderSelect} />
         </div>
