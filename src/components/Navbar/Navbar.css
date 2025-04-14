@@ -25,17 +25,17 @@
 
   .cart-qty {
     font-weight: 400;
-    background-color: #999999;
+    background-color: #666666;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 4px 3px 3px;
-    width: 18px;
-    height: 18px;
-    font-size: 10px;
+    width: 15px;
+    height: 15px;
+    font-size: 8px;
 
-    transform: translate(-60%, -60%) !important;
+    transform: translate(-60%, -50%) !important;
     z-index: -1;
   }
 
@@ -52,7 +52,6 @@
     .nav-item {
       text-transform: uppercase;
       font-weight: normal;
-      line-height: 50px;
       font-size: 14px;
       text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
       color: #fff;
@@ -70,6 +69,11 @@
         }
       }
     }
+  }
+
+  .dropdown-menu {
+    padding: 4px 19px;
+    width: 200px;
 
     .dropdown-item {
       text-align: center;
@@ -77,24 +81,18 @@
       color: #555555;
       line-height: 20px;
       font-size: 14px;
-      padding: 10px 0;
+      padding: 12px 0;
+      transition: all 0.3s ease;
 
-      &:active {
-        background-color: none;
-      }
-    }
-  }
-
-  .dropdown-menu {
-    padding: 4px 19px;
-    width: 200px;
-
-    li {
       &:not(:last-child) {
-        margin-top: 5px;
-        margin-bottom: 5px;
-        padding-bottom: 4px;
+        margin: 2px 0;
         border-bottom: 1px solid #e0e0e0;
+      }
+
+      &:hover,
+      &:active {
+        color: #000000;
+        background-color: transparent;
       }
     }
   }
@@ -114,8 +112,35 @@
   }
 
   .dropdown-toggle {
+    text-transform: uppercase;
+    font-weight: normal;
+    line-height: 50px;
+    font-size: 14px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+    color: #fff;
+    transition: color 0.3s ease, fill 0.3s ease;
+    background-color: transparent;
+
     &::after {
       display: none;
     }
+  }
+
+  .navbar-brand {
+    img {
+      right: 10px;
+    }
+  }
+
+  .user-menu {
+    text-transform: capitalize;
+  }
+
+  .btn-check:checked + .btn,
+  .btn.active,
+  .btn.show,
+  .btn:first-child:active,
+  :not(.btn-check) + .btn:active {
+    background-color: transparent;
   }
 }
