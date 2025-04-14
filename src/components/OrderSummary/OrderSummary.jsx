@@ -109,6 +109,19 @@ const OrderSummary = ({ shoppingCart, orderSummary, handleRemoveItemClick }) => 
           </span>
         </div>
       </div>
+      <div className="checkout-trust-message text-center mt-4">
+        <i className="bi bi-shield-lock-fill" style={{ fontSize: "1.5rem", color: "green" }}></i>
+        <p className="mt-2 mb-0">Tus datos están protegidos con encriptación SSL</p>
+        <p className="small text-muted">Compra segura garantizada</p>
+      </div>
+      <div className="checkout-payments text-center mt-4">
+        <p className="mb-2">Aceptamos:</p>
+        <div style={{ fontSize: "1.5rem", display: "flex", justifyContent: "center", gap: "15px" }}>
+          <i className="bi bi-credit-card-2-front-fill"></i>
+          <i className="bi bi-paypal"></i>
+          <i className="bi bi-bank2"></i>
+        </div>
+      </div>
     </div>
   );
 };
