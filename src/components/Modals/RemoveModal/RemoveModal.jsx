@@ -1,5 +1,5 @@
-import React from 'react';
-import { Modal } from 'react-bootstrap';
+import React from "react";
+import { Modal } from "react-bootstrap";
 import BlackButton from "../../commons/BlackButton/BlackButton";
 
 const RemoveModal = ({ showModal, itemToRemove, handleCancelRemove, handleConfirmRemove }) => {
@@ -17,7 +17,7 @@ const RemoveModal = ({ showModal, itemToRemove, handleCancelRemove, handleConfir
         />
         <BlackButton
           name="Remove"
-          handleOnClick={() => handleConfirmRemove(itemToRemove)}
+          handleOnClick={handleConfirmRemove}
           className="custom-modal-btn custom-modal w-25"
         />
       </Modal.Footer>

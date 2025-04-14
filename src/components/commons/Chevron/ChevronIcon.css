@@ -1,4 +1,5 @@
 .chevron-icon-container {
+  display: flex;
   .chevron {
     display: inline-block;
     width: 18px;

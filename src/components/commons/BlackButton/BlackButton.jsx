@@ -8,13 +8,16 @@ function BlackButton({
   name,
   handleOnClick = () => {},
   children,
+  onClick,
 }) {
+  const handleClick = onClick || handleOnClick;
+
   return (
     <button
       type={type}
       disabled={disabled || loading}
       className={`blackButton ${className}`}
-      onClick={() => handleOnClick()}
+      onClick={() => handleClick()}
     >
       {loading ? (
         <>
