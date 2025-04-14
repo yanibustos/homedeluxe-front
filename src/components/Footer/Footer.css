@@ -8,9 +8,11 @@
 .footer-content {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 20px;
+  /* max-width: 1200px; */
+  gap: 10px 5px;
   text-align: left;
   padding-top: 15px;
+  align-items: start;
 }
 
 .footer-column {
@@ -50,7 +52,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  padding-top: -5px;
+  padding-top: 0px;
 }
 
 .subscribe-form {
@@ -63,7 +65,7 @@
   font-size: 16px;
   border-radius: 5px;
   border: 1px solid #ccc;
-  width: 300px;
+  width: 250px;
 }
 
 .subscribe-btn {
@@ -174,5 +176,23 @@
 
   .subscribe-btn {
     width: 80%;
+  }
+}
+
+@media (max-width: 768px) {
+  .subscribe-form {
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
+
+  .email-input {
+    width: 80%;
+  }
+
+  .subscribe-btn {
+    width: auto;
+    padding: 10px 24px;
+    margin-top: 10px;
   }
 }
