@@ -245,7 +245,7 @@
   }
 
   .offcanvas {
-    width: 250px;
+    width: 250px !important;
   }
 
   .offcanvas-body {
@@ -305,11 +305,11 @@
 
   .filter-options {
     .filter-heading {
-      font-size: 12px;
-      text-transform: uppercase;
-      color: #000000;
-      font-weight: bold;
-      line-height: 20px;
+      font-size: 12px !important;
+      text-transform: uppercase !important;
+      color: #000000 !important;
+      font-weight: bold !important;
+      line-height: 20px !important;
     }
   }
 }
