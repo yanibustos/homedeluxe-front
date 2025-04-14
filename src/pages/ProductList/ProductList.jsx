@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import fetchApi from "../../api/fetchApi";
@@ -21,24 +21,47 @@ function ProductList() {
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
   const [showCategories, setShowCategories] = useState(false);
+  const [categories, setCategories] = useState([]);
   const [showPrice, setShowPrice] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState("Recent");
+  const [filters, setFilters] = useState({
+    categoryId: null,
+    orderBy: "createdAt",
+    order: "desc",
+  });
 
-  const categories = ["Armchairs", "Sofas"];
-
-  const getProducts = async () => {
+  const getCategories = async () => {
     try {
-      const data = await fetchApi({ method: "get", url: "/products" });
-      setProducts(data);
-    } catch (err) {
-      setError(err.message);
-      /*  toast.error("Failed to load products."); */
-    } finally {
-      setLoading(false);
+      const data = await fetchApi({ method: "get", url: "/categories" });
+      setCategories(data.categories);
+    } catch (error) {
+      toast.error("Failed to load categories");
     }
   };
 
   useEffect(() => {
+    const getProducts = async () => {
+      try {
+        setLoading(true);
+        let queryParams = [];
+        if (filters.categoryId) queryParams.push(`categoryId=${filters.categoryId}`);
+        if (filters.orderBy) queryParams.push(`orderBy=${filters.orderBy}`);
+        if (filters.order) queryParams.push(`order=${filters.order}`);
+        const queryString = queryParams.length ? `?${queryParams.join("&")}` : "";
+        const data = await fetchApi({ method: "get", url: `/products${queryString}` });
+        setProducts(data.products);
+      } catch (err) {
+        setError(err.message);
+      } finally {
+        setTimeout(() => setLoading(false), 1000);
+      }
+    };
+
     getProducts();
+  }, [filters]);
+
+  useEffect(() => {
+    getCategories();
   }, []);
 
   const handleAddToCart = (product) => {
@@ -49,8 +72,19 @@ function ProductList() {
     return shoppingCart.some((item) => item.id === productId);
   };
 
-  const handleCategoryFilter = (e) => {
-    toast.warning("Sorry, this feature is still under development");
+  const handleCategoryFilter = (categoryId) => {
+    setFilters((prev) => ({ ...prev, categoryId }));
+  };
+
+  const handleOrderSelect = (orderValue) => {
+    if (orderValue === "LowerPrice") {
+      setFilters((prev) => ({ ...prev, orderBy: "price", order: "asc" }));
+    } else if (orderValue === "HigherPrice") {
+      setFilters((prev) => ({ ...prev, orderBy: "price", order: "desc" }));
+    } else {
+      setFilters((prev) => ({ ...prev, orderBy: "createdAt", order: "desc" }));
+    }
+    setSelectedOrder(orderValue);
   };
 
   return (
@@ -89,11 +123,16 @@ function ProductList() {
                     {showCategories && (
                       <div className={`pt-2 filter-by-category ${showCategories ? "show" : ""}`}>
                         <ul className="list-unstyled d-flex flex-column gap-1">
-                          {categories.map((category, index) => (
-                            <li key={index} onClick={handleCategoryFilter}>
-                              {category}
-                            </li>
-                          ))}
+                          {categories
+                            .filter((category) => category.productCount > 0)
+                            .map((category) => (
+                              <li
+                                key={category.id}
+                                onClick={() => handleCategoryFilter(category.id)}
+                              >
+                                {category.name} ({category.productCount})
+                              </li>
+                            ))}
                         </ul>
                       </div>
                     )}
@@ -138,80 +177,79 @@ function ProductList() {
               </div>
             </div>
           </div>
-          <CustomSelect />
+          <CustomSelect selectedValue={selectedOrder} onSelect={handleOrderSelect} />
         </div>
       </div>
       <hr />
 
       <div className="container content-container">
-        {!loading ? (
-          products.length > 0 ? (
-            <div className="d-flex flex-wrap my-4 justify-content-center text-center all-cards">
-              {products.map((product) => (
-                <Link key={product.id} to={`/products/${product.slug}`}>
-                  <div className="p-0 mx-4 my-4 card-container mb-4">
-                    <div className="card position-relative">
-                      <div className="position-absolute rounded-circle d-flex justify-content-center align-items-center flex-wrap gap-1 price-container">
-                        <small>{product.currency}</small>
-                        {/* TODO: Check currencyFormatter and how affects price style */}
-                        <span>{product.price}</span>
-                      </div>
-                      {product?.image?.length > 0 && (
-                        <img
-                          src={
-                            product.image[0].includes("http")
-                              ? product.image[0]
-                              : `${import.meta.env.VITE_IMAGE_DB_URL}/${product.image[0]}`
-                          }
-                          className="card-img-top"
-                          alt={product.name}
-                        />
-                      )}
-                    </div>
-                    <div className="p-4">
-                      <p className="accesories-text fw-bold">{product.category}</p>
-                      <h2 className="fw-bold main-text-card">{product.name}</h2>
-                      <div className="div-border my-4"></div>
-                      <div className="text-description mb-4">
-                        <p>{product.description}</p>
-                      </div>
-                      {!isProductIncart(product.id) ? (
-                        <button
-                          className="card-text-btn rounded-pill"
-                          onClick={(e) => {
-                            e.preventDefault();
-                            handleAddToCart(product);
-                          }}
-                          disabled={product.stock === 0}
-                        >
-                          <span>{product.stock !== 0 ? "Add to cart" : "Out of stock"}</span>
-                        </button>
-                      ) : (
-                        <div
-                          className="btn-update-cart rounded-pill btn-outline"
-                          onClick={(e) => {
-                            e.preventDefault();
-                          }}
-                        >
-                          <ProductCartQty
-                            product={shoppingCart.find((item) => item.id === product.id)}
-                            inCard
-                          />
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-5">
-              <h3 className="fw-bold text-secondary">No products available</h3>
-              <p className="text-secondary">Try adjusting your filters or check back later.</p>
-            </div>
-          )
-        ) : (
+        {loading ? (
           <Loading />
+        ) : products.length > 0 ? (
+          <div className="d-flex flex-wrap my-4 justify-content-center text-center all-cards">
+            {products.map((product) => (
+              <Link key={product.id} to={`/products/${product.slug}`}>
+                <div className="p-0 mx-4 my-4 card-container mb-4">
+                  <div className="card position-relative">
+                    <div className="position-absolute rounded-circle d-flex justify-content-center align-items-center flex-wrap gap-1 price-container">
+                      <small>{product.currency}</small>
+                      <span>{product.price}</span>
+                    </div>
+                    {product?.image?.length > 0 && (
+                      <img
+                        src={
+                          product.image[0].includes("http")
+                            ? product.image[0]
+                            : `${import.meta.env.VITE_IMAGE_DB_URL}/${product.image[0]}`
+                        }
+                        className="card-img-top"
+                        alt={product.name}
+                      />
+                    )}
+                  </div>
+                  <div className="p-4">
+                    <p className="accesories-text fw-bold">
+                      {product.category?.name || product.category}
+                    </p>
+                    <h2 className="fw-bold main-text-card">{product.name}</h2>
+                    <div className="div-border my-4"></div>
+                    <div className="text-description mb-4">
+                      <p>{product.description}</p>
+                    </div>
+                    {!isProductIncart(product.id) ? (
+                      <button
+                        className="card-text-btn rounded-pill"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleAddToCart(product);
+                        }}
+                        disabled={product.stock === 0}
+                      >
+                        <span>{product.stock !== 0 ? "Add to cart" : "Out of stock"}</span>
+                      </button>
+                    ) : (
+                      <div
+                        className="btn-update-cart rounded-pill btn-outline"
+                        onClick={(e) => {
+                          e.preventDefault();
+                        }}
+                      >
+                        <ProductCartQty
+                          product={shoppingCart.find((item) => item.id === product.id)}
+                          inCard
+                        />
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-5">
+            <h3 className="fw-bold text-secondary">No products available</h3>
+            <p className="text-secondary">Try adjusting your filters or check back later.</p>
+          </div>
         )}
       </div>
     </div>
