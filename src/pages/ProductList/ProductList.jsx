@@ -9,7 +9,7 @@ import { addToCart } from "../../redux/shoppingCartSlice";
 import ProductCartQty from "../../components/commons/ProductCartQty/ProductCartQty";
 import CustomSelect from "../../components/commons/CustomSelect/CustomSelect";
 import BlackButton from "../../components/commons/BlackButton/BlackButton";
-import Loading from "../../components/Loading/Loading"; // Your Loading component
+import Loading from "../../components/Loading/Loading";
 import ChevronIcon from "../../components/commons/Chevron/ChevronIcon";
 
 import "./ProductList.css";
@@ -184,7 +184,7 @@ function ProductList() {
 
       <div className="container content-container">
         {loading ? (
-          <Loading /> // Display Loading component while loading
+          <Loading />
         ) : products.length > 0 ? (
           <div className="d-flex flex-wrap my-4 justify-content-center text-center all-cards">
             {products.map((product) => (
