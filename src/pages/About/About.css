@@ -72,7 +72,7 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    gap: 60px;
+    gap: 50px;
 
     .section2-text {
       text-align: left;
@@ -82,13 +82,13 @@
     .icons {
       display: flex;
       flex-wrap: wrap;
-      justify-content: center;
+      justify-content: space-between;
       padding-top: 5px;
       gap: 20px;
     }
 
     .tecnology-item {
-      flex-basis: 22%;
+      flex-basis: 25%;
       text-align: center;
 
       img {
@@ -129,6 +129,10 @@
     position: relative;
     gap: 60px;
 
+    h2 {
+      margin-bottom: 20px;
+    }
+
     .section3-text {
       text-align: left;
       padding-right: 20px;
@@ -151,6 +155,12 @@
     }
   }
 
+  @media (max-width: 768px) {
+    .section3-text h2 {
+      margin-bottom: 30px;
+    }
+  }
+  
   .section4 {
     background-color: #f1f1f1cc;
     color: black;
@@ -334,7 +344,7 @@
     }
 
     .section5 .team-member {
-      margin-bottom: 20px;
+      margin-bottom: 0px;
     }
 
     .section5 .team-photo {

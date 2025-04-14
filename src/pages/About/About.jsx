@@ -87,7 +87,7 @@ const About = () => {
 
       <div className="technologies-section d-flex flex-wrap">
         <div className="section2 d-flex">
-          <div className="section2-text w-50">
+          <div className="section2-text w-75">
             <h2>Technologies & Tools</h2>
             <p>
               Throughout the bootcamp, we explored various backend and frontend technologies while
@@ -104,7 +104,7 @@ const About = () => {
               structured development process.
             </p>
           </div>
-          <div className="icons w-50">
+          <div className="icons w-75">
             <div className="technologies-row d-flex flex-wrap">
               {techTools.map((item, index) => (
                 <div className="tecnology-item col-3 text-center py-4" key={index}>
