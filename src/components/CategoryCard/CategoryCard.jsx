@@ -1,7 +1,13 @@
+import React from "react";
+
 import "./CategoryCard.css";
 
-function CategoryCard() {
-  return <div className="categoryCard-container">CategoryCard</div>;
+function CategoryCard({ image, name }) {
+  return (
+    <div className="categoryCard-container">
+      <img src={image} alt={name} />
+    </div>
+  );
 }
 
 export default CategoryCard;

@@ -15,25 +15,29 @@ const slides = [
     id: 1,
     image: "./img/hero/slide1.webp",
     url: "/products",
-    caption: "Transform your home, transform your life",
+    caption: "Transform your home, transform your life.",
+    highlight: "New Arrival",
   },
   {
     id: 2,
     image: "./img/hero/slide2.webp",
     url: "/products",
     caption: "Sweet Dreams Begin with the Perfect Bed!",
+    highlight: "Exclusive",
   },
   {
     id: 3,
     image: "./img/hero/slide3.webp",
     url: "/products",
     caption: "Now More Affordable Than Ever.",
+    highlight: "Limited Time",
   },
   {
     id: 4,
     image: "./img/hero/slide4.webp",
     url: "/products",
-    caption: "Dine in Comfort, Live in Elegance",
+    caption: "Dine in Comfort, Live in Elegance.",
+    highlight: "Top Picks",
   },
 ];
 
@@ -55,7 +59,7 @@ function Hero() {
         slidesPerView={1}
         slidesPerGroup={1}
         autoplay={{
-          delay: 5000,
+          delay: 10000,
         }}
         effect="fade"
         speed={2000}
@@ -63,16 +67,20 @@ function Hero() {
       >
         {slides.map((slide) => (
           <SwiperSlide key={slide.id}>
-            <div className="slide-content position-relative">
-              <Link to={slide.url}>
-                <img src={slide.image} alt={`Slide ${slide.id}`} />
-              </Link>
+            <div className="container position-relative">
               <div className={`caption-container ${captionVisible ? "visible" : ""}`}>
-                <div className="slide-caption">{slide.caption}</div>
+                <p className="slide-heading mb-0">{slide.highlight}</p>
+                <p className="slide-caption">{slide.caption}</p>
                 <Link to={slide.url}>
                   <button className="slide-button">Shop Now</button>
                 </Link>
               </div>
+            </div>
+
+            <div className="slide-content">
+              <Link to={slide.url}>
+                <img src={slide.image} alt={`Slide ${slide.id}`} />
+              </Link>
             </div>
           </SwiperSlide>
         ))}
