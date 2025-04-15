@@ -224,7 +224,10 @@ function ProductList() {
                                   key={category.id}
                                   onClick={() => handleCategoryFilter(category.slug)}
                                 >
-                                  {category.name} ({category.productCount})
+                                  {category.name}{" "}
+                                  <small className="text-secondary">
+                                    ({category.productCount})
+                                  </small>
                                 </li>
                               ))}
                           </ul>
@@ -248,6 +251,7 @@ function ProductList() {
                           <div className="d-flex gap-2">
                             <Form.Control
                               type="number"
+                              min={1}
                               placeholder="Min Price"
                               value={priceRange.min}
                               onChange={(e) =>
@@ -257,6 +261,7 @@ function ProductList() {
                             <span className="align-self-center">-</span>
                             <Form.Control
                               type="number"
+                              min={1}
                               placeholder="Max Price"
                               value={priceRange.max}
                               onChange={(e) =>
