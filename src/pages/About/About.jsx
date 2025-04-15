@@ -85,38 +85,36 @@ const About = () => {
         </div>
       </div>
 
-      <div className="technologies-section d-flex flex-wrap">
-        <div className="section2 d-flex">
-          <div className="section2-text w-75">
-            <h2>Technologies & Tools</h2>
-            <p>
-              Throughout the bootcamp, we explored various backend and frontend technologies while
-              gaining practical experience with databases and development tools.
-            </p>
-            <br></br>
-            <p>
-              To ensure an organized and efficient workflow, we used Trello for task management and
-              GitHub for collaboration across three defined sprints. Discord served as our main
-              communication channel, helping us coordinate effectively as a team.
-            </p>
-            <p>
-              These tools played a key role in enhancing our productivity and maintaining a
-              structured development process.
-            </p>
-          </div>
-          <div className="icons w-75">
-            <div className="technologies-row d-flex flex-wrap">
-              {techTools.map((item, index) => (
-                <div className="tecnology-item col-3 text-center py-4" key={index}>
-                  {item.isCustomIcon ? (
-                    <SupabaseIcon className="tecnology-icon" />
-                  ) : (
-                    <i className={`${item.iconClass} tecnology-icon`}></i>
-                  )}
-                  <p className="tecnology-name">{item.label}</p>
-                </div>
-              ))}
-            </div>
+      <div className="section2 d-flex">
+        <div className="section2-text w-75">
+          <h2>Technologies & Tools</h2>
+          <p>
+            Throughout the bootcamp, we explored various backend and frontend technologies while
+            gaining practical experience with databases and development tools.
+          </p>
+          <br></br>
+          <p>
+            To ensure an organized and efficient workflow, we used Trello for task management and
+            GitHub for collaboration across three defined sprints. Discord served as our main
+            communication channel, helping us coordinate effectively as a team.
+          </p>
+          <p>
+            These tools played a key role in enhancing our productivity and maintaining a structured
+            development process.
+          </p>
+        </div>
+        <div className="icons w-75">
+          <div className="technologies-row d-flex flex-wrap">
+            {techTools.map((item, index) => (
+              <div className="tecnology-item col-3 text-center py-4" key={index}>
+                {item.isCustomIcon ? (
+                  <SupabaseIcon className="tecnology-icon" />
+                ) : (
+                  <i className={`${item.iconClass} tecnology-icon`}></i>
+                )}
+                <p className="tecnology-name">{item.label}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>

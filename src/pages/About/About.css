@@ -57,16 +57,13 @@
     }
   }
 
-  .technologies-section {
+  .section2 {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
+    justify-content: center;
+    align-items: center;
     padding: 0 5% 0 10%;
     background-color: rgb(141, 141, 141);
     color: white;
-  }
-
-  .section2 {
     gap: 50px;
 
     h2 {
@@ -76,6 +73,8 @@
     .section2-text {
       text-align: left;
       padding-right: 20px;
+      padding-bottom: 20px;
+      max-width: 50%;
     }
 
     .icons {
@@ -321,21 +320,33 @@
       width: 100%;
     }
 
-    .section3-text h2 {
+    .section3 .section3-text,
+    .section2 .section2-text {
+      padding-right: 0;
+      max-width: 100%;
+    }
+
+    .section3-text h2,
+    .section2-text h2 {
       margin-bottom: 30px;
     }
 
     .icons {
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: center;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      justify-items: center;
       width: 100%;
-      gap: 15px;
+      gap: 25px 15px;
+      padding: 0 10px;
     }
 
     .tecnology-item {
       flex-basis: 45% !important;
       text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
 
     .section5 .team-member {
@@ -381,12 +392,20 @@
     }
 
     .icons {
-      gap: 10px;
-      justify-content: center;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      justify-items: center;
+      width: 100%;
+      gap: 20px 10px;
+      padding: 0 10px;
     }
 
     .tecnology-item {
-      flex-basis: 48%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
     }
 
     .section5 .team-photo {
