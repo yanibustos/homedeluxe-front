@@ -6,12 +6,10 @@ import FeaturedCarousel from "../../components/FeaturedCarousel/FeaturedCarousel
 import { addToCart } from "../../redux/shoppingCartSlice";
 import Loading from "../../components/Loading/Loading";
 import NotFound from "../../components/Error/NotFound/NotFound";
-import ProductCartQty from "../../components/commons/ProductCartQty/ProductCartQty";
 
 import fetchApi from "../../api/fetchApi";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import currencyFormatter from "../../helpers/formatPrice";
 
 function ProductDetails() {
   const [product, setProduct] = useState(null);
@@ -19,7 +17,6 @@ function ProductDetails() {
   const [error, setError] = useState(null);
   const [selectedImage, setSelectedImage] = useState("");
   const dispatch = useDispatch();
-  const shoppingCart = useSelector((state) => state.shoppingCart);
 
   const params = useParams();
 
@@ -53,10 +50,6 @@ function ProductDetails() {
 
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
-  };
-
-  const isProductIncart = (productId) => {
-    return shoppingCart.some((item) => item.id === productId);
   };
 
   if (loading) {
