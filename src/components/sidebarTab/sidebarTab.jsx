@@ -31,23 +31,23 @@ const SideTab = () => {
           cursor: "pointer",
           zIndex: 400,
           borderTopLeftRadius: "8px",
-            borderTopRightRadius: "8px",
-          border: '2px solid white',
+          borderTopRightRadius: "8px",
+          border: "2px solid white",
         }}
       >
         About this project
       </div>
 
       {}
-      <Offcanvas
+      <Offcanvas className="bg-dark"
         show={show}
         onHide={handleClose}
-              placement="end"
-              scroll
-        style={{ backgroundColor: "#000", color: "#fff" }}
+        placement="end"
+        scroll
+        style={{ color: "#fff" }}
       >
         <Offcanvas.Header closeButton closeVariant="white">
-          <Offcanvas.Title>About This Project</Offcanvas.Title>
+          <Offcanvas.Title style={{ fontWeight: '600'}}>About This Project</Offcanvas.Title>
         </Offcanvas.Header>
         <Offcanvas.Body>
           <img
@@ -58,8 +58,9 @@ const SideTab = () => {
           <p>
             Before beginning development, we focused on structuring the backend of the application.
             We identified the main features and created a Model Entity Relationship (MER) diagram to
-            visualize the connections between key entities: Users, Products, Orders, Styles, and
-            Admins. Learn more about this project, its purpose, and the technologies used clicking below.
+            visualize the connections between key entities: Users, Products, Orders, Categories and
+            Admins. Learn more about this project, its purpose, and the technologies used clicking
+            below.
           </p>
           <Button variant="light" onClick={redirectToAbout}>
             Click Here

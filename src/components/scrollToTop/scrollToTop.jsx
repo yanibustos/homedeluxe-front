@@ -55,7 +55,7 @@ const ScrollToTopButton = () => {
 
       {/* WhatsApp Button */}
       <a
-        href="https://wa.me/059895500633" 
+        href="https://wa.me/059897738531" 
         target="_blank"
         rel="noopener noreferrer"
         style={{
@@ -82,7 +82,7 @@ const ScrollToTopButton = () => {
         onMouseLeave={(e) => {
           e.currentTarget.style.transform = "scale(1)";
         }}
-        aria-label="Contactar por WhatsApp"
+        aria-label="Contact by Whatsapp"
       >
         <FaWhatsapp size={22} />
       </a>
