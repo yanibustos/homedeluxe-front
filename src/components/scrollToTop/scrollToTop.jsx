@@ -38,7 +38,7 @@ const ScrollToTopButton = () => {
           alignItems: "center",
           boxShadow: "0px 4px 10px rgba(0,0,0,0.4)",
           cursor: "pointer",
-          transition: "transform 0.3s ease, background-color 0.3s ease"
+          transition: "transform 0.3s ease, background-color 0.3s ease",
         }}
         onMouseEnter={(e) => {
           e.currentTarget.style.transform = "scale(1.1)";
@@ -55,7 +55,7 @@ const ScrollToTopButton = () => {
 
       {/* WhatsApp Button */}
       <a
-        href="https://wa.me/059895500633" 
+        href="https://wa.me/059897738531"
         target="_blank"
         rel="noopener noreferrer"
         style={{
@@ -74,7 +74,7 @@ const ScrollToTopButton = () => {
           alignItems: "center",
           boxShadow: "0px 4px 10px rgba(0,0,0,0.4)",
           cursor: "pointer",
-          transition: "transform 0.3s ease"
+          transition: "transform 0.3s ease",
         }}
         onMouseEnter={(e) => {
           e.currentTarget.style.transform = "scale(1.1)";
