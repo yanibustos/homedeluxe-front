@@ -24,7 +24,7 @@
   .section3 p,
   .section4 p,
   .section5 p {
-    max-width: 800px;
+    max-width: 100%;
     margin: 0 auto;
     line-height: 1.8;
     font-size: 1.1rem;
