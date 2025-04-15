@@ -127,7 +127,7 @@ function ProductList() {
         ...prev,
         categoryId: selectedCategory.id,
       }));
-      navigate(`/products/category/${slug}?orderBy=${filters.orderBy}&order=${filters.order}`);
+      navigate(`/products/categories/${slug}?orderBy=${filters.orderBy}&order=${filters.order}`);
     }
   };
 
@@ -142,7 +142,7 @@ function ProductList() {
     setSelectedOrder(orderValue);
     navigate(
       slug
-        ? `/products/category/${slug}?orderBy=${filters.orderBy}&order=${filters.order}`
+        ? `/products/categories/${slug}?orderBy=${filters.orderBy}&order=${filters.order}`
         : `/products?orderBy=${filters.orderBy}&order=${filters.order}`,
     );
   };
@@ -157,7 +157,7 @@ function ProductList() {
 
     navigate(
       slug
-        ? `/products/category/${slug}?orderBy=${newFilters.orderBy}&order=${newFilters.order}`
+        ? `/products/categories/${slug}?orderBy=${newFilters.orderBy}&order=${newFilters.order}`
         : `/products?orderBy=${newFilters.orderBy}&order=${newFilters.order}`,
     );
   };
