@@ -82,7 +82,7 @@ const OrderSummary = ({ shoppingCart, orderSummary, handleRemoveItemClick }) => 
 
       <hr className="my-4" />
 
-      <div className="p-3 border rounded shadow-sm bg-light">
+      <div className="total-container p-3 border rounded shadow-sm">
         <div className="d-flex justify-content-between mb-2">
           <span>Subtotal</span>
           <span>
@@ -118,7 +118,10 @@ const OrderSummary = ({ shoppingCart, orderSummary, handleRemoveItemClick }) => 
 
       <div className="checkout-payments text-center mt-4">
         <p className="mb-2">We accept:</p>
-        <div className="mb-3" style={{ fontSize: "1.5rem", display: "flex", justifyContent: "center", gap: "15px" }}>
+        <div
+          className="mb-3"
+          style={{ fontSize: "1.5rem", display: "flex", justifyContent: "center", gap: "15px" }}
+        >
           <i className="bi bi-credit-card-2-front-fill"></i>
           <i className="bi bi-paypal"></i>
           <i className="bi bi-bank2"></i>
