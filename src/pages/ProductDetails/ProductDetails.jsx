@@ -73,12 +73,12 @@ function ProductDetails() {
   }
 
   return (
-    <div className="productDetails-container me-2 overflow-hidden">
-      <div className="product-content container position-relative">
-        <div className="image-section d-flex">
+    <div className="productDetails-container overflow-hidden">
+      <div className="product-content container-fluid position-relative">
+        <div className="image-section container d-flex">
           <div className="image-thumbnails d-lg-flex flex-column d-none">
             {product?.image?.map((image, index) => (
-              <div key={index} className="img-styles ms-5 mt-4">
+              <div key={index} className="img-styles  mt-4">
                 <img
                   src={
                     image.includes("http") ? image : `${import.meta.env.VITE_IMAGE_DB_URL}/${image}`
@@ -136,14 +136,14 @@ function ProductDetails() {
                           : `${import.meta.env.VITE_IMAGE_DB_URL}/${item}`
                       }
                       alt={product.name}
-                      className="carousel-img ms-3 "
+                      className="carousel-img "
                     />
                   </Carousel.Item>
                 ))}
               </Carousel>
             </div>
 
-            <div className="details-section ms-4">
+            <div className="details-section my-0">
               <div className="custom-carousel-controls pb-5 ms-3 d-flex justify-content-center d-lg-none">
                 {product?.image?.map((image, index) => (
                   <button
@@ -198,12 +198,12 @@ function ProductDetails() {
             </div>
           </div>
         </div>
-        <div className="description-section container p-5">
-          <div className="d-flex  flex-column justify-content-center align-items-center">
+        <div className="description-section container">
+          <div className="d-flex flex-column justify-content-center align-items-center">
             <span className="description-text position-relative py-4">Description </span>
           </div>
           <hr />
-          <div className="text-description mx-5 my-5">
+          <div className="text-description my-5">
             {product ? <p>{product.description}</p> : <p>Loading product description...</p>}
           </div>
         </div>

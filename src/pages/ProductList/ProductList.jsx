@@ -151,7 +151,7 @@ function ProductList() {
                 <Link key={product.id} to={`/products/${product.slug}`}>
                   <div className="p-0 mx-4 my-4 card-container mb-4">
                     <div className="card position-relative">
-                      <div className="position-absolute rounded-circle d-flex justify-content-center align-items-center flex-wrap gap-1 price-container">
+                      <div className="position-absolute rounded-circle  d-flex justify-content-center flex-column price-container">
                         <small>{product.currency}</small>
                         {/* TODO: Check currencyFormatter and how affects price style */}
                         <span>{product.price}</span>
