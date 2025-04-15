@@ -5,6 +5,7 @@ import Footer from "../Footer/Footer";
 import ScrollToTopButton from "../scrollToTop/scrollToTop";
 
 import "./Layout.css";
+import SideTab from "../sideBarTab/sidebarTab";
 
 
 function Layout() {
@@ -13,6 +14,7 @@ function Layout() {
       <NavMenu />
       <Outlet />
       <Footer />
+      <SideTab />
       <ScrollToTopButton />
     </div>
   );
