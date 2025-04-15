@@ -283,7 +283,6 @@ const ShippingForm = ({ shippingAddress, setShippingAddress, paymentMethod, setP
             value={formData.city}
             onChange={handleInputChange}
             onBlur={handleBlur}
-            required
           />
           {errors.city && <div className="invalid-feedback">{errors.city}</div>}
         </div>
@@ -302,7 +301,6 @@ const ShippingForm = ({ shippingAddress, setShippingAddress, paymentMethod, setP
             value={formData.phone}
             onChange={handleNumberInput}
             onBlur={handleBlur}
-            required
           />
           {errors.phone && <div className="invalid-feedback">{errors.phone}</div>}
         </div>
@@ -319,7 +317,6 @@ const ShippingForm = ({ shippingAddress, setShippingAddress, paymentMethod, setP
             value={formData.zip}
             onChange={handleNumberInput}
             onBlur={handleBlur}
-            required
           />
           {errors.zip && <div className="invalid-feedback">{errors.zip}</div>}
         </div>
@@ -337,7 +334,6 @@ const ShippingForm = ({ shippingAddress, setShippingAddress, paymentMethod, setP
           value={formData.address}
           onChange={handleInputChange}
           onBlur={handleBlur}
-          required
         />
         {errors.address && <div className="invalid-feedback">{errors.address}</div>}
       </div>
@@ -379,7 +375,6 @@ const ShippingForm = ({ shippingAddress, setShippingAddress, paymentMethod, setP
                 value={formData.nameOnCard}
                 onChange={handleInputChange}
                 onBlur={handleBlur}
-                required
               />
               {errors.nameOnCard && <div className="invalid-feedback">{errors.nameOnCard}</div>}
             </div>
@@ -397,7 +392,6 @@ const ShippingForm = ({ shippingAddress, setShippingAddress, paymentMethod, setP
                 onChange={handleCardNumberChange}
                 onBlur={handleBlur}
                 maxLength="19"
-                required
               />
               {errors.cardNumber && <div className="invalid-feedback">{errors.cardNumber}</div>}
             </div>
@@ -416,7 +410,6 @@ const ShippingForm = ({ shippingAddress, setShippingAddress, paymentMethod, setP
                   onChange={handleExpiryChange}
                   onBlur={handleBlur}
                   maxLength="5"
-                  required
                 />
                 {errors.expiry && <div className="invalid-feedback">{errors.expiry}</div>}
               </div>
@@ -434,7 +427,6 @@ const ShippingForm = ({ shippingAddress, setShippingAddress, paymentMethod, setP
                   onChange={handleNumberInput}
                   onBlur={handleBlur}
                   maxLength="3"
-                  required
                 />
                 {errors.cvv && <div className="invalid-feedback">{errors.cvv}</div>}
               </div>
