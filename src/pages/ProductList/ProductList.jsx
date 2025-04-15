@@ -34,6 +34,7 @@ function ProductList() {
   const [priceRange, setPriceRange] = useState({ min: "", max: "" });
   const { slug } = useParams();
   const navigate = useNavigate();
+  const [currentCategoryName, setCurrentCategoryName] = useState("Products");
 
   const [showOffcanvas, setShowOffcanvas] = useState(false);
 
@@ -89,12 +90,16 @@ function ProductList() {
           ...prev,
           categoryId: category.id,
         }));
+        setCurrentCategoryName(category.name);
       } else {
         setFilters((prev) => ({
           ...prev,
           categoryId: null,
         }));
+        setCurrentCategoryName("Products");
       }
+    } else {
+      setCurrentCategoryName("Products");
     }
   }, [slug, categories]);
 
@@ -107,18 +112,23 @@ function ProductList() {
   };
 
   const handleCategoryFilter = (slug) => {
+    if (slug === null) {
+      setFilters((prev) => ({
+        ...prev,
+        categoryId: null,
+      }));
+      navigate(`/products?orderBy=${filters.orderBy}&order=${filters.order}`);
+      return;
+    }
+
     const selectedCategory = categories.find((cat) => cat.slug === slug);
     if (selectedCategory) {
       setFilters((prev) => ({
         ...prev,
         categoryId: selectedCategory.id,
       }));
+      navigate(`/products/category/${slug}?orderBy=${filters.orderBy}&order=${filters.order}`);
     }
-    navigate(
-      slug
-        ? `/products/category/${slug}?orderBy=${filters.orderBy}&order=${filters.order}`
-        : `/products?orderBy=${filters.orderBy}&order=${filters.order}`,
-    );
   };
 
   const handleOrderSelect = (orderValue) => {
@@ -168,7 +178,9 @@ function ProductList() {
     <div className="productList-container overflow-hidden">
       <div className="container header-container d-md-flex justify-content-between align-items-center mt-4">
         <div className="text-center div-text-category">
-          {products.length > 0 && <h5 className="fw-bold main-text text-uppercase">Products</h5>}
+          {products.length > 0 && (
+            <h5 className="fw-bold main-text text-uppercase">{currentCategoryName}</h5>
+          )}
         </div>
         <div className="div-search-products">
           <div className="filter-wrapper d-flex">
@@ -201,8 +213,12 @@ function ProductList() {
                       {showCategories && (
                         <div className="pt-2 filter-by-category">
                           <ul className="list-unstyled d-flex flex-column gap-1">
+                            <li onClick={() => handleCategoryFilter(null)}>All Products</li>
                             {categories
-                              .filter((category) => category.productCount > 0)
+                              .filter(
+                                (category) =>
+                                  category.productCount > 0 && category.name !== "Uncategorized",
+                              )
                               .map((category) => (
                                 <li
                                   key={category.id}
