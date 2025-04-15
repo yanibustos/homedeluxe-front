@@ -48,12 +48,21 @@
     color: #fff;
     border-radius: 0px;
     border: 0;
+
+    &:disabled {
+      background-color: #cccccc;
+    }
   }
   .buy-button:hover {
     background-color: #ffffff;
     color: #000;
     border: 1px solid black;
     transition: all 0.3s ease;
+    &:disabled {
+      background-color: #cccccc;
+      color: #fff;
+      border: none;
+    }
   }
 
   .heart-button {
@@ -151,6 +160,7 @@
     .main-image-btn {
       display: none;
     }
+
     .carousel-main-control {
       display: none;
     }
@@ -158,6 +168,11 @@
   @media (min-width: 992px) {
     .details-section {
       margin-left: 1.5rem;
+      margin-top: -10px;
+    }
+    .main-carousel {
+      margin-top: 4px;
+      margin-left: -20px;
     }
   }
   .main-image-btn {

@@ -6,10 +6,12 @@ import FeaturedCarousel from "../../components/FeaturedCarousel/FeaturedCarousel
 import { addToCart } from "../../redux/shoppingCartSlice";
 import Loading from "../../components/Loading/Loading";
 import NotFound from "../../components/Error/NotFound/NotFound";
+import ProductCartQty from "../../components/commons/ProductCartQty/ProductCartQty";
 
 import fetchApi from "../../api/fetchApi";
 import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import currencyFormatter from "../../helpers/formatPrice";
 
 function ProductDetails() {
   const [product, setProduct] = useState(null);
@@ -17,6 +19,7 @@ function ProductDetails() {
   const [error, setError] = useState(null);
   const [selectedImage, setSelectedImage] = useState("");
   const dispatch = useDispatch();
+  const shoppingCart = useSelector((state) => state.shoppingCart);
 
   const params = useParams();
 
@@ -50,6 +53,10 @@ function ProductDetails() {
 
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
+  };
+
+  const isProductIncart = (productId) => {
+    return shoppingCart.some((item) => item.id === productId);
   };
 
   if (loading) {
@@ -110,7 +117,7 @@ function ProductDetails() {
                         : `${import.meta.env.VITE_IMAGE_DB_URL}/${image}`
                     }
                     alt={product.name}
-                    className="main-image ms-5 mt-3 pt-1 d-lg-flex d-none"
+                    className="main-image ms-5 mt-3  d-lg-flex d-none"
                   />
                 </div>
               </Carousel.Item>
@@ -143,7 +150,7 @@ function ProductDetails() {
               </Carousel>
             </div>
 
-            <div className="details-section my-0">
+            <div className="details-section">
               <div className="custom-carousel-controls pb-5 ms-3 d-flex justify-content-center d-lg-none">
                 {product?.image?.map((image, index) => (
                   <button
@@ -157,8 +164,10 @@ function ProductDetails() {
               </div>
               <h3 className="pb-3">{product?.name}</h3>
               <span className="usd-span fw-bold">
-                {product?.currency}
-                <span className="ammount fw-bold ps-2">{product?.price}</span>
+                {product.currency}
+                <span className="ammount fw-bold ps-2">
+                  {Number(product.price).toLocaleString("en-US", { minimumFractionDigits: 2 })}
+                </span>
               </span>
               <p className="my-4 info-paragraph">{product?.info}</p>
 
@@ -168,14 +177,16 @@ function ProductDetails() {
                     <i className="bi bi-suit-heart"></i>
                   </span>
                 </button>
+
                 <button
                   className="buy-button text-uppercase fw-bold"
                   onClick={(e) => {
                     e.preventDefault();
                     handleAddToCart(product);
                   }}
+                  disabled={product.stock === 0}
                 >
-                  Add to cart
+                  <span>{product.stock !== 0 ? "Add to cart" : "Out of stock"}</span>
                 </button>
               </div>
               <div className="payments-methods  mt-4 ms-1">
@@ -204,7 +215,11 @@ function ProductDetails() {
           </div>
           <hr />
           <div className="text-description my-5">
-            {product ? <p>{product.description}</p> : <p>Loading product description...</p>}
+            {product ? (
+              <p className="mb-0">{product.description}</p>
+            ) : (
+              <p>Loading product description...</p>
+            )}
           </div>
         </div>
       </div>
