@@ -1,10 +1,9 @@
 .home-swipper {
   position: relative;
   padding: 0;
-  margin: 0 auto;
 
   img {
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     object-fit: cover;
   }
@@ -25,6 +24,7 @@
 
   .slide-content {
     position: relative;
+    height: 100%;
 
     &::before {
       content: "";
@@ -33,22 +33,25 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.3);
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9), transparent);
       z-index: 1;
     }
   }
 
   .caption-container {
     position: absolute;
-    top: 22%;
-    left: 40%;
-    transform: translateX(-50%);
+    top: 45vh;
+    left: 0;
     text-align: left;
     z-index: 5;
     color: white;
     visibility: hidden;
     opacity: 0;
     transition: visibility 0.2s, opacity 0.5s ease-out;
+    width: 100%;
+    height: 100%;
+    transform: translateY(-50%);
+    width: 60%;
   }
 
   .caption-container.visible {
@@ -57,12 +60,22 @@
   }
 
   .slide-caption {
-    font-size: 2rem;
+    font-size: 2.5rem;
     font-weight: 400;
-    font-family: "Dancing Script", cursive;
     margin-bottom: 20px;
     width: 80%;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
+
     animation: fadeInSlide 1.2s ease-out forwards;
+  }
+
+  .slide-heading {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #e0e0e0;
+    padding: 0 5px;
+    display: inline-block;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
   }
 
   .slide-button {
@@ -75,12 +88,12 @@
     color: white;
     border-radius: 5px;
     z-index: 5;
+    text-transform: uppercase;
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
   }
 
-  @media (max-width: 768px) {
+  @media (max-width: 991px) {
     .caption-container {
-      top: 30%;
-      left: 50%;
       text-align: center;
     }
 
@@ -92,17 +105,21 @@
     .slide-button {
       font-size: 0.7rem;
     }
-  }
 
-  @media (max-width: 1024px) {
     img {
       height: 40vh;
     }
+
+    .caption-container {
+      top: 14vh;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
   }
 
-  @media (min-width: 992px) {
+  @media (max-width: 400px) {
     .caption-container {
-      left: 30%;
+      top: 10vh;
     }
   }
 
