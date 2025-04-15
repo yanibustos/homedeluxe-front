@@ -27,7 +27,7 @@ function Footer() {
         </div>
       </div>
 
-      <div className="footer-content">
+      <div className="footer-content container">
         <div className="footer-column">
           <h3 className="fw-bold">Company</h3>
           <Link to="/about">
