@@ -1,0 +1,71 @@
+.why-choose-us-container {
+  /*   background-image: url("https://static.wixstatic.com/media/a3ce6c_4a5939ec61f244e1b2f19c22d72ee1b3~mv2.png/v1/fill/w_1099,h_1360,al_c,q_90,enc_avif,quality_auto/a3ce6c_4a5939ec61f244e1b2f19c22d72ee1b3~mv2.png");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+  width: 100vw;ß
+  height: 100vh;
+
+  .content {
+    height: 60vh;
+    width: 100%;
+    background-color: grey;
+  } */
+  margin-top: 70px;
+  z-index: 0;
+
+  .heading {
+    line-height: 25px;
+    color: #000000;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 24px;
+  }
+
+  .icon-wrapper {
+    display: inline-flex;
+    margin-bottom: 0.5rem;
+    background-color: #666666;
+    border-radius: 100%;
+    padding: 8px;
+  }
+
+  img {
+    width: 100%;
+    border-radius: 10px;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+    object-fit: cover;
+    max-width: 500px;
+    margin: 0 auto;
+    display: block;
+  }
+
+  &::before {
+    content: "";
+    background-image: url("/img/dot-bg.png");
+    background-size: contain;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-3rem);
+    max-width: 300px;
+    opacity: 0.4;
+    width: 300px;
+    height: 220px;
+    z-index: -1;
+  }
+
+  @media (max-width: 991px) {
+    &::before {
+      top: 0;
+      left: 10%;
+    }
+  }
+
+  @media (min-width: 992px) {
+    img {
+      margin: 0 0 0 auto;
+    }
+  }
+}
