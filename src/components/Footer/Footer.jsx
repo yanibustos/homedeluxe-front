@@ -3,6 +3,9 @@ import React from "react";
 import { Container } from "react-bootstrap";
 import { FaFacebook, FaInstagram, FaTwitter, FaLinkedin } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { InputGroup, FormControl, Button } from "react-bootstrap";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import "./Footer.css";
 
@@ -67,10 +70,16 @@ function Footer() {
         <div className="footer-column subscribe-section">
           <h3 className="fw-bold">Subscribe to our Mailing List</h3>
           <p className="no-hover">Get the latest updates and offers directly in your inbox.</p>
-          <form className="subscribe-form">
-            <input type="email" placeholder="Enter your email" className="email-input" required />
+          <form
+            className="subscribe-form"
+            onSubmit={(e) => {
+              e.preventDefault();
+              toast.warning("Sorry! This function is under development...");
+            }}
+          >
+            <input type="email" placeholder="Enter your email" className="email-input" />
             <button type="submit" className="subscribe-btn">
-              Subscribe
+              Send
             </button>
           </form>
         </div>

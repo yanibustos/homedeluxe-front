@@ -1,15 +1,15 @@
 .btn-standard {
-  border-radius: 0;
-  transition: background 0.25s;
-  background: #000000;
-  color: #ffffff;
+  border-radius: 0 !important;
+  transition: background 0.25s !important;
+  background: #000000 !important;
+  color: #ffffff !important;
 }
 
 .btn01 {
-  padding: 0 25px;
-  font-weight: 400;
-  border-radius: 3px;
-  line-height: 40px;
-  font-size: 13px;
-  text-transform: uppercase;
+  padding: 0 25px !important;
+  font-weight: 400 !important;
+  border-radius: 3px !important;
+  line-height: 40px !important;
+  font-size: 13px !important;
+  text-transform: uppercase !important;
 }

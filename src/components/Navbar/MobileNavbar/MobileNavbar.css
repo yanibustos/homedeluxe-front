@@ -42,19 +42,19 @@
   .cart-qty {
     position: absolute;
     font-weight: 400;
-    background-color: #999999;
+    background-color: #666666;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 4px 3px 3px;
-    width: 18px;
-    height: 18px;
-    font-size: 10px;
+    width: 15px;
+    height: 15px;
+    font-size: 8px;
     color: #fff;
     bottom: 6px;
     right: 4px;
-    transform: translate(-60%, -60%) !important;
+    transform: translate(-60%, -50%) !important;
     z-index: -1;
   }
 
@@ -100,30 +100,6 @@
       line-height: 15px;
       font-size: 12px;
       border-top: 1px solid rgba(224, 224, 224, 0.75);
-    }
-  }
-
-  .btnItem {
-    &::after {
-      content: "+";
-      position: absolute;
-      top: 13px;
-      right: 15px;
-      display: block;
-      width: 24px;
-      height: 24px;
-      border: 1px solid #e0e0e0;
-      border-radius: 100%;
-      font-size: 20px;
-      line-height: 22px;
-      text-align: center;
-      color: #000000;
-      transition: transform 0.3s ease, content 0.3s ease;
-    }
-
-    &[data-show="on"]::after {
-      content: "-";
-      transform: rotate(180deg);
     }
   }
 }

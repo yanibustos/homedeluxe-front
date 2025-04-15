@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 import CartIcon from "../commons/CartIcon/CartIcon";
 import ModalCart from "../Modals/ModalCart/ModalCart";
@@ -8,23 +8,19 @@ import totalQty from "../../helpers/totalQty";
 import totalPrice from "../../helpers/totalPrice";
 import MobileNavbar from "./MobileNavbar/MobileNavbar";
 import useMediaQuery from "../../hooks/useMediaQuery";
-import { logout } from "../../redux/userSlice";
+import { Dropdown } from "react-bootstrap";
 
 import "./Navbar.css";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 function Navbar() {
   const [show, setShow] = useState(false);
   const shoppingCart = useSelector((state) => state.shoppingCart);
   const user = useSelector((state) => state.user);
-  const dispatch = useDispatch();
   const { pathname } = useLocation();
   const isHomePath = pathname === "/";
   const isAboutPath = pathname === "/about";
   const navRef = useRef(null);
   const isMobile = useMediaQuery("(max-width: 992px)");
-  const navigate = useNavigate();
 
   const handleShowModal = () => {
     setShow(true);
@@ -93,47 +89,39 @@ function Navbar() {
             </li>
           </ul>
           <ul className="navbar-nav ms-auto d-flex align-items-center gap-4">
-            <li className="dropdown">
-              <button
-                className="btn btn-transparent dropdown-toggle nav-item"
-                type="button"
-                id="dropdownMenuButton"
-                data-bs-toggle={user.accessToken ? "dropdown" : ""}
-                aria-expanded={user.accessToken ? "true" : "false"}
-                onClick={() => (!user.accessToken ? navigate("/login") : {})}
-              >
-                {user.accessToken ? `${user.firstname} ${user.lastname}` : "My Account"}
-              </button>
-              {user.accessToken && (
-                <ul className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                  <li>
-                    <Link className="dropdown-item" to="/account/profile">
-                      My Profile
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="dropdown-item" to="account/orders">
-                      My Orders
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="dropdown-item" to="account/wishlist">
-                      My Wishlist
-                    </Link>
-                  </li>
-                  <li>
-                    <Link className="dropdown-item" to="/logout">
-                      Logout
-                    </Link>
-                  </li>
-                </ul>
-              )}
-            </li>
+            {user.accessToken ? (
+              <Dropdown>
+                <Dropdown.Toggle className="nav-item user-menu" id="user-dropdown">
+                  {user.firstname} {user.lastname}
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  <Dropdown.Item as={Link} to="/account/profile">
+                    My Profile
+                  </Dropdown.Item>
+                  <Dropdown.Item as={Link} to="/account/orders">
+                    My Orders
+                  </Dropdown.Item>
+                  <Dropdown.Item as={Link} to="/account/wishlist">
+                    My Wishlist
+                  </Dropdown.Item>
+                  <Dropdown.Item as={Link} to="/logout">
+                    Logout
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            ) : (
+              <li className="nav-item">
+                <Link className="nav-link" to={"/login"}>
+                  My Account
+                </Link>
+              </li>
+            )}
 
             <li className="nav-item d-flex">
-              <span className="nav-link" onClick={handleShowModal}>
+              <span className="nav-link pe-0 d-flex" onClick={handleShowModal}>
                 <span className="position-relative">
-                  <CartIcon />
+                  <CartIcon size={20} />
                   {shoppingCart.length !== 0 && (
                     <span className="position-absolute top-0 start-0 cart-qty">
                       {totalQty(shoppingCart)}
@@ -142,16 +130,14 @@ function Navbar() {
                   )}
                 </span>
                 {shoppingCart.length !== 0 && (
-                  <span className="total-price-wrapper">
+                  <span className="total-price-wrapper mt-auto">
                     <span className="ms-2 currency text-uppercase">usd</span>
                     <span className="ms-1">{totalPrice(shoppingCart)}</span>
                   </span>
                 )}
               </span>
 
-              <span className="me-2">
-                <ModalCart show={show} setShow={setShow} />
-              </span>
+              <ModalCart show={show} setShow={setShow} />
             </li>
           </ul>
         </div>
