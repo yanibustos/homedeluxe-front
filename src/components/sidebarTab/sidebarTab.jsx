@@ -42,7 +42,8 @@ const SideTab = () => {
       <Offcanvas
         show={show}
         onHide={handleClose}
-        placement="end"
+              placement="end"
+              scroll
         style={{ backgroundColor: "#000", color: "#fff" }}
       >
         <Offcanvas.Header closeButton closeVariant="white">
