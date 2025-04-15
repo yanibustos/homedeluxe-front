@@ -147,9 +147,9 @@ const About = () => {
             adjustments.
           </p>
           <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTa78nY-4h33SCQ3VZyrD0ut1wS0ndvq9PqFA&s"
+            src="/img/dashboardImage.png"
             alt="Admin Image"
-            className="admin-image"
+            className="admin-image pt-3"
           />
           <div className="content-wrapper">
             <div className="left-column">
