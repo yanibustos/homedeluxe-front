@@ -191,7 +191,7 @@ const About = () => {
             </div>
           </div>
 
-          <p className="final-note">
+          <p className="final-note pt-4">
             Now you can access the admin dashboard and test the application with the provided login
             data. Enjoy the testing!
           </p>

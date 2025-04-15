@@ -77,6 +77,15 @@
       max-width: 50%;
     }
 
+    .section2-text {
+      h2,
+      p {
+        max-height: 12rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+    }
+
     .icons {
       display: flex;
       flex-wrap: wrap;
@@ -182,7 +191,7 @@
     .right-column {
       max-width: 650px;
       text-align: center;
-      padding: 10px;
+      padding: 0px;
 
       p {
         text-align: left;
@@ -192,8 +201,9 @@
       ol li {
         padding-left: 25px;
         font-size: 0.9rem;
-        line-height: 1.6;
+        line-height: 1.5;
         text-align: left;
+        margin-bottom: 0 px;
       }
     }
 
@@ -298,7 +308,7 @@
     .section3,
     .section4,
     .section5 {
-      padding: 30px 0 !important;
+      padding: 30px 25px !important;
       text-align: center !important;
       align-items: center !important;
       justify-content: center !important;
@@ -347,6 +357,19 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
+    }
+
+    .section4 p,
+    .section4 ol li {
+      text-align: center !important;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .section4 ol li {
+      font-size: 0.85rem;
+      line-height: 1.5;
+      margin-bottom: 0px;
     }
 
     .section5 .team-member {
