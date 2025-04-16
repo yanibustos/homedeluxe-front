@@ -86,7 +86,7 @@ const About = () => {
       </div>
 
       <div className="section2 d-flex">
-        <div className="container row">
+        <div className="container row technologies-section-margin">
           <div className="col-md-6 section2-text">
             <h2>Technologies & Tools</h2>
             <p>
