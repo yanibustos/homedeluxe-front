@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import fetchApi from "../../api/fetchApi";
@@ -32,11 +32,18 @@ function ProductList() {
     order: "desc",
   });
   const [priceRange, setPriceRange] = useState({ min: "", max: "" });
+  const { slug } = useParams();
+  const navigate = useNavigate();
+  const [currentCategoryName, setCurrentCategoryName] = useState("Products");
 
   const [showOffcanvas, setShowOffcanvas] = useState(false);
 
   const handleClose = () => setShowOffcanvas(false);
   const handleShow = () => setShowOffcanvas(true);
+
+  useEffect(() => {
+    getProducts();
+  }, [filters, slug]);
 
   const getCategories = async () => {
     try {
@@ -47,33 +54,54 @@ function ProductList() {
     }
   };
 
-  useEffect(() => {
-    const getProducts = async () => {
-      try {
-        setLoading(true);
-        let queryParams = [];
-        if (filters.categoryId) queryParams.push(`categoryId=${filters.categoryId}`);
-        if (filters.orderBy) queryParams.push(`orderBy=${filters.orderBy}`);
-        if (filters.order) queryParams.push(`order=${filters.order}`);
-        if (filters.minPrice) queryParams.push(`minPrice=${filters.minPrice}`);
-        if (filters.maxPrice) queryParams.push(`maxPrice=${filters.maxPrice}`);
-        const queryString = queryParams.length ? `?${queryParams.join("&")}` : "";
+  const getProducts = async () => {
+    try {
+      console.log("Querying products with filters:", filters);
+      setLoading(true);
+      const { categoryId, orderBy, order, minPrice, maxPrice } = filters;
 
-        const data = await fetchApi({ method: "get", url: `/products${queryString}` });
-        setProducts(data.products);
-      } catch (err) {
-        setError(err.message);
-      } finally {
-        setTimeout(() => setLoading(false), 1000);
-      }
-    };
+      let queryParams = [];
+      if (categoryId) queryParams.push(`categoryId=${categoryId}`);
+      if (orderBy) queryParams.push(`orderBy=${orderBy}`);
+      if (order) queryParams.push(`order=${order}`);
+      if (minPrice !== null && minPrice !== undefined) queryParams.push(`minPrice=${minPrice}`);
+      if (maxPrice !== null && maxPrice !== undefined) queryParams.push(`maxPrice=${maxPrice}`);
 
-    getProducts();
-  }, [filters]);
+      const queryString = queryParams.length ? `?${queryParams.join("&")}` : "";
+
+      const data = await fetchApi({ method: "get", url: `/products${queryString}` });
+      setProducts(data.products);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setTimeout(() => setLoading(false), 1000);
+    }
+  };
 
   useEffect(() => {
     getCategories();
   }, []);
+
+  useEffect(() => {
+    if (slug && categories.length) {
+      const category = categories.find((cat) => cat.slug === slug);
+      if (category) {
+        setFilters((prev) => ({
+          ...prev,
+          categoryId: category.id,
+        }));
+        setCurrentCategoryName(category.name);
+      } else {
+        setFilters((prev) => ({
+          ...prev,
+          categoryId: null,
+        }));
+        setCurrentCategoryName("Products");
+      }
+    } else {
+      setCurrentCategoryName("Products");
+    }
+  }, [slug, categories]);
 
   const handleAddToCart = (product) => {
     dispatch(addToCart(product));
@@ -83,27 +111,55 @@ function ProductList() {
     return shoppingCart.some((item) => item.id === productId);
   };
 
-  const handleCategoryFilter = (categoryId) => {
-    setFilters((prev) => ({ ...prev, categoryId }));
+  const handleCategoryFilter = (slug) => {
+    if (slug === null) {
+      setFilters((prev) => ({
+        ...prev,
+        categoryId: null,
+      }));
+      navigate(`/products?orderBy=${filters.orderBy}&order=${filters.order}`);
+      return;
+    }
+
+    const selectedCategory = categories.find((cat) => cat.slug === slug);
+    if (selectedCategory) {
+      setFilters((prev) => ({
+        ...prev,
+        categoryId: selectedCategory.id,
+      }));
+      navigate(`/products/categories/${slug}?orderBy=${filters.orderBy}&order=${filters.order}`);
+    }
   };
 
   const handleOrderSelect = (orderValue) => {
-    if (orderValue === "LowerPrice") {
-      setFilters((prev) => ({ ...prev, orderBy: "price", order: "asc" }));
-    } else if (orderValue === "HigherPrice") {
-      setFilters((prev) => ({ ...prev, orderBy: "price", order: "desc" }));
-    } else {
-      setFilters((prev) => ({ ...prev, orderBy: "createdAt", order: "desc" }));
-    }
+    const orderBy =
+      orderValue === "LowerPrice" || orderValue === "HigherPrice" ? "price" : "createdAt";
+    setFilters((prev) => ({
+      ...prev,
+      orderBy,
+      order: orderValue === "LowerPrice" ? "asc" : "desc",
+    }));
     setSelectedOrder(orderValue);
+    navigate(
+      slug
+        ? `/products/categories/${slug}?orderBy=${filters.orderBy}&order=${filters.order}`
+        : `/products?orderBy=${filters.orderBy}&order=${filters.order}`,
+    );
   };
 
   const handlePriceFilter = () => {
-    setFilters((prev) => ({
-      ...prev,
+    const newFilters = {
+      ...filters,
       minPrice: priceRange.min ? parseFloat(priceRange.min) : null,
       maxPrice: priceRange.max ? parseFloat(priceRange.max) : null,
-    }));
+    };
+    setFilters(newFilters);
+
+    navigate(
+      slug
+        ? `/products/categories/${slug}?orderBy=${newFilters.orderBy}&order=${newFilters.order}`
+        : `/products?orderBy=${newFilters.orderBy}&order=${newFilters.order}`,
+    );
   };
 
   const resetFilters = () => {
@@ -111,15 +167,20 @@ function ProductList() {
       categoryId: null,
       orderBy: "createdAt",
       order: "desc",
+      minPrice: null,
+      maxPrice: null,
     });
     setPriceRange({ min: "", max: "" });
+    navigate(`/products`);
   };
 
   return (
     <div className="productList-container overflow-hidden">
       <div className="container header-container d-md-flex justify-content-between align-items-center mt-4">
         <div className="text-center div-text-category">
-          {products.length > 0 && <h5 className="fw-bold main-text text-uppercase">Products</h5>}
+          {products.length > 0 && (
+            <h5 className="fw-bold main-text text-uppercase">{currentCategoryName}</h5>
+          )}
         </div>
         <div className="div-search-products">
           <div className="filter-wrapper d-flex">
@@ -152,14 +213,21 @@ function ProductList() {
                       {showCategories && (
                         <div className="pt-2 filter-by-category">
                           <ul className="list-unstyled d-flex flex-column gap-1">
+                            <li onClick={() => handleCategoryFilter(null)}>All Products</li>
                             {categories
-                              .filter((category) => category.productCount > 0)
+                              .filter(
+                                (category) =>
+                                  category.productCount > 0 && category.name !== "Uncategorized",
+                              )
                               .map((category) => (
                                 <li
                                   key={category.id}
-                                  onClick={() => handleCategoryFilter(category.id)}
+                                  onClick={() => handleCategoryFilter(category.slug)}
                                 >
-                                  {category.name} ({category.productCount})
+                                  {category.name}{" "}
+                                  <small className="text-secondary">
+                                    ({category.productCount})
+                                  </small>
                                 </li>
                               ))}
                           </ul>
@@ -183,6 +251,7 @@ function ProductList() {
                           <div className="d-flex gap-2">
                             <Form.Control
                               type="number"
+                              min={1}
                               placeholder="Min Price"
                               value={priceRange.min}
                               onChange={(e) =>
@@ -192,6 +261,7 @@ function ProductList() {
                             <span className="align-self-center">-</span>
                             <Form.Control
                               type="number"
+                              min={1}
                               placeholder="Max Price"
                               value={priceRange.max}
                               onChange={(e) =>

@@ -59,7 +59,7 @@ function Navbar() {
       {!isMobile ? (
         <div className="container d-flex align-items-center">
           <Link className="navbar-brand p-0" to="/">
-            <img className="object-contain" src="../img/logo-white.png" alt="Home Deluxe" />
+            <img className="object-contain" src="/img/logo-white.png" alt="Home Deluxe" />
           </Link>
           <button
             className="navbar-toggler"
