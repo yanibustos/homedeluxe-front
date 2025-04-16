@@ -55,7 +55,7 @@ const ScrollToTopButton = () => {
 
       {/* WhatsApp Button */}
       <a
-        href="https://wa.me/059897738531"
+        href="https://wa.me/59897738531"
         target="_blank"
         rel="noopener noreferrer"
         style={{
