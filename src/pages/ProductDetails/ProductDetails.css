@@ -32,9 +32,7 @@
     font-size: 20px;
     top: 18px;
   }
-  .description-section {
-    max-width: 100%;
-  }
+
   .text-description {
     font-size: 14px;
   }
@@ -50,12 +48,21 @@
     color: #fff;
     border-radius: 0px;
     border: 0;
+
+    &:disabled {
+      background-color: #cccccc;
+    }
   }
   .buy-button:hover {
     background-color: #ffffff;
     color: #000;
     border: 1px solid black;
     transition: all 0.3s ease;
+    &:disabled {
+      background-color: #cccccc;
+      color: #fff;
+      border: none;
+    }
   }
 
   .heart-button {
@@ -98,10 +105,6 @@
   }
 
   @media (max-width: 992px) {
-    .description-section {
-      padding: 20px !important;
-    }
-
     .details-section {
       padding-top: 30px;
       text-align: center;
@@ -157,8 +160,19 @@
     .main-image-btn {
       display: none;
     }
+
     .carousel-main-control {
       display: none;
+    }
+  }
+  @media (min-width: 992px) {
+    .details-section {
+      margin-left: 1.5rem;
+      margin-top: -10px;
+    }
+    .main-carousel {
+      margin-top: 4px;
+      margin-left: -20px;
     }
   }
   .main-image-btn {

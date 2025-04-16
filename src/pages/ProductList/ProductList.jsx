@@ -310,9 +310,13 @@ function ProductList() {
               <Link key={product.id} to={`/products/${product.slug}`}>
                 <div className="p-0 mx-4 my-4 card-container mb-4">
                   <div className="card position-relative">
-                    <div className="position-absolute rounded-circle d-flex justify-content-center align-items-center flex-wrap gap-1 price-container">
+                    <div className="position-absolute rounded-circle d-flex justify-content-center align-items-center flex-column  price-container">
                       <small>{product.currency}</small>
-                      <span>{product.price}</span>
+                      <span>
+                        {Number(product.price).toLocaleString("en-US", {
+                          minimumFractionDigits: 2,
+                        })}
+                      </span>
                     </div>
                     {product?.image?.length > 0 && (
                       <img

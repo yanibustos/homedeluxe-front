@@ -9,7 +9,7 @@ import NotFound from "../../components/Error/NotFound/NotFound";
 
 import fetchApi from "../../api/fetchApi";
 import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 function ProductDetails() {
   const [product, setProduct] = useState(null);
@@ -73,12 +73,12 @@ function ProductDetails() {
   }
 
   return (
-    <div className="productDetails-container me-2 overflow-hidden">
-      <div className="product-content container position-relative">
-        <div className="image-section d-flex">
+    <div className="productDetails-container overflow-hidden">
+      <div className="product-content container-fluid position-relative">
+        <div className="image-section container d-flex">
           <div className="image-thumbnails d-lg-flex flex-column d-none">
             {product?.image?.map((image, index) => (
-              <div key={index} className="img-styles ms-5 mt-4">
+              <div key={index} className="img-styles  mt-4">
                 <img
                   src={
                     image.includes("http") ? image : `${import.meta.env.VITE_IMAGE_DB_URL}/${image}`
@@ -110,7 +110,7 @@ function ProductDetails() {
                         : `${import.meta.env.VITE_IMAGE_DB_URL}/${image}`
                     }
                     alt={product.name}
-                    className="main-image ms-5 mt-3 pt-1 d-lg-flex d-none"
+                    className="main-image ms-5 mt-3  d-lg-flex d-none"
                   />
                 </div>
               </Carousel.Item>
@@ -136,14 +136,14 @@ function ProductDetails() {
                           : `${import.meta.env.VITE_IMAGE_DB_URL}/${item}`
                       }
                       alt={product.name}
-                      className="carousel-img ms-3 "
+                      className="carousel-img "
                     />
                   </Carousel.Item>
                 ))}
               </Carousel>
             </div>
 
-            <div className="details-section ms-4">
+            <div className="details-section">
               <div className="custom-carousel-controls pb-5 ms-3 d-flex justify-content-center d-lg-none">
                 {product?.image?.map((image, index) => (
                   <button
@@ -157,8 +157,10 @@ function ProductDetails() {
               </div>
               <h3 className="pb-3">{product?.name}</h3>
               <span className="usd-span fw-bold">
-                {product?.currency}
-                <span className="ammount fw-bold ps-2">{product?.price}</span>
+                {product.currency}
+                <span className="ammount fw-bold ps-2">
+                  {Number(product.price).toLocaleString("en-US", { minimumFractionDigits: 2 })}
+                </span>
               </span>
               <p className="my-4 info-paragraph">{product?.info}</p>
 
@@ -168,14 +170,16 @@ function ProductDetails() {
                     <i className="bi bi-suit-heart"></i>
                   </span>
                 </button>
+
                 <button
                   className="buy-button text-uppercase fw-bold"
                   onClick={(e) => {
                     e.preventDefault();
                     handleAddToCart(product);
                   }}
+                  disabled={product.stock === 0}
                 >
-                  Add to cart
+                  <span>{product.stock !== 0 ? "Add to cart" : "Out of stock"}</span>
                 </button>
               </div>
               <div className="payments-methods  mt-4 ms-1">
@@ -198,13 +202,17 @@ function ProductDetails() {
             </div>
           </div>
         </div>
-        <div className="description-section container p-5">
-          <div className="d-flex  flex-column justify-content-center align-items-center">
+        <div className="description-section container">
+          <div className="d-flex flex-column justify-content-center align-items-center">
             <span className="description-text position-relative py-4">Description </span>
           </div>
           <hr />
-          <div className="text-description mx-5 my-5">
-            {product ? <p>{product.description}</p> : <p>Loading product description...</p>}
+          <div className="text-description my-5">
+            {product ? (
+              <p className="mb-0">{product.description}</p>
+            ) : (
+              <p>Loading product description...</p>
+            )}
           </div>
         </div>
       </div>
