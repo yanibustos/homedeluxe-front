@@ -56,7 +56,6 @@ function ProductList() {
 
   const getProducts = async () => {
     try {
-      console.log("Querying products with filters:", filters);
       setLoading(true);
       const { categoryId, orderBy, order, minPrice, maxPrice } = filters;
 
