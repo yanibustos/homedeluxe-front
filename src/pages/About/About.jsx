@@ -70,8 +70,8 @@ const About = () => {
   return (
     <div className="about-container">
       <div className="about-section section1">
-        <div className="container d-flex justify-content-center align-items-start flex-column">
-          <div className="text-center">
+        <div className="container d-flex justify-content-center align-items-centerflex-column">
+          <div className="text-center position-relative">
             <h1>About This Project</h1>
             <p>
               This e-commerce website is a project developed by students from the Coding Bootcamp at
@@ -105,7 +105,7 @@ const About = () => {
             </p>
           </div>
           <div className="col-md-6 icons">
-            <div className="technologies-row d-flex flex-wrap">
+            <div className="technologies-row d-flex flex-wrap justify-content-center">
               {techTools.map((item, index) => (
                 <div className="tecnology-item col-3 text-center py-4" key={index}>
                   {item.isCustomIcon ? (
