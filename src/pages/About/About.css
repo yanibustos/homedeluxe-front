@@ -125,7 +125,7 @@
     justify-content: space-between;
     align-items: flex-start;
     padding: 5px 5% 0 10%;
-    background-color: rgba(24, 23, 24, 255);
+    background-color: rgb(16,12,12);
     color: white;
   }
 
@@ -400,6 +400,10 @@
   }
 
   @media (max-width: 480px) {
+    .section1 {
+      padding-top: 60px !important;
+    }
+
     .section2,
     .section3 {
       gap: 20px;
