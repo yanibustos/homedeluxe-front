@@ -157,7 +157,10 @@ const About = () => {
                 <ol className="text-left">
                   <li>
                     Visit our{" "}
-                    <Link to="http://localhost:5174/admin/login" className="login-link">
+                    <Link
+                      to={`${import.meta.env.VITE_ADMIN_URL}/admin/login`}
+                      className="login-link"
+                    >
                       admin login page
                     </Link>
                   </li>
