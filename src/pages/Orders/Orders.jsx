@@ -48,7 +48,7 @@ function Orders() {
     setLoading(true);
     try {
       const data = await fetchApi({ method: "get", url: `/orders/getOrdersByUser/${user.id}` });
-      console.log(data.orders);
+
       setOrders(data.orders);
     } catch (err) {
       setError(err.message);

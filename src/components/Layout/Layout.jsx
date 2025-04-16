@@ -5,8 +5,7 @@ import Footer from "../Footer/Footer";
 import ScrollToTopButton from "../scrollToTop/scrollToTop";
 
 import "./Layout.css";
-import SideTab from "../sideBarTab/sidebarTab";
-
+import SideTab from "../sidebarTab/sidebarTab";
 
 function Layout() {
   return (
