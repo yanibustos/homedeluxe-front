@@ -62,7 +62,7 @@ const MobileNavbar = () => {
         aria-labelledby="offcanvasNavbarLabel"
       >
         <div className="offcanvas-body">
-          <ul className="navbar-nav justify-content-end flex-grow-1">
+          <ul className="navbar-nav">
             <li className="nav-item d-flex">
               <div className="nav-link my-account d-flex flex-column p-0">
                 <button

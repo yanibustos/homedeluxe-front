@@ -18,6 +18,11 @@
     }
   }
 
+  .second-row {
+    position: relative;
+    z-index: 0;
+  }
+
   @media (min-width: 992px) and (max-width: 1199px) {
     .content {
       height: 135px;
