@@ -35,7 +35,6 @@ function ForgotPasswordModal({ show, handleClose }) {
         url: "/reset-password",
         data: { email: data.email },
       });
-      console.log(reset);
       toast.success("Check your email for the reset link.");
       handleClose();
     } catch (error) {

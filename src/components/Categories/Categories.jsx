@@ -22,7 +22,6 @@ function CategoryList() {
     try {
       const response = await fetchApi({ method: "get", url: "/categories" });
       setCategories(response.categories);
-      console.log;
     } catch (err) {
       setError(err.message);
     } finally {

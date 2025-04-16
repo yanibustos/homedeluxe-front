@@ -64,10 +64,6 @@ function Login() {
       });
       dispatch(login(user));
 
-      if (rememberMe) {
-        console.log("Save in localStorage");
-      }
-
       if (user.isAdmin) {
         navigate("/admin");
       } else {

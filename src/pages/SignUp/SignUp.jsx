@@ -55,7 +55,7 @@ function SignUp() {
       });
 
       // const user = { id: 1, ...data }; //Created to try toast and redirection, delete when call is available or when checking errors
-      console.log(user);
+
       if (user) {
         toast.success("Account created successfully, redirecting to Login...");
         setTimeout(() => {
