@@ -217,7 +217,9 @@ function ProductDetails() {
         </div>
       </div>
 
-      <FeaturedCarousel />
+      <div className="container my-4 py-4">
+        <FeaturedCarousel />
+      </div>
     </div>
   );
 }
