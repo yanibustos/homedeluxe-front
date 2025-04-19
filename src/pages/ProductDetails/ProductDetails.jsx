@@ -8,8 +8,8 @@ import Loading from "../../components/Loading/Loading";
 import NotFound from "../../components/Error/NotFound/NotFound";
 
 import fetchApi from "../../api/fetchApi";
-import { useNavigate, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 function ProductDetails() {
   const [product, setProduct] = useState(null);
@@ -217,7 +217,9 @@ function ProductDetails() {
         </div>
       </div>
 
-      <FeaturedCarousel />
+      <div className="container my-4 py-4">
+        <FeaturedCarousel />
+      </div>
     </div>
   );
 }

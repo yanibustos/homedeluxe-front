@@ -10,7 +10,7 @@ const OrderSummary = ({ shoppingCart, orderSummary, handleRemoveItemClick }) => 
 
       <div className="d-flex flex-column gap-3">
         {shoppingCart.map((item) => (
-          <div key={item.id} className="card py-4 px-3 shadow-sm position-relative">
+          <div key={item.id} className="card py-4 px-3  position-relative">
             <div className="d-flex flex-column flex-md-row align-items-center justify-content-between gap-3">
               <div className="text-center">
                 <img
@@ -80,9 +80,9 @@ const OrderSummary = ({ shoppingCart, orderSummary, handleRemoveItemClick }) => 
         ))}
       </div>
 
-      <hr className="my-4" />
+      <hr className="summary-hr" />
 
-      <div className="total-container p-3 border rounded shadow-sm">
+      <div className="total-container p-3 border rounded ">
         <div className="d-flex justify-content-between mb-2">
           <span>Subtotal</span>
           <span>
@@ -101,7 +101,6 @@ const OrderSummary = ({ shoppingCart, orderSummary, handleRemoveItemClick }) => 
             USD {orderSummary.taxes.toLocaleString("en-US", { minimumFractionDigits: 2 })}
           </span>
         </div>
-        <hr />
         <div className="d-flex justify-content-between fw-bold fs-5">
           <span>Total</span>
           <span>

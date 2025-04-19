@@ -33,3 +33,8 @@
     min-height: 180px;
   }
 }
+
+.summary-hr {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}

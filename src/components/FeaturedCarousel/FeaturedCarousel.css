@@ -1,6 +1,4 @@
 .featuredCarousel-container {
-  padding-top: 70px;
-
   .heading {
     line-height: 25px;
     color: #000000;
@@ -89,5 +87,11 @@
   .swiper-button-prev::after,
   .swiper-button-next::after {
     font-size: 20px;
+  }
+
+  @media (min-width: 480px) {
+    .swiper-wrapper {
+      justify-content: center;
+    }
   }
 }

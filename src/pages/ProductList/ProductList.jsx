@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 
 import fetchApi from "../../api/fetchApi";
-import currencyFormatter from "../../helpers/formatPrice";
 import { addToCart } from "../../redux/shoppingCartSlice";
 import ProductCartQty from "../../components/commons/ProductCartQty/ProductCartQty";
 import CustomSelect from "../../components/commons/CustomSelect/CustomSelect";
@@ -132,11 +131,11 @@ function ProductList() {
 
   const handleOrderSelect = (orderValue) => {
     const orderBy =
-      orderValue === "LowerPrice" || orderValue === "HigherPrice" ? "price" : "createdAt";
+      orderValue === "Lower Price" || orderValue === "Higher Price" ? "price" : "createdAt";
     setFilters((prev) => ({
       ...prev,
       orderBy,
-      order: orderValue === "LowerPrice" ? "asc" : "desc",
+      order: orderValue === "Lower Price" ? "asc" : "desc",
     }));
     setSelectedOrder(orderValue);
     navigate(

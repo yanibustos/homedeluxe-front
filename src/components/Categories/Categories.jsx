@@ -42,7 +42,11 @@ function CategoryList() {
               <div className="row first-row justify-content-start d-flex position-relative">
                 {categories.slice(0, 3).map((category) => (
                   <div className="col-2" key={category.id}>
-                    <CategoryCard image={category.image} name={category.name} />
+                    <CategoryCard
+                      image={category.image}
+                      name={category.name}
+                      slug={category.slug}
+                    />
                   </div>
                 ))}
                 <div className="col-3 align-self-center content">
@@ -59,7 +63,11 @@ function CategoryList() {
                   .slice(3, 8)
                   .map((category) => (
                     <div className="col-2" key={category.id}>
-                      <CategoryCard image={category.image} name={category.name} />
+                      <CategoryCard
+                        image={category.image}
+                        name={category.name}
+                        slug={category.slug}
+                      />
                     </div>
                   ))}
               </div>

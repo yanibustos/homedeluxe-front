@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { toast } from "react-toastify";
 
 import ChevronIcon from "../Chevron/ChevronIcon";
 
@@ -7,7 +6,6 @@ import "./CustomSelect.css";
 
 function CustomSelect({ selectedValue, onSelect }) {
   const [open, setOpen] = useState(false);
-  const [selected, setSelected] = useState("Recent");
   const selectRef = useRef(null);
 
   const handleToggle = () => {
@@ -46,10 +44,10 @@ function CustomSelect({ selectedValue, onSelect }) {
           <span data-value="Recent" className="custom-select-option">
             Recent
           </span>
-          <span data-value="LowerPrice" className="custom-select-option">
+          <span data-value="Lower Price" className="custom-select-option">
             Lower Price
           </span>
-          <span data-value="HigherPrice" className="custom-select-option">
+          <span data-value="Higher Price" className="custom-select-option">
             Higher Price
           </span>
         </div>
