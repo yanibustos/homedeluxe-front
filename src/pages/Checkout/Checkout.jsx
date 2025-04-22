@@ -58,6 +58,7 @@ const Checkout = () => {
         method: "post",
         url: "/orders",
         data: { userId: user.id, items: shoppingCart, shippingAddress, paymentMethod },
+        accessToken: user.accessToken,
       });
     } catch (err) {
       setError(err.message);
