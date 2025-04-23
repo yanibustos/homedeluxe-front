@@ -47,7 +47,11 @@ function Orders() {
   const getOrders = async () => {
     setLoading(true);
     try {
-      const data = await fetchApi({ method: "get", url: `/orders/getOrdersByUser/${user.id}` });
+      const data = await fetchApi({
+        method: "get",
+        url: `/orders/getOrdersByUser/${user.id}`,
+        accessToken: user.accessToken,
+      });
 
       setOrders(data.orders);
     } catch (err) {
